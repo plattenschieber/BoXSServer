@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="lib/customizer.jar"/>
+	<classpathentry kind="lib" path="lib/groovy-1.8.6.jar"/>
+	<classpathentry kind="lib" path="lib/groovy-all-1.8.6.jar"/>
+	<classpathentry kind="lib" path="lib/jmf.jar"/>
+	<classpathentry kind="lib" path="lib/mail.jar"/>
+	<classpathentry kind="lib" path="lib/mediaplayer.jar"/>
+	<classpathentry kind="lib" path="lib/multiplayer.jar"/>
+	<classpathentry kind="lib" path="webroot/expsys/es (Jeronim Morinas in Konflikt stehende Kopie 2013-08-01).jar"/>
+	<classpathentry kind="lib" path="webroot/expsys/es.jar"/>
+	<classpathentry kind="lib" path="webroot/expsys/jmf.jar"/>
+	<classpathentry kind="lib" path="webroot/general/offlineserver/client/expsys/es.jar"/>
+	<classpathentry kind="lib" path="webroot/general/offlineserver/client/expsys/jmf.jar"/>
+	<classpathentry kind="lib" path="webroot/general/offlineserver/server/mail.jar"/>
+	<classpathentry kind="lib" path="webroot/general/offlineserver/server/server.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="build"/>
+</classpath>
