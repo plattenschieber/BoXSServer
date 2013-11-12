@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<meta name="language" content="de">
+	<meta name="keywords" content="Bonn Experiment System BoXS">
+	<meta name="description" content="Bonn Experiment System">
+
+	<head>
+	  <title>Bonn Experiment System</title>
+	  <link rel="stylesheet" href="documentation.css"	
+ type="text/css">
+	</head>
+
+	<body>
+		<h1>Bonn Experiment System (BoXS)</h1>
+
+		<div id="abstract">
+		The Bonn Experiment System is a software system designed to enable you to create and conduct 
+		experiments for laboratory environments as well as internet experiments. Its focus is on 
+		flexibility and ease of use. For more information please read the 
+		<a href="general/index.html">general information</a> as well as the 
+		<a href="tutorial/index.html">tutorial</a>.</div>
+
+	  	<h2>Quick Links</h2>
+		<div id="note">
+			<ul>
+				<li><a href="start.html">Start an experiment</a></li>
+				<!-- <li><a href="tutorial/index.html">Tutorial</a></li> -->
+				<li><a href="documentation/index.html">Documentation</a></li>
+				<li><a href="general/index.html">General Information and FAQ</a></li>
+				<li><a href="examples/index.html">Example programs</a></li>
+				<li><a href="index.html#citation">Citation Information</a></li>
+			</ul>
+		</div>
+	
+
+		<h2>Introduction and Tutorial Videos</h2>
+		<div id="note">
+			<b>General Introduction and First Experiment (30.10.12)</b> <hr>
+			<iframe width="800" height="520" src="http://www.youtube.com/embed/pg3Xb6FT7S8?rel=0" frameborder="0" allowfullscreen></iframe>
+		</div>
+
+	  	<h2>News</h2>
+
+		<div id="note">
+		29.1.13: So far it has sometimes been problematic to include input elements in a loop. This issue has been resolved. It is now possible to write expressions like this: <br>
+		for(i=0; i&lt;5; i=i+1) { inputNumber(z[i]) }
+		</div>			
+		<div id="note">
+		29.1.13: The functionality of the <a href="documentation/localisation.html">assert</a>-command has been changed in order to allow the experimenter to provide more feedback to the subject. 
+		</div>	
+		<div id="note">
+		29.1.13: If you are writing long experiments for the BoXS, using the internal editor might not always be the best choice and you might want to use an external editor. For this case I hava created a basic language definition file which can be used for <a href="http://www.sublimetext.com/">Sublime Text</a> and other editors. You can download it <a href="BoXS-Sublime.zip">here</a>. After downloading it, just extract it to the respective packages folder. 
+		</div>		
+		<div id="note">
+		28.1.13: You can now specify locales for your experiment which affects default texts as well as number formatting. See <a href="documentation/localisation.html">here</a> for more information.
+		</div>
+		<div id="note">
+		30.10.12: Even though not many new releases have been published to the homepage in the last few months, a lot of work has been going on regarding the BoXS. The <b>whole server architecture hes been reworked and extensively tested</b> within the last months. As an effect, experiments should run faster and more reliable. <br>
+		One major new feature is the <b>support for eye tracking devices</b> which has been developed in cooperation with the Max Planck Institute for Research on Collective Goods. The eye tracking support has been successfully tested with some eye trackers. For more information, have a look at the documentation. <br>
+		Another visual change is the use of the users' <b>operating system's look and feel</b>. This gives the BoXS a more native feel and in general looks a bit better. <br>
+		There have been <b>a lot more changes and bugfixes</b> which will be documented in the changelog.
+		</div>
+		
+		</div>
+		<div id="note">
+		06.02.12: If you are interested in helping with the development of the BoXS, you can now access an official <b>SVN-repository</b>. Just contact me if you are interested in the details. 
+		</div>
+
+
+		<div id="note">
+		22.11.11: The Bonn Experiment System is <b>hereby released as open source under the GNU Public License (GPL)</b>. You are free to download the original source code, expand and modify it to your contempt as long as you mention me as the original author and do not charge money for the use of the software. For more information click <a href="source/source.html">here</a>.
+		</div>
+
+
+
+
+	  	<h2>Citation and Discussion Paper</h2>
+		<div id="note">
+		<div id="citation">
+		If you use the BoXS, you MUST cite it in your publication as: <br><div style="padding:10px;">Mirko Seithe (2012): Introducing the Bonn Experiment System (BoXS)<br>Bonn Econ Discussion Papers, No. 01/2012 </div>
+		You can download the discussion paper <a href="boxs_seithe.pdf">here</a>.
+	</div>
+		</div>
+
+	
+	  	<h2>Short Course or Tutorial</h2>
+		<div id="note">
+		If you are interested in a <b>short course / tutorial</b> on using the Bonn Experiment System, feel welcome to contact me. I can give courses on the following topics: 
+		<ul>
+		<li> Introduction to the BoXS: What are the main features? What are typical use cases?
+		<li> Introduction to Programming in the BoXS: Based on an example, I show how to program and debug an experiment based on a given design and how to conduct the experiment. 
+		<li> Internet Experiments using the BoXS: I show how to program and conduct an internet experiment and give some general tipps on how (and when) to do internet experiments based on my own experience. 
+		<li> Advanced Programming Techniques: In this section I discuss frequent questions with regard to the BoXS and present how they can be solved. This can include topics like matching, loops and user interface design. 
+		<li> Error Handling and Experiment Recovery: Unfortunately, mistakes and crashes can happen. In this section I show how experiments can be resumed when something goes awry. 
+		<li> Setting up your own BoXS-Server: There are several reasons for setting up your own BoXS-Server, including an unreliable internet connection of your laboratory, low-latency experiments or special worries concerning data privacy. In this section I show how setting up a server can be done easily and reliably. 
+		<li> Developing with the BoXS: The BoXS is released as open source, which means that you can customise it to your specific needs. I show how to download the BoXS sourcecode and set up the BoXS repository. I give an overview over the implementation of the BoXS and show how to compile it and how to deploy a BoXS Server. 
+		<li> Discussion on the BoXS: Share your experiences with the BoXS, ask specific questions regarding your experiment, make feature requests and suggestions. 
+		</ul>
+		</div>
+
+	  	<h2>Contact</h2>
+		<div id="note">
+			Please join the official Google Group/mailing list <a href="http://groups.google.com/group/bonn-experiment-system">here</a>. After joining you will be notified about all changes and updates to the BoXS. You can also participate in the discussion and send questions as well as requests to the list by <a href="mailto:bonn-experiment-system@googlegroups.com">sending emails</a>. Please feel free to send:
+
+
+			<ul>
+			<li>Bug reports (if possible, including the program causing the bug as well as information on how to reproduce the problem)
+			<li>Feature requests (for example experiment designs you have in mind)
+			<li>All kinds of questions and documentation requests.
+			</ul>
+			</div>
+		
+	
+	<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-15143979-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+	</body>
+</html>

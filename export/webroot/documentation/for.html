@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<meta name="language" content="de">
+	<meta name="keywords" content="Bonn Experiment System Documentation">
+	<meta name="description" content="Bonn Experiment System Documentation">
+
+	<head>
+	  <title>Bonn Experiment System Documentation</title>
+	  <link rel="stylesheet" href="../documentation.css"	
+ type="text/css">
+	</head>
+
+	<body>
+		<h1>for(initialization; condition; iteration) { ... }</h1>
+
+		<div id="abstract">
+		The for-command executes a part of your program repeatedly as long as a given expression is fulfilled.
+		Compared to the while-command it is usually more compact and easier to use.
+		</div>
+
+
+		<h2>Parameters</h2>
+		<div id="parameters">
+		<table>
+			<tr><td width=200>initialization</td><td width=600>Initialization code which is executed before the loop. Usually this is used to initialize a counting variable.</td></tr>
+			<tr><td width=200>condition</td><td width=600>The expression which must be fulfilled.</td></tr>
+			<tr><td width=200>iteration</td><td width=600>Code which is executed after each repetition. Usually this is used to increase the counting variable.</td></tr>
+
+		</table>
+		</div>
+		<div id="note">Note that each bracket needs to be in a single line.</div>
+		<div id="note">In order to avoid infinite loops, execution is aborted when too many repetitions occur. An error message is given in this case. </div>
+
+
+		<h2>See also</h2>
+		<a target="Main" href="if.html">if</a>,
+		<a target="Main" href="while.html">while</a>
+
+
+		<h2>Examples</h2>
+		<h3>Square numbers</h3>
+		<table>
+			<tr>
+				<td width=500 valign=top>
+					<img src="img/for1c.png">
+				</td>
+				<td width=300 valign=top>
+					<img src="img/for1e.png">
+				</td>
+			</tr>
+		</table>
+
+		<h3>Multiplication table</h3>
+		<table>
+			<tr>
+				<td width=500 valign=top>
+					<img src="img/for2c.png">
+				</td>
+				<td width=300 valign=top>
+					<img src="img/for2e.png">
+				</td>
+			</tr>
+		</table>
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-15143979-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+	</body>
+</html>

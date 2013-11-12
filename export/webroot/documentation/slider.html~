@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<meta name="language" content="de">
+	<meta name="keywords" content="Bonn Experiment System Documentation">
+	<meta name="description" content="Bonn Experiment System Documentation">
+
+	<head>
+	  <title>Bonn Experiment System Documentation</title>
+	  <link rel="stylesheet" href="../documentation.css"	
+ type="text/css">
+	</head>
+
+	<body>
+		<h1>slider(varname)<br>slider(varname,textleft,textright) </h1>
+
+		<div id="abstract">
+		Displays a horizontal slider, which can be dragged by the user to take a value between 0 (leftmost position) and 1 (rightmost position). The value 
+		is stored to the variable whenever the user moves the slider. Note that the value will always be between 0 and 1, regardless of what you specify using 
+		textleft and textright. If you want a different scale, for example payment amounts, you can do the conversion after the wait() command.
+		</div>
+
+
+		<h2>Parameters</h2>
+		<div id="parameters">
+		<table>
+			<tr><td width=200>varname</td><td width=600>The name of the variable in which the result is stored.</td></tr>
+			<tr><td width=200>textleft</td><td width=600>Optional. A text, which is displayed to the left of the slider.</td></tr>
+			<tr><td width=200>textright</td><td width=600>Optional. A text, which is displayed to the right of the slider.</td></tr>
+		</table>
+		</div>
+
+		<h2>See also</h2>
+		<a target="Main" href="assert.html">assert</a>,
+		<a target="Main" href="choice.html">choice</a>,
+		<a target="Main" href="inputNumber.html">inputNumber</a>
+
+
+
+		<h2>Examples</h2>
+		<h3>Basic string input</h3>
+		<table>
+			<tr>
+				<td width=500 valign=top>
+					<img src="img/slider1c.png">
+				</td>
+				<td width=300 valign=top>
+					<img src="img/slider1e.png"> <br>
+					<img src="img/slider1e2.png"> <br>
+					(Corresponding recorded values).
+				</td>
+			</tr>
+		</table>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-15143979-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+	</body>
+</html>

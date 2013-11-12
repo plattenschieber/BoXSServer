@@ -1,0 +1,34 @@
+// Name: Public Good Game
+matchAll(A,B,C,D)
+
+// Introductory text
+display("For this experiment you are endowed with &lt;b>10 Euros&lt;/b>.")
+display("You are in a group with 3 other people.")
+display("You can contribute any amount of your endowment to a group project. ")
+display("Your payoff is increased by &lt;b>0.4 times&lt;/b> the total contributed to the project.")
+
+// Read how much the subjects want to contribute and store it in z
+display("Please choose the amount you would like to contribute:")
+inputNumber(z)
+
+// Ensure that subjects contribute a positive amount
+assert(z>=0)
+// Ensure that subjects contribute less than/equal their endowment (10)
+assert(z<=10)
+// Ensure that subjects contribute an integer amount
+assert(z==round(z))
+
+// Wait until all subjects entered their respective contribution
+waitForPlayers()
+
+// Inform the subjects about the results of the experiment
+display("You contributed &lt;b>"+z+" Euros&lt;/b>. The total amount donated is &lt;b>"+sum(z)+" Euros&lt;b>.")
+
+// Calculate the payoff for each subject
+payoff = 10 - z + 0.4*sum(z)
+
+// Inform the subjects about their payoff
+display("Your payoff is &lt;b>"+payoff+" Euros&lt;/b>")
+
+// Wait until the experimenter is ready for the next part of the experiment
+waitForExperimenter()

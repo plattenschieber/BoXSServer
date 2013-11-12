@@ -1,0 +1,20 @@
+// Language selection screen
+display("Please select your language:")
+choice(language,"Deutsch","English")
+wait()
+
+// Begin of actual experiment
+welcomemessage["Deutsch"] = "Willkommen zu unserem Experiment"
+welcomemessage["English"] = "Welcome to our Experiment"
+display(welcomemessage[language])
+
+question01["Deutsch"] = "Bitte geben Sie Ihr Alter ein:"
+question01["English"] = "Please enter your age:"
+display(question01[language])
+
+inputNumber(age)
+assert(age>10 && age<100 && age==round(age))
+
+continue["Deutsch"] = "Weiter..."
+continue["English"] = "Continue..."
+wait(continue[language])

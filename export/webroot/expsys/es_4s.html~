@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+
+  <head>
+    <title>Bonn Experiment System</title>
+	 <STYLE type="text/css">
+html,body{
+      margin:0;
+      padding:0;
+      height:100%;
+	  overflow: hidden;
+      border:none
+   } </STYLE>
+  </head>
+
+  	  <body bgcolor="#dddddd">
+		<script type="text/javascript">
+			realm="none";
+			host="boxs.uni-bonn.de";
+			port="58000";
+			jmf=0;
+
+			if (window.location.search != "")
+			{
+				temp=window.location.search.substring(1);
+				para=temp.split('&');
+
+				for (i=0; i<para.length; i++)
+				{
+					arg=para[i].split('=');
+					if (arg[0]=="realm")
+						realm=arg[1];
+					if (arg[0]=="host")
+						host=arg[1];
+					if (arg[0]=="port")
+						port=arg[1];
+											if (arg[0]=="JMF")
+						jmf=arg[1];
+				}
+			}
+
+			id=1
+	archives=jmf?"es.jar,jmf.jar":"es.jar";
+		
+			parastring=	 "<param name=\"username\" value=\"S1\">"
+						+"<param name=\"host\" value=\""+host+"\">"
+						+"<param name=\"port\" value=\""+port+"\">"
+						+"<param name=\"realm\" value=\""+realm+"\">";
+			document.write("<applet id=\"a"+(id++)+"\" code=\"client.ClientApplet\" archive=\""+archives+"\" codebase=\".\" width=\"49%\" height=\"49%\">"+parastring+"</applet>  ");
+
+
+			parastring=	 "<param name=\"username\" value=\"S2\">"
+						+"<param name=\"host\" value=\""+host+"\">"
+						+"<param name=\"port\" value=\""+port+"\">"
+						+"<param name=\"realm\" value=\""+realm+"\">";
+			document.write("<applet id=\"a"+(id++)+"\" code=\"client.ClientApplet\" archive=\""+archives+"\" codebase=\".\" width=\"49%\" height=\"49%\">"+parastring+"</applet>");
+
+			parastring=	 "<param name=\"username\" value=\"S3\">"
+						+"<param name=\"host\" value=\""+host+"\">"
+						+"<param name=\"port\" value=\""+port+"\">"
+						+"<param name=\"realm\" value=\""+realm+"\">";
+			document.write("<applet id=\"a"+(id++)+"\" code=\"client.ClientApplet\" archive=\""+archives+"\" codebase=\".\" width=\"49%\" height=\"49%\">"+parastring+"</applet>  ");
+
+
+			parastring=	 "<param name=\"username\" value=\"S4\">"
+						+"<param name=\"host\" value=\""+host+"\">"
+						+"<param name=\"port\" value=\""+port+"\">"
+						+"<param name=\"realm\" value=\""+realm+"\">";
+			document.write("<applet id=\"a"+(id++)+"\" code=\"client.ClientApplet\" archive=\""+archives+"\" codebase=\".\" width=\"49%\" height=\"49%\">"+parastring+"</applet>");
+
+		</script>
+  </body>
+</html>

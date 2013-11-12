@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 24
+/svn/boxs/!svn/ver/1/lib
+END
+jmf.jar
+K 25
+svn:wc:ra_dav:version-url
+V 32
+/svn/boxs/!svn/ver/3/lib/jmf.jar
+END
+mediaplayer.jar
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/boxs/!svn/ver/3/lib/mediaplayer.jar
+END
+mail.jar
+K 25
+svn:wc:ra_dav:version-url
+V 33
+/svn/boxs/!svn/ver/3/lib/mail.jar
+END
+multiplayer.jar
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/boxs/!svn/ver/3/lib/multiplayer.jar
+END
+customizer.jar
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svn/boxs/!svn/ver/3/lib/customizer.jar
+END
+jmf.properties
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svn/boxs/!svn/ver/3/lib/jmf.properties
+END

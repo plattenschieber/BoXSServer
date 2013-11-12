@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<meta name="language" content="de">
+	<meta name="keywords" content="Bonn Experiment System Documentation">
+	<meta name="description" content="Bonn Experiment System Documentation">
+
+	<head>
+	  <title>Bonn Experiment System Documentation</title>
+	  <link rel="stylesheet" href="../documentation.css"	
+ type="text/css">
+	</head>
+
+	<body>
+		<h1>waitForPlayers([message], [messageafterclick])</h1>
+
+		<div id="abstract">
+		Sometimes an experiment requires that all subjects need to do something before the
+		experiment can continue. In this case the waitForPlayers-command can be used to wait
+		until all players have clicked the button.
+		</div>
+
+
+		<h2>Parameters</h2>
+		<div id="parameters">
+<table>
+			<tr><td width=200>message</td>
+			<td width=600>Optional. The message to be displayed. If no parameter is given, a standard message is displayed (Continue). </td></tr>
+			<tr><td width=200>messageafterclick</td>
+			<td width=600>Optional. The message to be displayed after the subject clicked on the button. If no parameter is given, a standard message is displayed (Please wait for the experiment to continue). </td></tr>
+		</table>
+		
+		</div>
+
+
+		<h2>See also</h2>
+		<ul>
+			<li><a target="Main" href="wait.html">wait</a>
+			<li><a target="Main" href="waitForExperimenter.html">waitForExperimenter</a>
+			<li><a target="Main" href="waitTime.html">waitTime</a>
+		</ul>
+
+
+		<h2>Examples</h2>
+		<h3>Standard wait message</h3>
+		<table>
+			<tr>
+				<td width=500 valign=top>
+					<img src="img/wait1c.png">
+				</td>
+				<td width=300 valign=top>
+					<img src="img/wait1e.png"> <br>
+				</td>
+			</tr>
+		</table>
+
+
+
+		<h3>Custom wait message</h3>
+		<table>
+			<tr>
+				<td width=500 valign=top>
+					<img src="img/wait2c.png">
+				</td>
+				<td width=300 valign=top>
+					<img src="img/wait2e.png"> <br>
+				</td>
+			</tr>
+		</table>
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-15143979-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+	</body>
+</html>

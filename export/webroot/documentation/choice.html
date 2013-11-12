@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<meta name="language" content="de">
+	<meta name="keywords" content="Bonn Experiment System Documentation">
+	<meta name="description" content="Bonn Experiment System Documentation">
+
+	<head>
+	  <title>Bonn Experiment System Documentation</title>
+	  <link rel="stylesheet" href="../documentation.css"	
+ type="text/css">
+	</head>
+
+	<body>
+		<h1>choice(varname,values)</h1>
+
+		<div id="abstract">
+		The choice-command displays a group of several radio buttons. The user
+		can only select one option at a time. Initially no option is selected.
+		When the user selects a value it is stored in a variable with the specified name.
+		</div>
+		<div id="note">
+		Some people requested the possibility to randomize the order of the values. This is now implemented. In order to do 
+		this use the "choiceRandomize" instead of "choice". 		
+		</div>
+
+		<h2>Parameters</h2>
+		<div id="parameters">
+		<table>
+			<tr><td width=200>varname</td><td width=600>The name of the variable in which the result is stored.</td></tr>
+			<tr><td width=200>values</td><td width=600>A comma-separated list of strings or numbers.</td></tr>
+		</table>
+		</div>
+
+
+		<h2>See also</h2>
+		<ul>
+			<li><a target="Main" href="assert.html">assert</a>
+			<li><a target="Main" href="inputNumber.html">inputNumber</a>
+			<li><a target="Main" href="inputString.html">inputString</a>
+		</ul>
+
+
+		<h2>Examples</h2>
+		<h3>Choosing between strings</h3>
+		<table>
+			<tr>
+				<td width=500 valign=top>
+					<img src="img/choice1c.png">
+				</td>
+				<td width=300 valign=top>
+					<img src="img/choice1e.png"> <br>
+				</td>
+			</tr>
+		</table>
+
+
+		<h3>Choosing between numbers</h3>
+		<table>
+			<tr>
+				<td width=500 valign=top>
+					<img src="img/choice2c.png">
+				</td>
+				<td width=300 valign=top>
+					<img src="img/choice2e1.png"> <br>
+					<img src="img/choice2e2.png"> <br>
+				</td>
+			</tr>
+		</table>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-15143979-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+
+	</body>
+</html>
