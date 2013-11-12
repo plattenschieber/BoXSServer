@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<meta name="language" content="de">
+	<meta name="keywords" content="Bonn Experiment System Documentation">
+	<meta name="description" content="Bonn Experiment System Documentation">
+
+	<head>
+	  <title>Bonn Experiment System Documentation</title>
+	  <link rel="stylesheet" href="../documentation.css"	
+ type="text/css">
+	</head>
+
+	<body>
+		<h1>video([location])</h1>
+
+		<div id="abstract">
+		The video-command embeds a video and plays it on the subject's display.
+		</div>
+
+		<div id="note">IMPORTANT: THIS COMMAND IS NOT SUPPORTED AT THE MOMENT AND MAY THEREFORE NOT WORK AS YOU EXPECT.</div>
+		
+		<div id="note">Tip: You might want to combine this command with the waitTime-command in order to advance the experiment after the video has finished playing.</div>
+		
+		<div id="note">In order to use this command you need to check the "Use JMF"-option at the start of the experiment.</div>
+
+		<div id="note">Unfortunately not all video and audio are supported by the Java Media Framework, which
+		is used to render the videos. However, you can convert your videos to a supported format. <br>
+		For a complete list of supported
+		formats see <a href="http://java.sun.com/javase/technologies/desktop/media/jmf/2.1.1/formats.html">here</a> (first column).
+		I recommend using Cinepac as video codec and uncompressed audio. Reencoding of videos can be done, for
+		example, using the freeware software VirtualDub.
+		</div>
+
+
+
+		<h2>Parameters</h2>
+		<div id="parameters">
+		<table>
+			<tr><td width=200>location</td><td width=600>Location of the video. This can be both a local file or a file on the internet.</td></tr>
+		</table>
+
+		<div id="note">If you encounter problems playing local videos or videos on the local network, you need
+		to adjust your Java security settings. By default Java prohibits access to local files. In order to change
+		this you need to add an exception to the <a href="http://java.sun.com/j2se/1.3/docs/guide/security/PolicyFiles.html">Java Policy File</a>:
+
+		<ul>
+			<li>Locate your policy-file (e.g. windows: "Program Files/Java/jre6/lib/security/java.policy")</li>
+			<li>Add this line to the GRANT-block:
+			 <pre>permission java.io.FilePermission "PATH TO YOUR VIDEOS", "read";</pre></li>
+		For example:
+		<pre>
+...
+// default permissions granted to all domains
+
+grant {
+    permission java.io.FilePermission "z:\my_videos\*", "read";
+...</pre>
+		 </ul>
+
+		Note that this needs to be done only once for each computer participating in the experiment.
+		</div>
+
+		</div>
+
+
+
+
+
+
+
+		<h2>Examples</h2>
+		<h3>Simple Text</h3>
+		<table>
+			<tr>
+				<td width=500 valign=top>
+					<img src="img/video1c.png">
+				</td>
+				<td width=300 valign=top>
+					<img src="img/video1e.png"> <br>
+				</td>
+			</tr>
+		</table>
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-15143979-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+
+
+	</body>
+</html>

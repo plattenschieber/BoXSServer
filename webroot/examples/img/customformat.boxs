@@ -1,0 +1,13 @@
+mystyle="body{ padding: 0px; font-size: 16px; font-family: 'Ubuntu','Verdana','Arial',serif }"
+mystyle=mystyle+"h1{font-size: 130%; margin-top: 0px; margin-bottom: 3px; font-weight: normal; }"
+mystyle=mystyle+"h2{font-size: 115%; margin-top: 0px; margin-bottom: 3px; font-weight: normal; }"
+mystyle=mystyle+"table{background-color: #eeeeee; border:solid; border-width:1px; border-color: #000000; margin:5px; margin-left:10px;}"
+mystyle=mystyle+"td,th{padding:5px;text-align: center;}"
+mystyle=mystyle+"th{background-color: #dddddd; }"
+
+style(mystyle)
+
+display("<h2>Einleitung</h2>")
+
+display("Herzlich Willkommen zu diesem Internetexpriment. ")
+...

@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<meta name="language" content="de">
+	<meta name="keywords" content="Bonn Experiment System Documentation">
+	<meta name="description" content="Bonn Experiment System Documentation">
+
+	<head>
+	  <title>Bonn Experiment System Documentation</title>
+	  <link rel="stylesheet" href="../documentation.css"	
+ type="text/css">
+	</head>
+
+	<body>
+		<h1>assert(expression,[errormessage])</h1>
+
+		<div id="abstract">
+		Sometimes we want to restrict the subjects possibilities when she
+		is faced with input forms. Using the assert-command you can add
+		any amount of assertions on the variables. If an assertion is violated
+		by user input, the user cannot continue until she chooses a
+		valid input. You can specify an error message which will be shown to the 
+		user in order to help her correct the mistake. If you do not specify a message, 
+		a generic message will be shown.</div>
+
+
+		<h2>Parameters</h2>
+		<div id="parameters">
+		<table>
+			<tr><td width=200>expression</td><td width=600>Your assertion.</td></tr>
+			<tr><td width=200>errormessage</td><td width=600>Optional. The error message which 
+			will be displayed if the assertion is violated.</td></tr>
+		</table>
+		<div id="note">The expression can reference other variables.</div>
+		<div id="note">You can impose multiple assertions on one variable. In this case user input is only
+		allowed if it satisfies all assertions.</div>
+		<div id="note">The assert-command requires a wait/waitForPlayers-command to be effective. </div>
+		</div>
+
+
+		<h2>See also</h2>
+		<ul>
+			<li><a target="Main" href="choice.html">choice</a>
+			<li><a target="Main" href="inputNumber.html">inputNumber</a>
+			<li><a target="Main" href="inputString.html">inputString</a>
+		</ul>
+
+
+		<h2>Examples</h2>
+		<div id="note">Note: The output shown below for the first four examples differs slightly from how it would look using the latest version. The input field which violates the assertion is no longer highlighted in red - instead, the experimenter can specify a more helpful error message. The previous approach led to problems as some assertions can be based on multiple input fields at once.</div>
+		<h3>A simple assertion</h3>
+		<table>
+			<tr>
+				<td width=500 valign=top>
+					<img src="img/assert1c.png">
+				</td>
+				<td width=300>
+					<img src="img/assert1e1.png"> <br>...<br><img src="img/assert1e2.png">
+				</td>
+			</tr>
+		</table>
+
+
+		<h3>Multiple assertions on one variable</h3>
+		<table>
+			<tr>
+				<td width=500 valign=top>
+					<img src="img/assert2c.png">
+				</td>
+				<td width=300>
+					<img src="img/assert2e1.png">
+				</td>
+			</tr>
+		</table>
+
+
+		<h3>Require integers numbers</h3>
+		<table>
+			<tr>
+				<td width=500 valign=top>
+					<img src="img/assert3c.png">
+				</td>
+				<td width=300>
+					<img src="img/assert3e1.png">
+				</td>
+			</tr>
+		</table>
+
+
+
+		<h3>Assertions based on other variables</h3>
+		<table>
+			<tr>
+				<td width=500 valign=top>
+					<img src="img/assert4c.png">
+				</td>
+				<td width=300>
+					...<br><img src="img/assert4e1.png">
+				</td>
+			</tr>
+		</table>
+
+		<h3>Assertions with error messages</h3>
+		<table>
+			<tr>
+				<td width=500 valign=top>
+					<img src="img/assert5c.png">
+				</td>
+				<td width=300>
+					<img src="img/assert5e1.png"><br>
+					<img src="img/assert5e3.png"><br>
+					<img src="img/assert5e2.png"><br>
+				</td>
+			</tr>
+		</table>
+
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-15143979-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+
+	</body>
+</html>

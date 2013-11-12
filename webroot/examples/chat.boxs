@@ -1,0 +1,30 @@
+// Colorful chat for two players, A and B
+matchAll(A,B)
+A.color="#33bb33"
+B.color="#5555bb"
+
+*.chat=""
+quit=0
+// Repeat until the user presses the leave-button
+while(quit==0)
+{
+   // Display previous chat and a textbox where the user can type
+   display("<h1>Chat window</h1>")
+   display(chat)
+   display("<br><h2>Enter your message:</h2>")
+   inputString(message)
+
+   // Buttons to send the typed message or leave the chat
+   send=0
+   button(send,"Send message")
+   button(quit,"Leave chat")
+
+   // Refresh every second
+   waitTime(1000)
+
+   // If the user pressed the send-button, append his text to the chat
+   if(send)
+   {
+      *.chat=chat+role+":  <font color="+color+">"+message+"</font><br>"
+   }
+}

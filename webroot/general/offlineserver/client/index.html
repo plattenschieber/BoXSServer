@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<meta name="language" content="de">
+	<meta name="keywords" content="Bonn Experiment System BoXS">
+	<meta name="description" content="Bonn Experiment System">
+
+	<head>
+	  <title>Bonn Experiment System</title>
+	  <link rel="stylesheet" href="../documentation.css"	
+ type="text/css">
+	</head>
+
+	<body>
+		<h1>Bonn Experiment System (BoXS) Offline Version</h1>
+
+	  	<h2>Start Experiment</h2>
+	
+		<form name="input" action="expsys/index.html" method="get">
+
+				<input type="hidden" name="email" value="0"/>
+			<table>
+				<tr><td>Unique identifier: </td><td><input type="text" name="realm" value="default"/> </td></tr>
+				<tr><td>Host: </td><td><input type="text" name="host" value="boxs.uni-bonn.de"/> </td></tr>
+				<tr><td>Port: </td><td><input type="text" name="port" value="58000"/> </td></tr>
+				<tr><td>Use <a href="documentation/video.html">JMF</a></td><td><input type="checkbox" name="JMF" value="1"/> </td></tr>
+								<tr><td></td><td><input type="submit" value="Start Experiment!" /></td></tr>
+			</table>
+		</form>
+		
+	
+	  	<h2>Join Experiment as Subject</h2>
+	
+		<form name="input2" action="expsys/es_subject.html" method="get">
+			<table>
+				<tr><td>Unique identifier: </td><td><input type="text" name="realm" value=""/> </td></tr>
+				<tr><td>Host: </td><td><input type="text" name="host" value="boxs.uni-bonn.de"/> </td></tr>
+				<tr><td>Port: </td><td><input type="text" name="port" value="58000"/> </td></tr>
+				<tr><td>User name: </td><td><input type="text" name="username" value=""/> </td></tr>
+				
+								<tr><td></td><td><input type="submit" value="Join Experiment!" /></td></tr>
+			</table>
+		</form>
+		
+
+	</body>
+</html>

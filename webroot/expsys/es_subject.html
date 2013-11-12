@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+
+  <head>
+    <title>Bonn Experiment System</title>
+	 <STYLE type="text/css">
+html,body{
+      margin:0;
+      padding:0;
+      height:100%;
+	  overflow: hidden;
+      border:none
+   } </STYLE>
+  </head>
+
+<script>
+
+function load()
+{
+    o = false;
+    if (document.getElementById)
+      { o = document.getElementById("test"); }
+    else if (document.all)
+      { o = document.all["test"]; }
+    
+    if (o)
+      { o.innerHTML = ""; }
+  }   
+//onLoad="load();"
+</script> 
+
+  	  <body bgcolor="#ffffff" >
+
+
+		<script type="text/javascript">
+			realm="none";
+			host="boxs.uni-bonn.de";
+			port="58000";
+			username="S1";
+			screenshot="0";
+			showstartscreen="true";
+		
+
+			if (window.location.search != "")
+			{
+				temp=window.location.search.substring(1);
+				para=temp.split('&');
+				jmf=0;
+
+				for (i=0; i<para.length; i++)
+				{
+					arg=para[i].split('=');
+					if (arg[0]=="realm")
+						realm=arg[1];
+					if (arg[0]=="username")
+						username=arg[1];
+					if (arg[0]=="host")
+						host=arg[1];
+					if (arg[0]=="port")
+						port=arg[1];
+					if (arg[0]=="JMF")
+						jmf=arg[1];
+					if (arg[0]=="screenshot")
+						screenshot=arg[1];
+					if (arg[0]=="showstartscreen")
+						showstartscreen=arg[1];
+				}
+			}
+
+			id=1
+						archives=jmf?"es.jar,jmf.jar":"es.jar";
+
+			parastring=	 "<param name=\"username\" value=\""+username+"\">"
+						+"<param name=\"host\" value=\""+host+"\">"
+						+"<param name=\"port\" value=\""+port+"\">"
+						+"<param name=\"realm\" value=\""+realm+"\">";
+			if (screenshot=="1") 
+				parastring=parastring+"<param name=\"screenshot\" value=\"1\">";
+			if (showstartscreen=="false") 
+				parastring=parastring+"<param name=\"showstartscreen\" value=\"false\">";
+
+
+			document.write("<applet alt='Please install Java in order to participate in this experiment. Bitte installieren Sie Java um an diesem Experiment teilzunehmen.' id=\"a"+(id++)+"\" code=\"client.ClientApplet\" archive=\""+archives+"\" codebase=\".\" width=\"100%\" height=\"100%\">"+parastring+"</applet>  ");
+
+
+		</script>
+<h1>Internetexperiment</h1>
+<br>Please install <a href='http://www.java.com/en/download/'>Java</a> in order to participate in this experiment. You can download and 
+install it for free <a href='http://www.java.com/en/download/'>here</a>.<br> 				
+
+<br>Bitte installieren Sie <a href='http://www.java.com/de/download/'>Java</a> um an diesem Experiment teilzunehmen. 
+Sie k&ouml;nnen es <a href='http://www.java.com/de/download/'>hier</a> kostenlos herunterladen und installieren.<br> 				
+
+
+<!--		<div id="test">
+<br><br>Please enable Javascript in order to display this page. <br> 
+<br>Bitte aktivieren Sie Javascript um diese Seite anzuzeigen.
+		</div>!-->
+  </body>
+</html>

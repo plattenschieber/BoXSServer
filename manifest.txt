@@ -1,0 +1,3 @@
+Main-Class: client.ClientApplet
+Permissions: all-permissions
+Codebase: *

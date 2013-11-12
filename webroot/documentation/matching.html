@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<meta name="language" content="de">
+	<meta name="keywords" content="Bonn Experiment System Documentation">
+	<meta name="description" content="Bonn Experiment System Documentation">
+
+	<head>
+	  <title>Bonn Experiment System Documentation</title>
+	  <link rel="stylesheet" href="../documentation.css"	
+ type="text/css">
+	</head>
+
+	<body>
+		<h1>Matching</h1>
+
+		<div id="abstract">
+		Matching is the process by which the subjects are assigned to groups and roles. You can use
+		automatic matching, including perfect stranger matching, as well as manual matching.
+		</div>
+
+
+
+		<h2>Examples</h2>
+		<h3>Implicit matching</h3>
+		If you specify no matching information, every subject is allocated to a separate group and receives the role "A".
+		<table>
+			<tr>
+				<td width=500 valign=top>
+					<img src="img/match2c.png">
+				</td>
+				<td width=300 valign=top>
+					<img src="img/match2e1.png"><br>
+					<img src="img/match2e2.png">
+				</td>
+			</tr>
+		</table>
+
+
+
+
+		<h3>Automatic matching </h3>
+		By using the matchAll-command you can assign all available subjects to the groups you specify.
+		<table>
+			<tr>
+				<td width=500 valign=top>
+					<img src="img/match1c.png">
+				</td>
+				<td width=300 valign=top>
+					<img src="img/match1e1.png"><br>
+					<img src="img/match1e2.png">
+				</td>
+			</tr>
+		</table>
+
+		<h3>Perfect stranger matching</h3>
+		If you want to use perfect stranger matching, use the matchPerfectStranger-command instead of matchAll.
+		This command ensures that a subject will only be matched into a group with other subjects she has not
+		"met" before.
+
+		<div id="note">Perfect stranger matching is an extremely computationally expensive operation. Therefore
+		the system uses precalculated tables. Use the following table to figure out how many matches you can
+		achieve given subject- and rolecount. <br>
+		<img src="img/psmatch.png">
+		</div>
+
+		For example, if you have 20 subjects and want to match them into teams of 4, you can do this exactly 4 times.
+		<table>
+			<tr>
+				<td width=500 valign=top>
+					<img src="img/match3c.png">
+				</td>
+				<td width=300 valign=top>
+				</td>
+			</tr>
+		</table>
+
+		<div id="note">Use the command matchHistoryClear to reset the perfect stranger matching algorithm.</div>
+
+
+
+
+
+		<h3>Stranger matching</h3>
+		If you want to use simple stranger matching, use the matchStranger-command instead of matchPerfectStranger.
+
+
+
+		<h3>Manual matching </h3>
+		By using the matchManual-command you can manually specify how the subjects are to be matched.
+		Each command matches exactly one subject. The first argument is the username of the subject which
+		shall be assigned, the second and third argument are group and role.
+<div id="note">IMPORTANT: The programs below are not up to date. You now have to use quotation 
+marks (") to surround the parameters of the manual matching command. For example:<br>
+matchManual("S1","1","investor")
+</div>
+
+		<table>
+			<tr>
+				<td width=500 valign=top>
+					<img src="img/match4c.png">
+				</td>
+				<td width=300 valign=top>
+					<img src="img/match4e1.png"><br>
+					<img src="img/match4e2.png">
+				</td>
+			</tr>
+		</table>
+
+
+		<h3>Manual matching 2</h3>
+		If you want to change the matching at some point in the experiment, use the matchDone()-command.
+		<table>
+			<tr>
+				<td width=500 valign=top>
+					<img src="img/match5c.png">
+				</td>
+				<td width=300 valign=top>
+				</td>
+			</tr>
+		</table>
+		<div id="note">This command blocks until all subjects have reached this point.</div>
+
+
+
+		<h3>Manual matching 3</h3>
+		You can use manual matching to do custom stratification. Use this general framework:
+		<table>
+			<tr>
+				<td width=500 valign=top>
+					<img src="img/match6c.png">
+				</td>
+				<td width=300 valign=top>
+				</td>
+			</tr>
+		</table>
+		
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-15143979-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+	</body>
+</html>
