@@ -212,7 +212,7 @@ public class EyetrackerInterface
 						if (s != null)
 						{
 							String[] parameters = s.split("[\t ]");
-							info(s);
+							//info(s);
 							if (parameters[0].equals("ET_SPL"))
 							{
 								try
@@ -299,7 +299,7 @@ public class EyetrackerInterface
 		try{
 			ourSocket.receive(dp);
 			String data = new String(buf, 0, dp.getLength()).trim();
-			info("Received: " + data);
+			//info("Received: " + data);
 			return data;
 		}catch(SocketTimeoutException ste)
 		{
