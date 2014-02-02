@@ -242,7 +242,7 @@ public class EyetrackerInterface
 
 	public void stop()
 	{
-		info("stop");
+		info("stopping eyetracker and saving data");
 		relaythread.interrupt();
 		try
 		{
@@ -256,7 +256,7 @@ public class EyetrackerInterface
 			e.printStackTrace();
 		}
 
-		info("stop done");
+		info("stopping done, data saved successfully");
 	}
 
 	public void trigger(String s)
