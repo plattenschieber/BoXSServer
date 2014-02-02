@@ -194,8 +194,6 @@ public class EyetrackerInterface
 		fos = new FileOutputStream(filename);
 		bos = new BufferedOutputStream(fos);
 
-		bos.write("Hallo".getBytes());
-
 		// Start streaming
 		send("ET_FRM \"%DX %DY %SX %SY\"");
 		send("ET_STR 120");
