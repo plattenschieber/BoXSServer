@@ -4,7 +4,7 @@ import java.awt.*;
 import java.io.*;
 import java.net.*;
 import static util.Log.*;
-
+import java.util.Timer;
 import javax.swing.JPanel;
 
 public class EyetrackerInterface
