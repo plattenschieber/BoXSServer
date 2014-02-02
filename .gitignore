@@ -1,2 +1,5 @@
 build/
 export/
+*.jks
+*.jar
+*.zip
