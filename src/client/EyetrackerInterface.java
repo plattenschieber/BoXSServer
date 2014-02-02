@@ -195,7 +195,7 @@ public class EyetrackerInterface
 		bos = new BufferedOutputStream(fos);
 
 		// Start streaming
-		send("ET_FRM \"%DX %DY %SX %SY\"");
+		send("ET_FRM \"%TU %DX %DY %SX %SY\"");
 		send("ET_STR 120");
 
 		relaythread = new Thread() {
