@@ -263,6 +263,8 @@ public class EyetrackerInterface
 		try
 		{
 			bos.write((s + "\n").getBytes("ASCII"));
+                        send("ET_INC");
+                        send("ET_AUX \"" + s + "\"");
 		} catch (UnsupportedEncodingException e)
 		{
 			// TODO Auto-generated catch block
