@@ -271,7 +271,7 @@ public class EyetrackerInterface
                             info("triggercount " + triggerCount);
                             send("ET_INC");
                             send("ET_AUX \"" + triggerCount + ". Trigger from BoXS\"");
-                            bos.write(("Trigger: " + triggerCount + "\n").getBytes("ASCII"));
+                            bos.write(("Trigger: " + System.nanoTime() + " " + triggerCount + "\n").getBytes("ASCII"));
                             triggerCount++;
                         } catch (IOException e)
                         {
