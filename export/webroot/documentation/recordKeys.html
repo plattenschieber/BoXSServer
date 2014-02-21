@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<meta name="language" content="de">
+	<meta name="keywords" content="Bonn Experiment System Documentation">
+	<meta name="description" content="Bonn Experiment System Documentation">
+
+	<head>
+	  <title>Bonn Experiment System Documentation</title>
+	  <link rel="stylesheet" href="../documentation.css"	
+ type="text/css">
+	</head>
+
+	<body>
+		<h1>recordKeys() </h1>
+
+		<div id="abstract">
+		The recordKeys-command can be used to directly react to a user pressing a key. This can be useful, for example, for experiments with people being examined by an fMRI, who can only interact with the experiment computer using a few buttons. When putting the recordKeys-command in a stage, the key code of the key which was pressed is stored in the variable _lastkey which can then be used.
+		</div>
+
+		<div id="note">
+			In a stage using recordKeys, no other input elements should be used as they could interfere with the keyboard focus which is required for recordKeys to work. 
+		</div>
+
+		<div id="note">
+			The exact behaviour of keyboard focus for applets is not defined and can depend on Java version, internet browser etc.. In that sense, recordKeys should be avoided in internet experiments in which the subjects' computer configuration and concurrent processes are not known. 
+		</div>
+
+
+
+
+		<h2>Examples</h2>
+		<h3>Waiting until the user presses 'A'.</h3>
+		<table>
+			<tr>
+				<td width=500 valign=top>
+					<img src="img/recordkeys1c.png">
+				</td>
+			</tr>
+		</table>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-15143979-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+	</body>
+</html>

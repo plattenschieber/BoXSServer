@@ -1,0 +1,36 @@
+correct=0
+total=0
+
+for (repetition=0; repetition<5; repetition=repetition+1)
+{ 
+  // generate 01-table
+  table=""
+  count=0
+
+  for (row=0; row<8; row=row+1)
+  {
+    for (col=0; col<20; col=col+1)
+    {
+      c=randomUniformInteger(0,1)
+      count=count+c
+      table=table+c+" "
+    }
+    table=table+"<br>"
+  }
+
+  // Display table and choices
+  display("Correct: <b>"+correct+"</b> Wrong: <b>"+(total-correct))
+  display("<br><pre>"+table)
+  pad=randomUniformInteger(-2,2)
+  display("How many ones are there?")
+  choice(userc,count+pad-2,count+pad-1,count+pad,count+pad+1,count+pad+2)
+  wait()
+
+  // Was user choice right?
+  total=total+1
+  if(userc==count)
+  {
+    correct=correct+1
+  }
+}
+

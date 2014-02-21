@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<meta name="language" content="de">
+	<meta name="keywords" content="Bonn Experiment System Documentation">
+	<meta name="description" content="Bonn Experiment System Documentation">
+
+	<head>
+	  <title>Bonn Experiment System Documentation</title>
+	  <link rel="stylesheet" href="../documentation.css"	
+ type="text/css">
+	</head>
+
+	<body>
+		<h1>enableMouseTracking()<br>disableMouseTracking()</h1>
+
+		<div id="abstract">
+		BoXS supports mouse tracking. In order to activate it, just use the enableMouseTracking()-command in your program. 
+		Upon doing so, BoXS will create a variable named _mousepos in which the current mouse position is stored for each 
+		subject. Also, when the input history is enabled (which it is by default), the history of the mouse position is stored 
+		in the variable _inputhistory_mousepos. </div>
+
+		<div id="note">
+		Since a variable can only take a value up to a certain length, the BoXS will automatically truncate the mouse 
+		history after some time. If you want to preserve the positions you need to store them in different variables 
+		after certain time intervals. An example for doing this would be to write something like "mousehistory1=_inputhistory_mousepos" 
+	and "_inputhistory_mousepos=0" after the first wait()-command.</div>
+
+		<div id="note">
+		The mouse position is stored as absolute screen position. The top left pixel of the screen would have the position (0,0), the top right point would be (1919,0) if the screen resolution is 1920x1200 and so on. If the BoXS client is not running full screen, you might need to transform the mouse position according to your requirements. </div>
+
+		<div id="note">
+		Depending on the system configuration, the mouse tracking will continue even if the BoXS client loses the focus, i.e. when other programs are used. Keep this in mind for internet experiments. </div>
+
+
+		<h2>Examples</h2>
+		<h3>A simple example for using the mouse position</h3>
+		<table>
+			<tr>
+				<td width=500 valign=top>
+					<img src="img/mousetrackingc.png">
+				</td>
+				<td width=300 valign=top>
+					<img src="img/mousetrackinge.png"> <br>
+					
+				</td>
+			</tr>
+		</table>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-15143979-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+	</body>
+</html>

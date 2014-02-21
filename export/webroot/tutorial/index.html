@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<meta name="language" content="de">
+	<meta name="keywords" content="Bonn Experiment System BoXS">
+	<meta name="description" content="Bonn Experiment System">
+
+	<head>
+	  <title>Bonn Experiment System Tutorial</title>
+	  <link rel="stylesheet" href="../documentation.css"	
+ type="text/css">
+	</head>
+
+	<body>
+		<h1>Bonn Experiment System Tutorial</h1>
+
+		<div id="abstract">
+		This tutorial intends to show you how to use BoXS to create and conduct experiments in 9 easy steps.</div>
+	
+	
+	  	<h2>1.) Open your web browser...</h2>
+	  	...and open the address 
+	  	<a href="http://boxs.uni-bonn.de/">http://boxs.uni-bonn.de/</a>. <br>
+		<br>
+		<img src="pic01.png">
+		<div id="note">You can use any operating system and browser you like to use BoXS, as long as they support Java applets. 
+		For the screenshots on this page xubuntu-Linux is used as operating system and Google Chrome is used 
+		as the browser.</div>
+		
+		
+		<h2>2.) Click on the "Start Experiment!"-button</h2>
+		<img src="pic02.png">
+		<br>
+		
+		<h2>3.) Click on "1 Experimenter, 2 Subjects"</h2>
+		<div id="note">If you open this site for the first time, you will get a warning asking whether you 
+		want to execute this application. Click on proceed/grant. This message will only appear once on every 
+		computer.</div>
+		<div id="note">If neither the experiment software as in the picture above nor the warning appears, 
+		chances are that the Java plugin in your browser is not installed correctly. <br>
+		<ul>
+			<li>If you are using windows, download it here for <a href="https://addons.mozilla.org/de/firefox/browse/type:7">Firefox</a> or 
+			<a href="http://java.sun.com/products/plugin/1.2/overview.html">Internet Explorer</a>.
+			<li>If you use linux, install the "sun-java6-plugin"-package using your package manager.
+		</ul>
+		</div>
+		
+		<h2>4.) Take a look at the screen.</h2>
+		<img src="pic04.png">
+		<div id="note">The layout you see is designed to help you develop your programs. It shows the experimenter view, 
+		which is the top half, as well as two subject views, which are on the bottom half. In a real 
+		experiment you would of course have each view on the full screen, but for developing this 
+		layout is quite useful.</div>
+			
+		<h2>5.) Write your first program.</h2>
+		To do this, click on the code view in the top left area and enter: <br>
+<pre>
+display("Hello World")
+wait()
+</pre>
+
+		<h2>6.) Start your experiment.</h2>
+		To start your experiment click on the "Start experiment"-button (<img align="top" src="start.png">)<br>
+		<img src="pic07.png">
+		<div id="note">You can see that the subjects' screens now show the desired message as well as 
+		a "Continue"-button. When you click on both "Continue"-buttons the experiment will end as 
+		no further experiment was specified. So, you've finished your first experiment using BoXS, 
+		congratulations! :)</div>
+		
+		<h2>7.) Write your second program.</h2>
+		The second program is slightly more advanced as it uses variables and user input. 
+		Click on the code view in the top left area, delete the previous program and enter: <br>
+<pre>
+display("Welcome to our experiment!")
+display("Please enter your name:")
+inputString(name)
+wait()
+display("Hello "+name)
+wait()
+</pre>		
+		<div id="note">Note: In a real experiment you would probably not ask your subjects about 
+their name. This example is just for illustration.</div>
+			<div id="note">Click on the "Start experiment"-button (<img align="top" src="start.png">) when you are done.</div>	
+<img src="pic08.png"><br>
+		<div id="note">Enter some names and click on "Continue".</div>		
+<img src="pic09.png"><br>
+		<div id="note">As you can see the name which is entered in the first part of the experiment is successfully displayed 
+in the second part.</div>		
+
+ 
+ 		<h2>8.) Using experiment-generated data</h2>
+ 		<div id="note">To examine experiment-generated data have a look at the variable monitor. The 
+ 		variable monitor displays both the variables you define as well as automatically generated 
+ 		variables (which are displayed in grey).</div>
+		<img src="pic10.png">
+		<div id="note">The first row displays the usernames, which are "S1" and "S2" in this case. 
+		In an actual laboratory experiment you would pick something more specific like "Room11" and "Room12". 
+		(more on this topic can be found in the documentation).
+		The fourth row contains the values of the generated "name"-variable, in this case "Bob" and "Eve".</div> 
+<div id="note">If you are interested in how the subjects behaved, you might also be interested in the "_inputhistory_name"-variable. 
+This automatically generated variable tells you at which time (in msecs) he/she entered which value. Using this 
+variable you can find out when which key was pressed. In this case Bob and Eve were quite the procrastinators, 
+requiring about 40 seconds just to enter their names. :)</div>
+  
+  		<h2>9.) Exporting experiment-generated data</h2>
+  		<div id="note">To export your data click on the "Export data"-button (<img align="top" src="export.png">). 
+  		A file dialog will appear. Choose the desired location for the file and name it "test.csv". Data is 
+  		saved as CSV, which can be read by both spreadsheet applications 
+  		like Excel, as well as statistics software like Stata. 
+  		After saving the file, open it using a spreadsheet application. When asked about the delimiter, select "tabulator". </div>
+  		<img src="pic11.png"><br>
+  		
+  		<h2>Conclusion</h2>
+  		<div id="note">Congratulations, you successfully completed the tutorial and have therefore written two  
+  		experiments. If you want to learn more about BoXS, I recommend reading the 
+  		<a href="../general/index.html">general information</a> and the 
+  		<a href="../examples/index.html">code examples</a>. The   		
+  		<a href="../documentation/index.html">documentation</a> contains information about all available 
+  		commands and their usage. 	</div>
+
+
+
+
+
+	
+	<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-15143979-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+	</body>
+</html>

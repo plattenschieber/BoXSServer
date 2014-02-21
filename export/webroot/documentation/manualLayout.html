@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<meta name="language" content="de">
+	<meta name="keywords" content="Bonn Experiment System Documentation">
+	<meta name="description" content="Bonn Experiment System Documentation">
+
+	<head>
+	  <title>Bonn Experiment System Documentation</title>
+	  <link rel="stylesheet" href="../documentation.css"	
+ type="text/css">
+	</head>
+
+	<body>
+		<h1>manualLayout() and automaticLayout()</h1>
+
+		<div id="abstract">
+			Usually the automatic layout of the components is both convenient and sufficient. In some cases, however, more control over the component layout is required. In these cases you can use the manualLayout()-command. This command enables you to specify each component's position and size on a pixel basis.
+		</div>
+		<div id="note">
+			You only need to specify manualLayout once at the beginning of the program. If you want to restore the automatic layout, use the automaticLayout()-command. Both should be done at the beginning of a screen, i.e. directly at the beginning of a program of after a wait-command.
+		</div>
+
+		<div id="note">
+			The position and size are appended to the parameters of the component in question. For example, for the display-command the syntax is now display(text, position x, position y, width, height). Once you specify manualLayout you must do this, otherwise the respective components will not be displayed.
+		</div>
+
+
+
+
+		<h2>Examples</h2>
+		<h3>Using manual layout for a table-like input</h3>
+		<table>
+			<tr>
+				<td width=500 valign=top>
+					<img src="img/manualLayout1c.png">
+				</td>
+				<td width=300 valign=top>
+					<img src="img/manualLayout1e.png"> <br>
+					
+				</td>
+			</tr>
+		</table>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-15143979-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+	</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<meta name="language" content="de">
+	<meta name="keywords" content="Bonn Experiment System Documentation">
+	<meta name="description" content="Bonn Experiment System Documentation">
+
+	<head>
+	  <title>Bonn Experiment System Documentation</title>
+	  <link rel="stylesheet" href="../documentation.css"	
+ type="text/css">
+	</head>
+
+	<body>
+		<h1>button(variablename,message)</h1>
+
+		<div id="abstract">
+		The button-command creates a button on each subject's display. If the subject clicks on 
+		the button, the specified variable will be set to 1. These buttons are much more flexible and versatile than the buttons created by the wait-commands. One possible application are loops which are to be left when a subject clicks on a button.
+		</div>
+
+
+		<h2>Parameters</h2>
+		<div id="parameters">
+		<table>
+			<tr><td width=200>variablename</td>
+			<td width=600>The name of the variable which is set to 1 when the button is pressed.</td></tr>
+			<tr><td width=200>message</td>
+			<td width=600>The message to be displayed on the button.  </td></tr>
+		</table>
+		</div>
+
+
+		<h2>See also</h2>
+		<ul>
+			<li><a target="Main" href="waitTime.html">waitTime</a>
+		</ul>
+
+
+		<h2>Examples</h2>
+		<h3>Continue-button in the middle of the screen</h3>
+		<table>
+			<tr>
+				<td width=500 valign=top>
+					<img src="img/button1c.png">
+				</td>
+				<td width=300 valign=top>
+					<img src="img/button1e.png"> <br>
+				</td>
+			</tr>
+		</table>
+		<div id="note">
+		Note that undefined variables are evaluated as 0 in the BoXS, therefore the while-condition in this example is fulfilled in the beginning of the program. 		
+		</div>
+
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-15143979-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+
+	</body>
+</html>
