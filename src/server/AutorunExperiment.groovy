@@ -1,17 +1,28 @@
 package server;
 
+import static util.Log.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class AutorunExperiment
+public class AutorunExperiment extends Session
 {
-	String program
+	Vector<Function> parsedProgram
 	int counter=0
-	ConcurrentHashMap<String, Object> varspace=new ConcurrentHashMap<String, Object>()
-	ServerClientThread experimenter
 
-	def start()
+	AutorunExperiment(String _program, ServerClientThread _experimenter)
 	{
-		new Session(experimenter,program,varspace).start()
+		super(_experimenter, _program, null, true)
+		parsedProgram=LexerParser.parseProgram(_program,1)
+	}
+
+	void start(ServerClientThread sct)
+	{
 		++counter
+		if (sct.subinfo.username.toLowerCase().equals("new"))
+			sct.subinfo.username=''+counter
+		
+
+		String groupname=sct.subinfo.username
+		AutorunExperimentEnvironment ee=new AutorunExperimentEnvironment(parsedProgram, sct, experimenter,sct.subinfo.username,new ConcurrentHashMap<String, Object>(),this)
+		ee.start()
 	}
 }

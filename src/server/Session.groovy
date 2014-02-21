@@ -33,7 +33,7 @@ public class Session extends Thread
 	Map<String, Group> groups=new ConcurrentHashMap<String, Group>()
 
 
-	Session(ServerClientThread _experimenter, String _program, ConcurrentHashMap<String, Object> _varspace)
+	Session(ServerClientThread _experimenter, String _program, ConcurrentHashMap<String, Object> _varspace, boolean autorun)
 	{
 		varspace=_varspace
 		experimenter=_experimenter
@@ -41,7 +41,9 @@ public class Session extends Thread
 		
 		program=_program.split('\n')
 		if (!program.any{ l-> MATCHINGCOMMANDS.any{l.trim().startsWith(it)} })
-			program=["matchAll(A)",*program]
+		{
+				program=["matchAll(A)",*program]
+		}
 		else 
 			program=["",*program]
 	}
@@ -125,6 +127,12 @@ public class Session extends Thread
 	
 	
 	def sendSessionDataByMail(String title)
+	{
+		sendSessionDataByMail(title,varspace)
+	}
+
+
+	def sendSessionDataByMail(String title, ConcurrentHashMap<String, Object> varspace)
 	{
 		if (experimenter.subinfo.username.length()>4)
 		{

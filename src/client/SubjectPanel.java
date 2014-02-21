@@ -187,7 +187,7 @@ public class SubjectPanel extends JPanel
 				eyetrackerInterface.destroy();
 			customstyle=null;
 			if (clientApplet.showStartScreen)
-				update="-1@display(\"<br><h1>Bonn Experiment System</h1>Framework for conducting laboratory and field experiments<br>in economic and social science<br><br><br><br><table width=100%><tr><td>Dr. Mirko Seithe<br>mseithe@uni-bonn.de<br>Bonn Graduate School of Economics<br>University of Bonn</td><td> <img src='http://boxs.uni-bonn.de/bonn.png'></td></tr></table>\")";
+				update="-1@display(\"<br><h1>Bonn Experiment System</h1>Framework for conducting laboratory and field experiments<br>in economic and social science<br><br><br><br><table width=100%><tr><td>Dr. Mirko Seithe<br>Bonn Graduate School of Economics<br>University of Bonn</td><td> <img src='http://boxs.uni-bonn.de/bonn.png'></td></tr></table>\")";
 			else
 				update="-1@display(\"<br>Please wait...\")";
 			componentCache.clear();
@@ -475,12 +475,11 @@ public class SubjectPanel extends JPanel
 					if (!automaticlayout)
 						optioncount-=4;
 					
-				/*	if (componentCache.containsKey(linenum) && componentCache.get(linenum) instanceof JPanel
-							&& !desiredComponents.contains(componentCache.get(linenum)))
+					if (componentCache.containsKey(linenum) && componentCache.get(linenum) instanceof JPanel && !desiredComponents.contains(componentCache.get(linenum)))
 					{
 						jp=(JPanel)componentCache.get(linenum);
 					}
-					else*/
+					else
 					{
 						jp=new JPanel();
 						jp.setLayout(new BoxLayout(jp,BoxLayout.X_AXIS));
@@ -654,37 +653,6 @@ public class SubjectPanel extends JPanel
 				else if (command.equals("button") )
 				{
 					if (!layoutspecified) setLayoutAutomatic(true);
-					//JPanel jp;
-					JButton jb;
-
-					if (componentCache.containsKey(linenum) && componentCache.get(linenum)  instanceof JButton
-							&& !desiredComponents.contains(componentCache.get(linenum)))
-					{
-						//jp=(JPanel)componentCache.get(linenum);
-						jb=(JButton)componentCache.get(linenum);
-					}
-					else
-					{
-						//jp=new JPanel();
-						jb=new JButton();
-						jb.setFont(FONT);
-						jb.setMinimumSize(new Dimension(FONT.getSize()*10,FONT.getSize()+8));
-						jb.setMaximumSize(new Dimension(FONT.getSize()*10,FONT.getSize()+8));
-						jb.setAlignmentX(Component.LEFT_ALIGNMENT);
-					/*	makeBorder(jp);
-						jp.add(jab);
-						jp.setAlignmentX(Component.LEFT_ALIGNMENT);
-						jp.setMaximumSize(new Dimension(1000,(int)(FONT.getSize()+12)));
-						jp.setMinimumSize(new Dimension(0,(int)(FONT.getSize()+12)));
-						jp.setBackground(Color.white);
-						jp.setLayout(new BoxLayout(jp,BoxLayout.X_AXIS));
-						jp.setOpaque(true);*/
-//						componentCache.put(linenum, jp);
-						componentCache.put(linenum, jb);
-					}
-					waitButtons.add(jb);
-					jb.setFocusTraversalKeysEnabled(true);
-
 
 					String var=paramparts.get(0);
 					String label=paramparts.get(1);
@@ -692,6 +660,27 @@ public class SubjectPanel extends JPanel
 					if (label.startsWith("\""))
 						label=label.substring(label.indexOf("\"")+1, label.lastIndexOf("\""));
 
+					JButton jb;
+
+					if (componentCache.containsKey(linenum) && componentCache.get(linenum)  instanceof JButton && !desiredComponents.contains(componentCache.get(linenum)))
+					{
+						jb=(JButton)componentCache.get(linenum);
+						jb.setText(label);
+						for (ActionListener al:jb.getActionListeners())
+							jb.removeActionListener(al);
+					}
+					else
+					{
+						jb=new JButton();
+						jb.setFont(FONT);
+						jb.setMinimumSize(new Dimension(FONT.getSize()*10,FONT.getSize()+8));
+						jb.setMaximumSize(new Dimension(FONT.getSize()*10,FONT.getSize()+8));
+						jb.setPreferredSize(new Dimension(FONT.getSize()*10,FONT.getSize()+8));
+						jb.setAlignmentX(Component.LEFT_ALIGNMENT);
+						componentCache.put(linenum, jb);
+					}
+
+					jb.setFocusTraversalKeysEnabled(true);
 					jb.setText("<html>"+getStyle()+"<body>"+label+HTML_FOOTER);
 
 					ActionListener[] actionListeners = jb.getActionListeners();

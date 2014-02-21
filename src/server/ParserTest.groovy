@@ -107,7 +107,7 @@ public class ParserTest {
 		subject.subinfo.username="subject";
 		ServerClientThread.subjectPool.clear();
 		ServerClientThread.subjectPool.add(subject);
-		new Session(experimenter,string,varspace).run();
+		new Session(experimenter,string,varspace,false).run();
 		varspace.each{k,v -> info "  $k=[$v]"}
 	}
 }

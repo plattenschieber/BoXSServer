@@ -59,16 +59,19 @@ public class ServerClientThread extends ConnChannel implements Comparable<Server
 				
 			case START_EXPERIMENT:
 				if (!experiment || !experiment.running)
-					new Session(this,(String)o,new ConcurrentHashMap<String, Object>()).start()
+					new Session(this,(String)o,new ConcurrentHashMap<String, Object>(),true).start()
 				break
 
 			case START_EXPERIMENT_AUTORUN:
-				if (!experiment || !experiment.running)
+				if (autorunExperiments.containsKey(subinfo.realm))
 				{
-					if (autorunExperiments.containsKey(subinfo.realm))
-						autorunExperiments.remove(subinfo.realm)
-					else
-						autorunExperiments.put(subinfo.realm, new AutorunExperiment(program:(String)o, experimenter:this))
+					info "Removing autorun experiment"
+					autorunExperiments.remove(subinfo.realm)
+				}
+				else
+				{
+					info "Adding autorun experiment"
+					autorunExperiments.put(subinfo.realm, new AutorunExperiment((String)o,this))
 				}
 				break
 				
@@ -104,6 +107,11 @@ public class ServerClientThread extends ConnChannel implements Comparable<Server
 			case CANCEL_EXPERIMENT:
 				experiment?.sendSessionDataByMail("experiment cancelled")
 				experiment?.cancelExperiment()
+				if (autorunExperiments.containsKey(subinfo.realm))
+				{
+					info "Removing autorun experiment"
+					autorunExperiments.remove(subinfo.realm)
+				}
 				break
 		}
 		
@@ -201,9 +209,7 @@ public class ServerClientThread extends ConnChannel implements Comparable<Server
 			// Autorun??
 			if (!matchingSuspendedThread && autorunExperiments.containsKey(subinfo.realm))
 			{
-				def n=autorunExperiments.get(subinfo.realm).start()
-				if (subinfo.username.toLowerCase().equals("new"))
-					subinfo.username=''+n
+				autorunExperiments.get(subinfo.realm).start(this)
 			}
 			
 			update()
@@ -249,7 +255,7 @@ public class ServerClientThread extends ConnChannel implements Comparable<Server
 		{	
 			Object ret=new Object[3];
 			// Experimentdaten
-			if (experiment!=null)
+			if (experiment!=null && experiment.varspace!=null)
 			{
 				ExperimentSessionData esd=((Object[])ret)[0]=new ExperimentSessionData();
 				esd.num=experiment.num;
@@ -259,7 +265,7 @@ public class ServerClientThread extends ConnChannel implements Comparable<Server
 					Object[] temp=esd.varspace.keySet().toArray();
 					
 					for (Object s:temp)
-						if (((String)s).indexOf('_')!=-1)
+						if (((String)s).startsWith("_"))
 								esd.varspace.remove(s);
 				}
 				esd.running=experiment.running;
@@ -310,7 +316,7 @@ public class ServerClientThread extends ConnChannel implements Comparable<Server
 			else if (subinfo.isExperimenter() || (experimentParser!=null ))
 			{
 				warning ""+new java.util.Date()+"#"+subinfo.num+" Disconnected during experiment!"
-				if (!subinfo.isExperimenter())
+				if (!subinfo.isExperimenter() && experiment.varspace!=null)
 					experiment.varspace.put(subinfo.username+"._suspended", new Double(1));
 				subjectPool.remove(this);
 				experimenterPool.remove(this);

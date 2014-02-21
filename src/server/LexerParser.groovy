@@ -16,7 +16,7 @@ public class LexerParser {
 			def l=program[j].trim()
 			if (l.startsWith("matchDone"))
 				return remprg
-			else if (!preservematches && ["matchManual","matchAll","matchPerfectStranger","matchHistoryClear"].any{l.startsWith(it)})
+			else if (!preservematches && ["matchManual","matchAll","matchPerfectStranger","matchHistoryClear","matchAutoRun"].any{l.startsWith(it)})
 				remprg+="\n"
 			else
 				remprg+=program[j]+"\n"
@@ -33,7 +33,7 @@ public class LexerParser {
         mainparseloop: for (int line=0; line<progline.length; line++)
         {
         	String s=progline[line]
-        	info "line = "+executestartlinenum+"->"+line+" : "+s
+        	// info "line = "+executestartlinenum+"->"+line+" : "+s
 
         	try
         	{
@@ -62,123 +62,126 @@ public class LexerParser {
 	    	        	int blocklength=block.split("\n").length;
 	    	        	Vector<Function> subprog=parseProgram(block,line+1);
 
-						switch(command)
-						{
-							case "matchManual":
-			    	        	ret.add(new Function(name:"matchManual",linenum:line,c:{       		ee->
-			    	        		if (!ee.session.running) return
-			    	        		def params=client.Utils.splitByComma(param)
-									def x=params.collect{(String)evaluateExpression(it).execute(new ExecutionEnvironment(null,null,ee.session.experimenter,"",ee.session.varspace,null,ee.session))}
-									def _subject=x[0], role=x[2], _group=x[1]
-									def group=ee.session.groups.get(_group)
-									
-									if (!group)
-									{
-										group=new Group(session:ee.session,name:_group,linenum:line+1)
-										ee.session.groups.put(_group,group)
-									}
-							
-									def subject=ServerClientThread.getAvailableSubjects(ee.experimenter.subinfo.realm).find{it.subinfo.username.equalsIgnoreCase(_subject)}
-									
-									if (!subject) 
-										warning("subject not found: "+_subject)
-									else
-										group.assignSubjectToExperiment(subject, role,subprog,ee.session.varspace).start()
-			    	        	}, stringrep:{return "matchManual {"+subprog.collect({it.toString()}).join("\n")+"\n}"}));
-								break
-
-							case "matchAll":
-		    	        		ret.add(new Function(name:"matchAll",linenum:line,c:{ ee->
-		    	        			if (!ee.session.running) return
-		    	        			if (ServerClientThread.getAvailableSubjects(ee.experimenter.subinfo.realm).isEmpty()) throw new RuntimeException("No subjects available for matching")
-					    	        	String[] roles=param.split(",")
-										int groupcount=(int)(ServerClientThread.getAvailableSubjects(ee.experimenter.subinfo.realm).size()/roles.length)
-
-										def subjectthread=[]		
-										for (g in 1..groupcount)
-										{
-											String groupname=""+g
-											Group group=new Group(session:ee.session,name:groupname,linenum:line+1)
-											ee.session.groups.put(groupname,group)
-								
-										   for (role in roles)
-												subjectthread<<group.assignSubjectToExperiment(ServerClientThread.getAvailableSubjects(ee.experimenter.subinfo.realm)[0],
-													role,subprog,ee.session.varspace)
-										}
-										subjectthread*.start()
-									}, stringrep:{return "matchAll {"+subprog.collect({it.toString()}).join("\n")+"\n}"}));
-		    	        		break
-
-		    	        	case "matchStranger":
-		    	        		ret.add(new Function(name:"matchStranger",linenum:line,c:{ ee->
-									if (!ee.session.running) return		    	        			
-		    	        			if (ServerClientThread.getAvailableSubjects(ee.experimenter.subinfo.realm).isEmpty()) throw new RuntimeException("No subjects available for matching")
-					    	        	String[] roles=param.split(",")
-										int groupcount=(int)(ServerClientThread.getAvailableSubjects(ee.experimenter.subinfo.realm).size()/roles.length)
-
-										def subjectthread=[]		
-										for (g in 1..groupcount)
-										{
-											String groupname=""+g
-											Group group=new Group(session:ee.session,name:groupname,linenum:line+1)
-											ee.session.groups.put(groupname,group)
-								
-										   for (role in roles)
-												subjectthread<<group.assignSubjectToExperiment(ServerClientThread.getAvailableSubjects(ee.experimenter.subinfo.realm).randomElement,
-													role,subprog,ee.session.varspace)
-										}
-										subjectthread*.start()
-									}, stringrep:{return "matchStranger {"+subprog.collect({it.toString()}).join("\n")+"\n}"}));
-		    	        		break
-
-		    	        	case "matchPerfectStranger":
-		    	        		ret.add(new Function(name:"matchPerfectStranger",linenum:line,c:{ ee->
-									if (!ee.session.running) return
-		    	        			if (ServerClientThread.getAvailableSubjects(ee.experimenter.subinfo.realm).isEmpty()) throw new RuntimeException("No subjects available for matching")
-
-				    	        	String[] roles=param.split(",")
-				    	        	int availableSubjects=ServerClientThread.getAvailableSubjects(ee.experimenter.subinfo.realm).size()
-									int redsubjectcount=availableSubjects-availableSubjects%roles.length;
-
-									info "PSM for $redsubjectcount/${roles.length}"
-									try {
-										Vector<int[]> assignments=new File("pstables/"+redsubjectcount+"_"+roles.length+".dat").withObjectInputStream { it.readObject() }		
-
-										if (ee.session.matchingNum>=assignments.size())
-											throw "Too many perfect matching attempts. Use matchHistoryClear()"
-										int[] assignment=assignments.get(ee.session.matchingNum)
-
-										for (j in (0..<(int)(availableSubjects/roles.length)))
-											ee.session.groups.put(""+(j+1),new Group(session:ee.session,name:""+(j+1),linenum:line));
-			
-										def subjectthread=[]
-										for (j in 0..<redsubjectcount)
-										{
-											ServerClientThread sct=ServerClientThread.subjectPool.grep{it.subinfo.realm.equals(ee.experimenter.subinfo.realm)}[j]
-											Group g=ee.session.groups.get(""+((int)(assignment[j])+1))
-											String role=roles[g.subjects.size()]
-
-											subjectthread<<g.assignSubjectToExperiment(sct, role,subprog,ee.session.varspace)
-										}
-										subjectthread*.start()
-
-
-										ee.session.matchingNum++
-									}
-									catch(Exception e) {
-										e.printStackTrace()
-									}
+	    	        	synchronized(ServerClientThread.subjectPool)
+	    	        	{
+							switch(command)
+							{
+								case "matchManual":
+				    	        	ret.add(new Function(name:"matchManual",linenum:line,c:{       		ee->
+				    	        		if (!ee.session.running) return
+				    	        		def params=client.Utils.splitByComma(param)
+										def x=params.collect{(String)evaluateExpression(it).execute(new ExecutionEnvironment(null,null,ee.session.experimenter,"",ee.session.varspace,null,ee.session))}
+										def _subject=x[0], role=x[2], _group=x[1]
+										def group=ee.session.groups.get(_group)
 										
+										if (!group)
+										{
+											group=new Group(session:ee.session,name:_group,linenum:line+1)
+											ee.session.groups.put(_group,group)
+										}
+								
+										def subject=ServerClientThread.getAvailableSubjects(ee.experimenter.subinfo.realm).find{it.subinfo.username.equalsIgnoreCase(_subject)}
+										
+										if (!subject) 
+											warning("subject not found: "+_subject)
+										else
+											group.assignSubjectToExperiment(subject, role,subprog,ee.session.varspace).start()
+				    	        	}, stringrep:{return "matchManual {"+subprog.collect({it.toString()}).join("\n")+"\n}"}));
+									break
+
+								case "matchAll":
+			    	        		ret.add(new Function(name:"matchAll",linenum:line,c:{ ee->
+			    	        			if (!ee.session.running) return
+			    	        			if (ServerClientThread.getAvailableSubjects(ee.experimenter.subinfo.realm).isEmpty()) throw new RuntimeException("No subjects available for matching")
+						    	        	String[] roles=param.split(",")
+											int groupcount=(int)(ServerClientThread.getAvailableSubjects(ee.experimenter.subinfo.realm).size()/roles.length)
+
+											def subjectthread=[]		
+											for (g in 1..groupcount)
+											{
+												String groupname=""+g
+												Group group=new Group(session:ee.session,name:groupname,linenum:line+1)
+												ee.session.groups.put(groupname,group)
+											   for (role in roles)
+											   {
+													subjectthread<<group.assignSubjectToExperiment(ServerClientThread.getAvailableSubjects(ee.experimenter.subinfo.realm)[0],
+														role,subprog,ee.session.varspace)
+												}
+											}
+											subjectthread*.start()
+										}, stringrep:{return "matchAll {"+subprog.collect({it.toString()}).join("\n")+"\n}"}));
+			    	        		break
+
+			    	        	case "matchStranger":
+			    	        		ret.add(new Function(name:"matchStranger",linenum:line,c:{ ee->
+										if (!ee.session.running) return		    	        			
+			    	        			if (ServerClientThread.getAvailableSubjects(ee.experimenter.subinfo.realm).isEmpty()) throw new RuntimeException("No subjects available for matching")
+						    	        	String[] roles=param.split(",")
+											int groupcount=(int)(ServerClientThread.getAvailableSubjects(ee.experimenter.subinfo.realm).size()/roles.length)
+
+											def subjectthread=[]		
+											for (g in 1..groupcount)
+											{
+												String groupname=""+g
+												Group group=new Group(session:ee.session,name:groupname,linenum:line+1)
+												ee.session.groups.put(groupname,group)
+									
+											   for (role in roles)
+													subjectthread<<group.assignSubjectToExperiment(ServerClientThread.getAvailableSubjects(ee.experimenter.subinfo.realm).randomElement,
+														role,subprog,ee.session.varspace)
+											}
+											subjectthread*.start()
+										}, stringrep:{return "matchStranger {"+subprog.collect({it.toString()}).join("\n")+"\n}"}));
+			    	        		break
+
+			    	        	case "matchPerfectStranger":
+			    	        		ret.add(new Function(name:"matchPerfectStranger",linenum:line,c:{ ee->
+										if (!ee.session.running) return
+			    	        			if (ServerClientThread.getAvailableSubjects(ee.experimenter.subinfo.realm).isEmpty()) throw new RuntimeException("No subjects available for matching")
+
+					    	        	String[] roles=param.split(",")
+					    	        	int availableSubjects=ServerClientThread.getAvailableSubjects(ee.experimenter.subinfo.realm).size()
+										int redsubjectcount=availableSubjects-availableSubjects%roles.length;
+
+										info "PSM for $redsubjectcount/${roles.length}"
+										try {
+											Vector<int[]> assignments=new File("pstables/"+redsubjectcount+"_"+roles.length+".dat").withObjectInputStream { it.readObject() }		
+
+											if (ee.session.matchingNum>=assignments.size())
+												throw "Too many perfect matching attempts. Use matchHistoryClear()"
+											int[] assignment=assignments.get(ee.session.matchingNum)
+
+											for (j in (0..<(int)(availableSubjects/roles.length)))
+												ee.session.groups.put(""+(j+1),new Group(session:ee.session,name:""+(j+1),linenum:line));
+				
+											def subjectthread=[]
+											for (j in 0..<redsubjectcount)
+											{
+												ServerClientThread sct=ServerClientThread.subjectPool.grep{it.subinfo.realm.equals(ee.experimenter.subinfo.realm)}[j]
+												Group g=ee.session.groups.get(""+((int)(assignment[j])+1))
+												String role=roles[g.subjects.size()]
+
+												subjectthread<<g.assignSubjectToExperiment(sct, role,subprog,ee.session.varspace)
+											}
+											subjectthread*.start()
 
 
-								}, stringrep:{return "matchPerfectStranger {"+subprog.collect({it.toString()}).join("\n")+"\n}"}));
-		    	        		break
-		    	        }
+											ee.session.matchingNum++
+										}
+										catch(Exception e) {
+											e.printStackTrace()
+										}
+											
 
 
-						boolean furtherManualMatches=findRemProg(progline,line+1,true).split("\n").any({it.trim().startsWith("matchManual")})
-	   	       			line+=(command=="matchManual"&&furtherManualMatches)?0:blocklength
-	    	        	continue mainparseloop
+									}, stringrep:{return "matchPerfectStranger {"+subprog.collect({it.toString()}).join("\n")+"\n}"}));
+			    	        		break
+			    	        }
+
+							boolean furtherManualMatches=findRemProg(progline,line+1,true).split("\n").any({it.trim().startsWith("matchManual")})
+		   	       			line+=(command=="matchManual"&&furtherManualMatches)?0:blocklength
+		    	        	continue mainparseloop
+			    	    }
 	    	        }
 	    	        else if (command in ['if','while','for'])
 	    	        {
@@ -303,7 +306,6 @@ public class LexerParser {
 					{
 					case 1: //   test
 						ee.checkVarname(vname);
-						log "vname="+vname
 						if (vname.startsWith("\$"))
 							ee.varspacePut(vname, o);
 						else
@@ -455,7 +457,9 @@ public class LexerParser {
 								ee.sct.update();
 		
 								while(((Double)ee.varspaceGet("_continue"+(linenum))).doubleValue()==0  && !ee.cancel)
+								{
 									try{Thread.sleep(200)}catch(Exception e){;}
+								}
 							}
 							ee.assertions.clear();
 						})
@@ -488,11 +492,10 @@ public class LexerParser {
 							ee.assertions.clear(); // ?
 							"ok"
 						})
-						
 					case "waitForPlayers":
 			        	Function[] f=[
-			        			(paramparts.size()>=1)?evaluateExpression(paramparts.get(0)):new Function(name:"string",c:{"Please wait"}),  
-			        			(paramparts.size()>=2)?evaluateExpression(paramparts.get(1)):new Function(name:"string",c:{"Please wait for the experiment to continue"}),
+			        			(paramparts.size()>=1)?evaluateExpression(paramparts.get(0)):new Function(name:"string",c:{ee->ee.locale.equals("de")?"Weiter...":"Continue..."}),  
+			        			(paramparts.size()>=2)?evaluateExpression(paramparts.get(1)):new Function(name:"string",c:{ee->ee.locale.equals("de")?"Bitte warten":"Please wait"}),
 			        				(paramparts.size()>=3)?evaluateExpression(paramparts.get(2)):new Function(name:"0",c:{0}),
 			    	        		(paramparts.size()>=4)?evaluateExpression(paramparts.get(3)):new Function(name:"0",c:{0}),
 			    	    	        (paramparts.size()>=5)?evaluateExpression(paramparts.get(4)):new Function(name:"0",c:{0}),

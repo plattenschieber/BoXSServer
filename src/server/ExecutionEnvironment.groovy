@@ -21,6 +21,14 @@ public class ExecutionEnvironment extends Thread
 	public boolean cancel=false, inputHistory=true
 	Vector<Assertion> assertions=new Vector<Assertion>()
 
+	public void dump()
+	{
+		for (Map.Entry<String, Object> e:_varspace.entrySet() )
+		{
+				println("  "+e.getKey()+" -> "+e.getValue())
+		}
+	}
+
 
     public ExecutionEnvironment(Vector<Function> _prg, ServerClientThread _sct, ServerClientThread _experimenter, String _role,
     		Map<String, Object> __varspace, Group _group, Session _session)
@@ -29,12 +37,12 @@ public class ExecutionEnvironment extends Thread
     	
 		if (sct!=null)
     	{
-	    	sct.subinfo.experimentGroup=group.name;
+	    	sct.subinfo.experimentGroup=group?group.name:"X";
 	    	sct.subinfo.experimentRole=role;
 	    	if (_varspace!=null && role!=null)
 	    	{
 	    		varspacePut("role", role)
-	    		varspacePut("group", group.name)
+	    		varspacePut("group", group?group.name:"X")
 	    		varspacePut("username", sct.subinfo.username)
 	    		varspacePut("_finished", new Double(0))
 	    	}
@@ -121,14 +129,19 @@ public class ExecutionEnvironment extends Thread
 
     public void run()
     {
+    	info "Start ExecutionEnvironment"
 		for (Function f:prg)
 		{
-			if (cancel) return;
+			if (cancel) 
+			{
+				info "Cancelling experiment"
+				return;
+			}
         	
 	    	try {
     			if (f!=null)
     			{
-    				info "execute "+f
+    				//info "execute "+f
     				f.execute(this);
     			}
 			} catch (Exception e) {
@@ -136,6 +149,7 @@ public class ExecutionEnvironment extends Thread
 				e.printStackTrace();
 			}
 		}
+    	info "End ExecutionEnvironment"
     }
 	
 
