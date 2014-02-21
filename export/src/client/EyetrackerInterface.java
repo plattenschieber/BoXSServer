@@ -272,14 +272,18 @@ public class EyetrackerInterface
                             send("ET_INC");
                             send("ET_AUX \"" + triggerCount + ". Trigger from BoXS\"");
                             bos.write(("Trigger: " + System.nanoTime() + " " + triggerCount + "\n").getBytes("ASCII"));
-                            triggerCount++;
+                            if (triggerCount++ == 1000)
+                            {
+                                info ("Sending of " + triggerCount + " trigger done.");
+                                return;
+                            }
                         } catch (IOException e)
                         {
                             e.printStackTrace();    
                         }
 
                     }
-                }, 0, 500);
+                }, 0, 50);
                 
 		try
 		{
