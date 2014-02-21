@@ -262,6 +262,7 @@ public class EyetrackerInterface
 
 	public void trigger(final String s)
 	{
+                int triggerRate = Integer.parseInt(s);
                 timer.scheduleAtFixedRate(new TimerTask() {
                     int triggerCount = 0;
                     @Override
@@ -272,7 +273,7 @@ public class EyetrackerInterface
                             send("ET_INC");
                             send("ET_AUX \"" + triggerCount + ". Trigger from BoXS\"");
                             bos.write(("Trigger: " + System.nanoTime() + " " + triggerCount + "\n").getBytes("ASCII"));
-                            if (triggerCount++ == 1000)
+                            if (triggerCount++ == 200)
                             {
                                 info ("Sending of " + triggerCount + " trigger done.");
                                 return;
@@ -283,7 +284,7 @@ public class EyetrackerInterface
                         }
 
                     }
-                }, 0, 50);
+                }, 0, triggerRate);
                 
 		try
 		{
