@@ -288,9 +288,16 @@ public class EyetrackerInterface
 			}, 0, triggerRate);
 		}
 		else if (triggerRate == 0) {
+            try {
 			 info("ONE Trigger send");
 			 send("ET_INC");
 			 send("ET_AUX \"Trigger from BoXS\"");
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+    
 		}
                 
 		try

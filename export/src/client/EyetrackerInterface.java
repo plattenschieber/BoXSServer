@@ -263,28 +263,42 @@ public class EyetrackerInterface
 	public void trigger(final String s)
 	{
                 int triggerRate = Integer.parseInt(s);
-                timer.scheduleAtFixedRate(new TimerTask() {
-                    int triggerCount = 0;
-                    @Override
-                    public void run() {
-                        // Your database code here
-                        try{
-                            info("triggercount " + triggerCount);
-                            send("ET_INC");
-                            send("ET_AUX \"" + triggerCount + ". Trigger from BoXS\"");
-                            bos.write(("Trigger: " + System.nanoTime() + " " + triggerCount + "\n").getBytes("ASCII"));
-                            if (triggerCount++ == 200)
-                            {
-                                info ("Sending of " + triggerCount + " trigger done.");
-                                return;
-                            }
-                        } catch (IOException e)
-                        {
-                            e.printStackTrace();    
-                        }
+		if (triggerRate > 0) {
+			timer.scheduleAtFixedRate(new TimerTask() {
+			    int triggerCount = 0;
+			    @Override
+			    public void run() {
+				// Your database code here
+				try{
+				    info("triggercount " + triggerCount);
+				    send("ET_INC");
+				    send("ET_AUX \"" + triggerCount + ". Trigger from BoXS\"");
+				    bos.write(("Trigger: " + System.nanoTime() + " " + triggerCount + "\n").getBytes("ASCII"));
+				    if (triggerCount++ == 200)
+				    {
+					info ("Sending of " + triggerCount + " trigger done.");
+					return;
+				    }
+				} catch (IOException e)
+				{
+				    e.printStackTrace();    
+				}
 
-                    }
-                }, 0, triggerRate);
+			    }
+			}, 0, triggerRate);
+		}
+		else if (triggerRate == 0) {
+            try {
+			 info("ONE Trigger send");
+			 send("ET_INC");
+			 send("ET_AUX \"Trigger from BoXS\"");
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+    
+		}
                 
 		try
 		{
