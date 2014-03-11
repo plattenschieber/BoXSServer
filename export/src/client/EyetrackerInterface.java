@@ -190,12 +190,13 @@ public class EyetrackerInterface
 		if (started)
 			return;
 		started = true;
-		filename = System.getProperty("user.home") + "/" + _filename;
-		info("start @" + frequency + " to " + filename);
+		filename = _filename;
+        String filename2 = System.getProperty("user.home") + "/" + _filename;
+		info("start @" + frequency + " to " + filename2);
 
 		// Open File
-		new File(filename).createNewFile();
-		fos = new FileOutputStream(filename);
+		new File(filename2).createNewFile();
+		fos = new FileOutputStream(filename2);
 		bos = new BufferedOutputStream(fos);
 
 		// Start streaming
