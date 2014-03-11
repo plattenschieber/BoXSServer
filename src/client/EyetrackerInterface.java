@@ -263,8 +263,19 @@ public class EyetrackerInterface
 
     public void trigger(final String s)
     {
-        int triggerRate = Integer.parseInt(s);
-        if (triggerRate > 0) {
+        int triggerRate;
+        try {
+            triggerRate = Integer.parseInt(s);
+        } catch (NumberFormatException e)
+        {
+            triggerRate = 0;
+            info ("Could not parse triggerRate. Setting triggerRate to 0.");
+        }
+        if (triggerRate == 0) {
+            sendTrigger(0);
+        }
+        else //if (triggerRate > 0) 
+        {
             timer.scheduleAtFixedRate(new TimerTask() {
                 int triggerCount = 0;
                 @Override
@@ -280,9 +291,6 @@ public class EyetrackerInterface
                     }
                 }
             }, 0, triggerRate);
-        }
-        else if (triggerRate == 0) {
-            sendTrigger(0);
         }
 
     }
