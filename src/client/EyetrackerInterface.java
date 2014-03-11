@@ -262,18 +262,13 @@ public class EyetrackerInterface
 		info("stopping done, data saved successfully");
 	}
 
-    public void trigger(final String s)
+    public void trigger(final String s) throws IOException
     {
-        int triggerRate;
-        try {
-            triggerRate = Integer.parseInt(s);
-        } catch (NumberFormatException e)
-        {
-            triggerRate = 0;
-            info ("Could not parse triggerRate. Setting triggerRate to 0.");
-        }
+        int triggerRate = Integer.parseInt(s);
         if (triggerRate == 0) {
-            sendTrigger(0);
+            send("ET_AUX \" Trigger from BoXS\"");
+            bos.write(("Trigger: " + System.nanoTime() + "\n").getBytes("ASCII"));
+            //sendTrigger(0);
         }
         else //if (triggerRate > 0) 
         {
@@ -299,10 +294,8 @@ public class EyetrackerInterface
     private void sendTrigger(int triggerCount) 
     {
         try {
-            send("ET_AUX \"" + triggerCount + ". Trigger from BoXS\"");
             send("ET_INC");
             //info("ONE Trigger send");
-            bos.write(("Trigger: " + System.nanoTime() + " " + triggerCount + "\n").getBytes("ASCII"));
         }
         catch (IOException e)
         {
