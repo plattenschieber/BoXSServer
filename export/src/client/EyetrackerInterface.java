@@ -260,60 +260,45 @@ public class EyetrackerInterface
 		info("stopping done, data saved successfully");
 	}
 
-	public void trigger(final String s)
-	{
-                int triggerRate = Integer.parseInt(s);
-		if (triggerRate > 0) {
-			timer.scheduleAtFixedRate(new TimerTask() {
-			    int triggerCount = 0;
-			    @Override
-			    public void run() {
-				// Your database code here
-				try{
-				    info("triggercount " + triggerCount);
-				    send("ET_INC");
-				    send("ET_AUX \"" + triggerCount + ". Trigger from BoXS\"");
-				    bos.write(("Trigger: " + System.nanoTime() + " " + triggerCount + "\n").getBytes("ASCII"));
-				    if (triggerCount++ == 200)
-				    {
-					info ("Sending of " + triggerCount + " trigger done.");
-					return;
-				    }
-				} catch (IOException e)
-				{
-				    e.printStackTrace();    
-				}
+    public void trigger(final String s)
+    {
+        int triggerRate = Integer.parseInt(s);
+        if (triggerRate > 0) {
+            timer.scheduleAtFixedRate(new TimerTask() {
+                int triggerCount = 0;
+                @Override
+                public void run() {
+                    sendTrigger(triggerCount);
+                    info ("Sending of " + triggerCount + " trigger done.");
 
-			    }
-			}, 0, triggerRate);
-		}
-		else if (triggerRate == 0) {
-            try {
-			 info("ONE Trigger send");
-			 send("ET_INC");
-			 send("ET_AUX \"Trigger from BoXS\"");
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
+                    // cancel trigger sending after 200 times
+                    if (triggerCount++ == 200)
+                    {
+                        this.cancel();
+                        info("trigger done");
+                    }
+                }
+            }, 0, triggerRate);
+        }
+        else if (triggerRate == 0) {
+            sendTrigger(0);
+        }
+
+    }
     
-		}
-                
-		try
-		{
-			bos.write((" ... " + s).getBytes("ASCII"));
-		} catch (UnsupportedEncodingException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//info("trigger done");
-	}
+    private void sendTrigger(int triggerCount) 
+    {
+        try {
+            send("ET_AUX \"" + triggerCount + ". Trigger from BoXS\"");
+            send("ET_INC");
+            info("ONE Trigger send");
+            bos.write(("Trigger: " + System.nanoTime() + " " + triggerCount + "\n").getBytes("ASCII"));
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
 
 	public synchronized void send(String s) throws IOException
 	{
