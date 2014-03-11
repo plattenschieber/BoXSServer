@@ -19,7 +19,7 @@ public class EyetrackerInterface
 	private boolean initialised;
 	private boolean calibrated;
 	private boolean started;
-        private Timer timer;
+    private Timer timer;
     private String filename;
 
 	public void initialise(String _host, int _portsend, int _portreceive)
@@ -300,7 +300,7 @@ public class EyetrackerInterface
         try {
             send("ET_AUX \"" + triggerCount + ". Trigger from BoXS\"");
             send("ET_INC");
-            info("ONE Trigger send");
+            //info("ONE Trigger send");
             bos.write(("Trigger: " + System.nanoTime() + " " + triggerCount + "\n").getBytes("ASCII"));
         }
         catch (IOException e)
