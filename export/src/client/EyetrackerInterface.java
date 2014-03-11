@@ -19,7 +19,8 @@ public class EyetrackerInterface
 	private boolean initialised;
 	private boolean calibrated;
 	private boolean started;
-        private Timer timer;
+    private Timer timer;
+    private String filename;
 
 	public void initialise(String _host, int _portsend, int _portreceive)
 	{
@@ -189,7 +190,7 @@ public class EyetrackerInterface
 		if (started)
 			return;
 		started = true;
-		String filename = System.getProperty("user.home") + "/" + _filename;
+		filename = System.getProperty("user.home") + "/" + _filename;
 		info("start @" + frequency + " to " + filename);
 
 		// Open File
@@ -249,7 +250,7 @@ public class EyetrackerInterface
 		{
 			send("ET_EST");
 			send("ET_STP");			
-			send("ET_SAV \"C:\\eye_Data\\BoXS\\BoXS_Data_" + System.currentTimeMillis() + ".idf\" \"description\" \"username\" \"OVR\"");
+			send("ET_SAV \"C:\\eye_Data\\BoXS\\" + filename + ".idf\" \"description\" \"username\" \"OVR\"");
 			bos.close();
 			fos.close();
 		} catch (IOException e)
@@ -262,8 +263,19 @@ public class EyetrackerInterface
 
     public void trigger(final String s)
     {
-        int triggerRate = Integer.parseInt(s);
-        if (triggerRate > 0) {
+        int triggerRate;
+        try {
+            triggerRate = Integer.parseInt(s);
+        } catch (NumberFormatException e)
+        {
+            triggerRate = 0;
+            info ("Could not parse triggerRate. Setting triggerRate to 0.");
+        }
+        if (triggerRate == 0) {
+            sendTrigger(0);
+        }
+        else //if (triggerRate > 0) 
+        {
             timer.scheduleAtFixedRate(new TimerTask() {
                 int triggerCount = 0;
                 @Override
@@ -280,9 +292,6 @@ public class EyetrackerInterface
                 }
             }, 0, triggerRate);
         }
-        else if (triggerRate == 0) {
-            sendTrigger(0);
-        }
 
     }
     
@@ -291,7 +300,7 @@ public class EyetrackerInterface
         try {
             send("ET_AUX \"" + triggerCount + ". Trigger from BoXS\"");
             send("ET_INC");
-            info("ONE Trigger send");
+            //info("ONE Trigger send");
             bos.write(("Trigger: " + System.nanoTime() + " " + triggerCount + "\n").getBytes("ASCII"));
         }
         catch (IOException e)
