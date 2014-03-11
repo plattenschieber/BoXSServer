@@ -20,6 +20,7 @@ public class EyetrackerInterface
 	private boolean calibrated;
 	private boolean started;
         private Timer timer;
+    private String filename;
 
 	public void initialise(String _host, int _portsend, int _portreceive)
 	{
@@ -189,7 +190,7 @@ public class EyetrackerInterface
 		if (started)
 			return;
 		started = true;
-		String filename = System.getProperty("user.home") + "/" + _filename;
+		filename = System.getProperty("user.home") + "/" + _filename;
 		info("start @" + frequency + " to " + filename);
 
 		// Open File
@@ -249,7 +250,7 @@ public class EyetrackerInterface
 		{
 			send("ET_EST");
 			send("ET_STP");			
-			send("ET_SAV \"C:\\eye_Data\\BoXS\\BoXS_Data_" + System.currentTimeMillis() + ".idf\" \"description\" \"username\" \"OVR\"");
+			send("ET_SAV \"C:\\eye_Data\\BoXS\\" + filename + ".idf\" \"description\" \"username\" \"OVR\"");
 			bos.close();
 			fos.close();
 		} catch (IOException e)
