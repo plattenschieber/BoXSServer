@@ -191,7 +191,7 @@ public class EyetrackerInterface
 			return;
 		started = true;
 		filename = _filename;
-        filename2 = System.getProperty("user.home") + "/" + _filename;
+        String filename2 = System.getProperty("user.home") + "/" + _filename;
 		info("start @" + frequency + " to " + filename2);
 
 		// Open File
