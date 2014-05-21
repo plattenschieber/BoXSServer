@@ -36,7 +36,7 @@ compileofflineserver:
 	cp src/SmtpSend.java src/server/SmtpSend.java
 	@echo "\nCompile BoXS"
 	rm -rf build
-	mkdir build
+	mkdir build  # Kommentar zum Test
 	$(JAVAC) -cp $(LIBS) -d build $(JAVAFILES) src/server/SmtpSend.java
 	groovyc -cp $(LIBS2):build -d build $(GROOVYFILES)
 	cp src/client/*.png build/client/
