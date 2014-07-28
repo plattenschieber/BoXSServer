@@ -4,8 +4,6 @@ import java.awt.*;
 import java.io.*;
 import java.net.*;
 import static util.Log.*;
-import java.util.Timer;
-import java.util.TimerTask;
 import javax.swing.JPanel;
 
 public class EyetrackerInterface
@@ -19,7 +17,6 @@ public class EyetrackerInterface
 	private boolean initialised;
 	private boolean calibrated;
 	private boolean started;
-        private Timer timer;
 
 	public void initialise(String _host, int _portsend, int _portreceive)
 	{
@@ -30,7 +27,6 @@ public class EyetrackerInterface
 		host = _host;
 		portreceive = _portreceive;
 		portsend = _portsend;
-                timer = new Timer();
 		info("ET-initialise: " + host + ", " + portsend + ", "
 				+ portreceive);
 
@@ -260,40 +256,16 @@ public class EyetrackerInterface
 		info("stopping done, data saved successfully");
 	}
 
-	public void trigger(final String s)
+	public void trigger(String s)
 	{
-                timer.scheduleAtFixedRate(new TimerTask() {
-                    int triggerCount = 0;
-                    @Override
-                    public void run() {
-                        // Your database code here
-                        try{
-                            info("triggercount " + triggerCount);
-                            send("ET_INC");
-                            send("ET_AUX \"" + triggerCount + ". Trigger from BoXS\"");
-                            bos.write(("Trigger: " + System.nanoTime() + " " + triggerCount + "\n").getBytes("ASCII"));
-                            triggerCount++;
-                        } catch (IOException e)
-                        {
-                            e.printStackTrace();    
-                        }
-
-                    }
-                }, 0, 500);
-                
-		try
-		{
-			bos.write((" ... " + s).getBytes("ASCII"));
-		} catch (UnsupportedEncodingException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//info("trigger done");
+        int triggerCount = 0;
+        info("triggercount " + triggerCount);
+        send("ET_INC");
+        send("ET_AUX \"" + triggerCount + ". Trigger from BoXS\"");
+        bos.write(("Trigger: " + System.nanoTime() + " " + triggerCount + "\n").getBytes("ASCII"));
+        triggerCount++;
+        info("trigger " + s);
+		info("trigger done");
 	}
 
 	public synchronized void send(String s) throws IOException
@@ -349,4 +321,3 @@ public class EyetrackerInterface
 			relaythread.interrupt();
 	}
 }
-
