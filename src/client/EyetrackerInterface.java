@@ -259,13 +259,11 @@ public class EyetrackerInterface
 	public void trigger(String s)
 	{
         int triggerCount = 0;
-        info("triggercount " + triggerCount);
+        info("trigger("+ triggerCount + "): ");
         send("ET_INC");
         send("ET_AUX \"" + triggerCount + ". Trigger from BoXS\"");
         bos.write(("Trigger: " + System.nanoTime() + " " + triggerCount + "\n").getBytes("ASCII"));
         triggerCount++;
-        info("trigger " + s);
-		info("trigger done");
 	}
 
 	public synchronized void send(String s) throws IOException
