@@ -3,3 +3,9 @@ export/
 *.jks
 *.jar
 *.zip
+*.lnk
+*.java~
+*.swp
+out/
+.idea/
+*.iml
