@@ -5,8 +5,6 @@ import java.io.ObjectOutputStream;
 import java.util.Vector;
 import static util.Log.*;
 
-import org.apache.ivy.ant.IvyArtifactReport;
-
 public class PerfectStrangerMatcher {
 
 	private static Vector<int[]> getPermutations(int subjectcount, int rolecount)
