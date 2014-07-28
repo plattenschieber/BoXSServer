@@ -2,3 +2,6 @@
 *.lnk
 *.java~
 *.swp
+out/
+.idea/
+*.iml
