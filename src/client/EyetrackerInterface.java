@@ -18,6 +18,7 @@ public class EyetrackerInterface
 	private boolean calibrated;
 	private boolean started;
     long startTime;
+    int triggerCount = 0;
 
 	public void initialise(String _host, int _portsend, int _portreceive)
 	{
@@ -258,9 +259,8 @@ public class EyetrackerInterface
 		info("stopping done, data saved successfully");
 	}
 
-	public void trigger(String s)
+	public void trigger(String s) throws IOException
 	{
-        int triggerCount = 0;
         info("trigger("+ triggerCount + "): ");
         send("ET_INC");
         send("ET_AUX \"" + triggerCount + ". Trigger from BoXS\"");
