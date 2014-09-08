@@ -9,6 +9,13 @@ JAVAC=javac -source 7 -target 7
 
 SERVERCMDLIN=clear&&java -Xmx500m -Djava.library.path=lib -cp build:$(LIBS) server.Server
 
+ENABLEMAIL=enableMail mail@server.de
+
+SMTPSERVER=server
+SMTPPORT=587
+EMAILADDRESS=emailadress
+EMAILPASSWORD=pwd
+
 all: offlineserver dropboxshare compileofficialserver
 
 compileofficialserver:
