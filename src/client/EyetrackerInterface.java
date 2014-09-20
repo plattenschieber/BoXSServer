@@ -264,13 +264,13 @@ public class EyetrackerInterface
 
     public void trigger(final String s) throws IOException
     {
-        int triggerRate = Integer.parseInt(s);
-        if (triggerRate == 0) {
+       // int triggerRate = Integer.parseInt(s);
+        //if (triggerRate == 0) {
             send("ET_AUX \" Trigger from BoXS\"");
             bos.write(("Trigger: " + System.nanoTime() + "\n").getBytes("ASCII"));
             //sendTrigger(0);
-        }
-        else //if (triggerRate > 0) 
+        //}
+        /* else //if (triggerRate > 0)
         {
             timer.scheduleAtFixedRate(new TimerTask() {
                 int triggerCount = 0;
@@ -287,7 +287,7 @@ public class EyetrackerInterface
                     }
                 }
             }, 0, triggerRate);
-        }
+        }*/
 
     }
     
