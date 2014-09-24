@@ -235,6 +235,9 @@ public class EyetrackerInterface
 		if (started)
 			return;
 		started = true;
+		
+		String filename = System.getProperty("user.home") + "/" + _filename;
+		info("start @" + frequency + " to " + filename);
 
 		if (this.trackerType == TrackerType.SMI)
 		{		
