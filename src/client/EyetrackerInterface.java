@@ -66,6 +66,23 @@ public class EyetrackerInterface
 				e.printStackTrace();
 			}
 		}
+		else // this.trackerType = EYEGAZE
+        {		
+            // Set Eyegaze control settings 
+            System.setProperty("jna.library.path", "C:\\Eyegaze\\");
+            lctigaze = LctigazeDll.INSTANCE;
+            pstEgControl = new _stEgControl();
+            //fill in the control structure values
+            pstEgControl.iNDataSetsInRingBuffer=5000;
+            pstEgControl.bTrackingActive=1;
+            pstEgControl.bEgCameraDisplayActive=0;		
+            pstEgControl.iScreenHeightPix=Toolkit.getDefaultToolkit().getScreenSize().height;
+            pstEgControl.iScreenWidthPix=Toolkit.getDefaultToolkit().getScreenSize().width;
+            pstEgControl.iEyeImagesScreenPos=1;
+            pstEgControl.iCommType=LctigazeDll.EG_COMM_TYPE_LOCAL;
+            lctigaze.EgInit(pstEgControl.byReference());
+        }
+		
 		info("initialise done");
 	}
 
