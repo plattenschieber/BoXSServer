@@ -38,11 +38,41 @@ public class EyetrackerInterface
 	{
 		return this.trackerType;
 	}
+	public void initialiseEyegaze()
 	{
 		if (initialised)
 			return;
-		initialised = true;
+		
+		
+		//print the data to stdout
+		int i=0;
+		while(i<100)
+		{
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
+			if (i%10 == 0) {
+				lctigaze.EgLogMark(pstEgControl);
+				t.setString(0, triggerData.replace("XX", String.valueOf(i)));
+				lctigaze.EgLogAppendText(pstEgControl, t);
+			}
+			//lctigaze.EgGetData(pstEgControl.byReference());
+			//System.out.println(pstEgControl.pstEgData);
+			System.out.println(i);
+			i++;
+
+		}
+		
+		
+		// it's initialised when it's initialised
+		initialised = true;
+		info("initialise done");
+
+	}
 
 	public void initialise(String _host, int _portsend, int _portreceive)
 	{
