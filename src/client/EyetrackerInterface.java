@@ -307,16 +307,21 @@ public class EyetrackerInterface
 
 	public void stop()
 	{
-		info("stopping eyetracker and saving data");
-		relaythread.interrupt();
-		try
+		info("stop");
+		
+		if (this.trackerType == TrackerType.SMI)
 		{
-			send("ET_EST");
-			send("ET_STP");			
-			send("ET_SAV \"C:\\eye_Data\\BoXS\\BoXS_Data_" + startTime + ".idf\" \"description\" \"username\" \"OVR\"");
-			bos.close();
-			fos.close();
-		} catch (IOException e)
+			relaythread.interrupt();
+			try
+			{
+				send("ET_EST");
+				bos.close();
+				fos.close();
+			} catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
 		{
 			e.printStackTrace();
 		}
