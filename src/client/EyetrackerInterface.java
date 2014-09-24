@@ -5,6 +5,8 @@ import java.io.*;
 import java.net.*;
 import static util.Log.*;
 import javax.swing.JPanel;
+import imd.eyetracking.lib._stEgControl;
+import imd.eyetracking.lib.Lctigaze.LctigazeDll;
 
 public class EyetrackerInterface
 {
