@@ -30,6 +30,15 @@ public class EyetrackerInterface
 	}
 
 	public void initialise(String _host, int _portsend, int _portreceive)
+	public void setTrackerType(TrackerType type)
+	{
+		this.trackerType = type;
+	}
+	
+	public TrackerType getTrackerType()
+	{
+		return this.trackerType;
+	}
 	{
 		if (initialised)
 			return;
