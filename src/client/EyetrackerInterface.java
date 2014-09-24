@@ -46,6 +46,9 @@ public class EyetrackerInterface
 
 	public void initialise(String _host, int _portsend, int _portreceive)
 	{
+		if (initialised)
+			return;
+		initialised = true;
 		
 		// different initialisations
 		if (this.trackerType == TrackerType.SMI)
