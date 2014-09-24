@@ -21,8 +21,13 @@ public class EyetrackerInterface
 	private boolean started;
     long startTime;
     int triggerCount = 0;
+	private TrackerType trackerType = TrackerType.SMI; // default tracker type, if not set explicitly
 	private LctigazeDll lctigaze;
 	private _stEgControl pstEgControl;
+	
+	public enum TrackerType {
+	    SMI, EYEGAZE
+	}
 
 	public void initialise(String _host, int _portsend, int _portreceive)
 	{
