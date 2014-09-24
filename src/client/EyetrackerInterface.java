@@ -322,11 +322,15 @@ public class EyetrackerInterface
 				e.printStackTrace();
 			}
 		}
+		else if (this.trackerType == TrackerType.EYEGAZE)
 		{
-			e.printStackTrace();
+            lctigaze.EgLogStop(pstEgControl);
+            lctigaze.EgLogFileClose(pstEgControl);
+            pstEgControl.bTrackingActive = 0;
+            lctigaze.EgExit(pstEgControl);
 		}
-
-		info("stopping done, data saved successfully");
+		
+		info("stop done");
 	}
 
 	public void trigger(String s) throws IOException
