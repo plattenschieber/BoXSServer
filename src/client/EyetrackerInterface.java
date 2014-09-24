@@ -221,7 +221,13 @@ public class EyetrackerInterface
 		calibrated = true;
 
 		info("calibrate");
-		new CalibrateThread(ca).start();
+		
+		if (this.trackerType == TrackerType.EYEGAZE)
+			lctigaze.EgCalibrate2(pstEgControl, 1);
+		else
+			new CalibrateThread(ca).start();
+		
+		info("calibrate done");
 	}
 
 	public void start(int frequency, String _filename) throws IOException
