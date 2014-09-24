@@ -43,25 +43,13 @@ public class EyetrackerInterface
 			return;
 		initialised = true;
 
-		host = _host;
-		portreceive = _portreceive;
-		portsend = _portsend;
-		info("ET-initialise: " + host + ", " + portsend + ", "
-				+ portreceive);
 
-		try
-		{
-			ourSocket = new DatagramSocket(new InetSocketAddress(host,
-					portreceive));
-		} catch (SocketException e)
 	public void initialise(String _host, int _portsend, int _portreceive)
 	{
 		
 		// different initialisations
 		if (this.trackerType == TrackerType.SMI)
 		{
-			e.printStackTrace();
-		}
 			host = _host;
 			portreceive = _portreceive;
 			portsend = _portsend;
