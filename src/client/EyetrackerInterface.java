@@ -333,13 +333,31 @@ public class EyetrackerInterface
 		info("stop done");
 	}
 
-	public void trigger(String s) throws IOException
+	public void trigger(String s)
 	{
-        info("trigger("+ triggerCount + "): ");
-        send("ET_INC");
-        send("ET_AUX \"" + triggerCount + ". Trigger from BoXS\"");
-        bos.write(("Trigger: " + System.nanoTime() + " " + triggerCount + "\n").getBytes("ASCII"));
-        triggerCount++;
+		info("trigger " + s);
+		
+		if (this.trackerType == TrackerType.EYEGAZE)
+		{
+			
+			
+		}
+		else if (this.trackerType == TrackerType.SMI)
+		{
+			try
+			{
+				bos.write((s + "\n").getBytes("ASCII"));
+			} catch (UnsupportedEncodingException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		info("trigger done");
 	}
 
 	public synchronized void send(String s) throws IOException
