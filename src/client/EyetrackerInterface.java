@@ -235,55 +235,54 @@ public class EyetrackerInterface
 		if (started)
 			return;
 		started = true;
-        startTime = System.currentTimeMillis();
-		String filename = "C:/eye_data/BoXS/" + _filename + "_" + startTime + ".boXtrack";
-		info("start eyetracking @" + frequency + " to " + filename);
 
-		// Open File
-		new File(filename).createNewFile();
-		fos = new FileOutputStream(filename);
-		bos = new BufferedOutputStream(fos);
-
-		// Start streaming
-		send("ET_FRM \"%TU %DX %DY %SX %SY\"");
-		send("ET_STR 120");
-
-		relaythread = new Thread() {
-			public void run()
-			{
-				String s;
-				try
+		if (this.trackerType == TrackerType.SMI)
+		{		
+			// Open File
+			new File(filename).createNewFile();
+			fos = new FileOutputStream(filename);
+			bos = new BufferedOutputStream(fos);
+	
+			// Start streaming
+			send("ET_FRM \"%DX %DY %SX %SY\"");
+			send("ET_STR 120");
+	
+			relaythread = new Thread() {
+				public void run()
 				{
-					while (!isInterrupted())
+					String s;
+					try
 					{
-						s = receive();
-						if (s != null)
+						while (!isInterrupted())
 						{
-							String[] parameters = s.split("[\t ]");
-							//info(s);
-							if (parameters[0].equals("ET_SPL"))
+							s = receive();
+							if (s != null)
 							{
-								try
+								String[] parameters = s.split("[\t ]");
+								info(s);
+								if (parameters[0].equals("ET_SPL"))
 								{
-									bos.write((s + "\n").getBytes("ASCII"));
-								} catch (UnsupportedEncodingException e)
-								{
-									e.printStackTrace();
-								} catch (IOException e)
-								{
-									e.printStackTrace();
+									try
+									{
+										bos.write((s + "\n").getBytes("ASCII"));
+									} catch (UnsupportedEncodingException e)
+									{
+										e.printStackTrace();
+									} catch (IOException e)
+									{
+										e.printStackTrace();
+									}
 								}
 							}
 						}
+					} catch (Exception e)
+					{
+						e.printStackTrace();
 					}
-				} catch (Exception e)
-				{
-					e.printStackTrace();
-				}
+				};
 			};
-		};
-		relaythread.start();
-		send("ET_REC");
+			relaythread.start();
+		}
 		info("start done");
 
 	}
