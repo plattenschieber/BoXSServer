@@ -286,6 +286,21 @@ public class EyetrackerInterface
 			};
 			relaythread.start();
 		}
+		else if (this.trackerType == TrackerType.EYEGAZE)
+		{
+			filename = System.getProperty("user.home").toString() + "/testJeronim.log";
+			String mode = "w";
+			String triggerData = "Trigger XX";
+			Pointer m = new Memory(mode.length() + 1);
+			Pointer f = new Memory(filename.length() +1 );
+			Pointer t = new Memory(triggerData.length()+ 1);
+			m.setString(0, mode);
+			f.setString(0, filename);
+			lctigaze.EgLogFileOpen(pstEgControl, f,m);
+			lctigaze.EgLogWriteColumnHeader(pstEgControl);
+			lctigaze.EgLogStart(pstEgControl);
+		}
+		
 		info("start done");
 
 	}
