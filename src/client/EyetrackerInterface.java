@@ -21,6 +21,8 @@ public class EyetrackerInterface
 	private boolean started;
     long startTime;
     int triggerCount = 0;
+	private LctigazeDll lctigaze;
+	private _stEgControl pstEgControl;
 
 	public void initialise(String _host, int _portsend, int _portreceive)
 	{
