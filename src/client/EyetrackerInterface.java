@@ -38,11 +38,6 @@ public class EyetrackerInterface
 	{
 		return this.trackerType;
 	}
-	{
-		if (initialised)
-			return;
-		initialised = true;
-
 
 	public void initialise(String _host, int _portsend, int _portreceive)
 	{
