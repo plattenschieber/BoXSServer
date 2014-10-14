@@ -1,12 +1,16 @@
 package client;
 
+import com.sun.jna.Memory;
+import com.sun.jna.Pointer;
+import imd.eyetracking.lib.Lctigaze.LctigazeDll;
+import imd.eyetracking.lib._stEgControl;
+
+import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.net.*;
-import static util.Log.*;
-import javax.swing.JPanel;
-import imd.eyetracking.lib._stEgControl;
-import imd.eyetracking.lib.Lctigaze.LctigazeDll;
+
+import static util.Log.info;
 
 public class EyetrackerInterface
 {
