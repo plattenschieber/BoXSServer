@@ -1,7 +1,6 @@
 build/
 export/
 *.jks
-*.jar
 *.zip
 *.lnk
 *.java~
