@@ -42,6 +42,7 @@ public class EyetrackerInterface
                 e.printStackTrace();
             }
 
+	    // and send some trigger to data file
             if (i%10 == 0) {
                 lctigaze.EgLogMark(pstEgControl);
                 t.setString(0, triggerData.replace("XX", String.valueOf(i)));
