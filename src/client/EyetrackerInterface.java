@@ -5,6 +5,9 @@ import java.io.*;
 import java.net.*;
 import static util.Log.*;
 import javax.swing.JPanel;
+import imd.eyetracking.lib.Lctigaze.LctigazeDll;
+import imd.eyetracking.lib._stEgControl;
+import imd.eyetracking.lib._stEgData;
 
 public class EyetrackerInterface
 {
@@ -19,6 +22,42 @@ public class EyetrackerInterface
 	private boolean started;
     long startTime;
     int triggerCount = 0;
+    private LctigazeDll lctigaze;
+    private _stEgControl pstEgControl;
+
+
+    public void initialiseEyegaze()
+    {
+        if (initialised)
+            return;
+
+        //print the data to stdout
+        int i=0;
+        while(i<100)
+        {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+            if (i%10 == 0) {
+                lctigaze.EgLogMark(pstEgControl);
+                t.setString(0, triggerData.replace("XX", String.valueOf(i)));
+                lctigaze.EgLogAppendText(pstEgControl, t);
+            }
+            //lctigaze.EgGetData(pstEgControl.byReference());
+            //System.out.println(pstEgControl.pstEgData);
+            System.out.println(i);
+            i++;
+
+        }
+
+        // it's initialised when it's initialised
+        initialised = true;
+        info("initialise done");
+    }
 
 	public void initialise(String _host, int _portsend, int _portreceive)
 	{
@@ -41,8 +80,17 @@ public class EyetrackerInterface
 			e.printStackTrace();
 		}
 
+        // try some eyegaze stuff
+
+        System.setProperty("jna.library.path", "C:\\Users\\iView X\\Desktop\\JeroTestumgebung\\Entwicklung\\EyetrackingAPI\\Eyegaze\\");
+        lctigaze= LctigazeDll.INSTANCE;
+        //new control structure
+        pstEgControl = new _stEgControl();
+
+
 		info("initialise done");
 	}
+
 
 	class CalibrateThread extends Thread
 	{
@@ -261,7 +309,7 @@ public class EyetrackerInterface
 
 	public void trigger(String s) throws IOException
 	{
-        info("trigger("+ triggerCount + "): ");
+        info("trigger(" + triggerCount + "): ");
         send("ET_INC");
         send("ET_AUX \"" + triggerCount + ". Trigger from BoXS\"");
         bos.write(("Trigger: " + System.nanoTime() + " " + triggerCount + "\n").getBytes("ASCII"));
