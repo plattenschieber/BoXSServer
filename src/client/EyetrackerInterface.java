@@ -21,7 +21,6 @@ public class EyetrackerInterface
 	private BufferedOutputStream bos;
 	private Thread relaythread;
 	private boolean initialised;
-	private boolean calibrated;
 	private boolean started;
     long startTime;
     int triggerCount = 0;
@@ -65,7 +64,7 @@ public class EyetrackerInterface
 				e.printStackTrace();
 			}
 		}
-		else // this.trackerType = EYEGAZE
+		else if (this.trackerType == TrackerType.EYEGAZE)
         {		
             // Set Eyegaze control settings 
             System.setProperty("jna.library.path", "C:\\Eyegaze\\");
@@ -81,153 +80,13 @@ public class EyetrackerInterface
             pstEgControl.iCommType=LctigazeDll.EG_COMM_TYPE_LOCAL;
             lctigaze.EgInit(pstEgControl.byReference());
         }
+        else // we can't initialise a nonexisting eyetracker 
+        {
+            }
 		
 		info("initialise done");
 	}
 
-	class CalibrateThread extends Thread
-	{
-		private final ClientApplet ca;
-		private int[][] calibrationpoints;
-		private int currentcalibrationpoint;
-
-		public CalibrateThread(ClientApplet ca) {
-			this.ca = ca;
-		}
-
-		@Override
-		public void run()
-		{
-			super.run();
-			ca.remove(ca.mainScrollPanel);
-
-			calibrationpoints = new int[100][2];
-			currentcalibrationpoint = 0;
-			JPanel pnl = null;
-
-			try
-			{
-				send("ET_CPA 2 0");
-				clear();
-				send("ET_CAL 5");
-				String r;
-
-				while ((r = receive()) != null)
-				{
-					String[] parameters = r.split("[\t ]");
-					if (parameters[0].equals("ET_PNT"))
-					{
-						int num = Integer.parseInt(parameters[1]);
-						calibrationpoints[num][0] = Integer
-								.parseInt(parameters[2]);
-						calibrationpoints[num][1] = Integer
-								.parseInt(parameters[3]);
-					}
-					if (parameters[0].equals("ET_CHG"))
-					{
-						currentcalibrationpoint = Integer
-								.parseInt(parameters[1]);
-					}
-				}
-
-				// Panel erzeugen
-				pnl = new JPanel() {
-					@Override
-					protected void paintComponent(Graphics g)
-					{
-						super.paintComponent(g);
-						int x = calibrationpoints[currentcalibrationpoint][0], y = calibrationpoints[currentcalibrationpoint][1];
-						info("show point "
-										+ currentcalibrationpoint + " @ " + x
-										+ "," + y);
-
-						g.setColor(Color.red);
-						((Graphics2D) g).setStroke(new BasicStroke(3));
-						g.drawOval(x - 10, y - 10, 20, 20);
-					}
-				};
-				ca.add(pnl, BorderLayout.CENTER);
-				ca.validate();
-				ca.invalidate();
-				ca.repaint();
-
-				boolean finished = false;
-
-				main: while (!finished)
-				{
-					try
-					{
-						Thread.sleep(1500);
-					} catch (InterruptedException e)
-					{
-						e.printStackTrace();
-					}
-
-					send("ET_ACC");
-
-					try
-					{
-						Thread.sleep(1500);
-					} catch (InterruptedException e)
-					{
-						e.printStackTrace();
-					}
-
-					String s;
-					while ((s = receive()) != null)
-					{
-						String[] parameters = s.split("[\t ]");
-
-						if (parameters[0].equals("ET_CHG"))
-						{
-							currentcalibrationpoint = Integer
-									.parseInt(parameters[1]);
-							pnl.repaint();
-							continue main;
-						} else if (parameters[0].equals("ET_FIN"))
-						{
-							info("fertig");
-							finished = true;
-						}
-					}
-				}
-			}
-
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			} finally
-			{
-
-				if (pnl != null)
-					ca.remove(pnl);
-				ca.add(ca.mainScrollPanel);
-				ca.validate();
-				ca.invalidate();
-				ca.repaint();
-
-				info("calibrate done");
-
-			}
-
-		}
-	}
-
-	public void calibrate(ClientApplet ca)
-	{
-		if (calibrated)
-			return;
-		calibrated = true;
-
-		info("calibrate");
-		
-		if (this.trackerType == TrackerType.EYEGAZE)
-			lctigaze.EgCalibrate2(pstEgControl, 1);
-		else
-			new CalibrateThread(ca).start();
-		
-		info("calibrate done");
-	}
 
 	public void start(int frequency, String _filename) throws IOException
 	{
