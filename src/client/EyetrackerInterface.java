@@ -170,6 +170,8 @@ public class EyetrackerInterface
         switch(this.trackerType)
 		{
             case SMI:
+                    sendSMI("ET_INC");
+                    sendSMI("ET_REM \"" + s + "\"");
                 break;
             case EYEGAZE:
                 break;
