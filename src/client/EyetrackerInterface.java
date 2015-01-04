@@ -25,6 +25,7 @@ public class EyetrackerInterface
 	private LctigazeDll lctigaze;
 	private _stEgControl pstEgControl;
     private CharsetEncoder encoder;
+    private String filename;
 	
     // do some basic initialisation on construction
     public EyetrackerInterface()
@@ -106,7 +107,7 @@ public class EyetrackerInterface
 			return;
 		started = true;
 		
-		String filename = System.getProperty("user.home") + "/" + _filename;
+		filename = System.getProperty("user.home") + "/" + _filename;
 
         switch(this.trackerType)
 		{
