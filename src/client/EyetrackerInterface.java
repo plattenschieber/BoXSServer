@@ -113,6 +113,7 @@ public class EyetrackerInterface
 		{
             case SMI:
                 info("start @" + frequency + " to " + filename);
+                sendSMI("ET_REC");
                 break;
 		    case EYEGAZE:
                 // setup parameters
