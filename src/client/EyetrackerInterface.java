@@ -115,7 +115,7 @@ public class EyetrackerInterface
                 info("start @" + frequency + " to " + filename);
                 break;
 		    case EYEGAZE:
-                filename = System.getProperty("user.home").toString() + "/testJeronim.log";
+                // setup parameters
                 String mode = "w";
                 String triggerData = "Trigger XX";
                 ByteBuffer f = ByteBuffer.allocate(filename.length() + 1);
