@@ -105,44 +105,7 @@ public class EyetrackerInterface
 			bos = new BufferedOutputStream(fos);
 	
 			// Start streaming
-			send("ET_FRM \"%DX %DY %SX %SY\"");
-			send("ET_STR 120");
 	
-			relaythread = new Thread() {
-				public void run()
-				{
-					String s;
-					try
-					{
-						while (!isInterrupted())
-						{
-							s = receive();
-							if (s != null)
-							{
-								String[] parameters = s.split("[\t ]");
-								info(s);
-								if (parameters[0].equals("ET_SPL"))
-								{
-									try
-									{
-										bos.write((s + "\n").getBytes("ASCII"));
-									} catch (UnsupportedEncodingException e)
-									{
-										e.printStackTrace();
-									} catch (IOException e)
-									{
-										e.printStackTrace();
-									}
-								}
-							}
-						}
-					} catch (Exception e)
-					{
-						e.printStackTrace();
-					}
-				};
-			};
-			relaythread.start();
 		}
 		else if (this.trackerType == TrackerType.EYEGAZE)
 		{
