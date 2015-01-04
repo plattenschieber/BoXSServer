@@ -189,7 +189,17 @@ public class EyetrackerInterface
 
 	public void destroy()
 	{
-		ourSocket.close();
-        lctigaze.EgExit(pstEgControl.byReference());
+		// only allocated ressources need to be freed
+        switch(this.trackerType)
+		{
+            case SMI:
+                ourSocket.close();
+                break;
+            case EYEGAZE:
+                lctigaze.EgExit(pstEgControl.byReference());
+                break;
+            default:
+                break;
+        }
 	}
 }
