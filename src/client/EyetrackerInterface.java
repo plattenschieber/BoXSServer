@@ -143,7 +143,8 @@ public class EyetrackerInterface
             case SMI:
                 try
                 {
-                    sendSMI("ET_EST");
+                    sendSMI("ET_STP");			
+                    sendSMI("ET_SAV \"C:\\eye_Data\\BoXS\\BoXS_Data_" + System.currentTimeMillis() + ".idf\" \"description\" \"username\" \"OVR\""); 
                 } catch (IOException e)
                 {
                     e.printStackTrace();
