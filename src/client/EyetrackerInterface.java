@@ -21,7 +21,6 @@ public class EyetrackerInterface
 	private boolean initialised;
 	private boolean started;
     long startTime;
-    int triggerCount = 0;
 	private TrackerType trackerType; 
 	private LctigazeDll lctigaze;
 	private _stEgControl pstEgControl;
