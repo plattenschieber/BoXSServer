@@ -1,7 +1,8 @@
 package client;
 
-import com.sun.jna.Memory;
-import com.sun.jna.Pointer;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.CharsetEncoder;
 import imd.eyetracking.lib.Lctigaze.LctigazeDll;
 import imd.eyetracking.lib._stEgControl;
 
@@ -24,6 +25,7 @@ public class EyetrackerInterface
 	private TrackerType trackerType; 
 	private LctigazeDll lctigaze;
 	private _stEgControl pstEgControl;
+    private CharsetEncoder encoder;
 	
     // do some basic initialisation on construction
     public EyetrackerInterface()
@@ -116,12 +118,12 @@ public class EyetrackerInterface
                 filename = System.getProperty("user.home").toString() + "/testJeronim.log";
                 String mode = "w";
                 String triggerData = "Trigger XX";
-                Pointer m = new Memory(mode.length() + 1);
-                Pointer f = new Memory(filename.length() +1 );
-                Pointer t = new Memory(triggerData.length()+ 1);
-                m.setString(0, mode);
-                f.setString(0, filename);
-                lctigaze.EgLogFileOpen(pstEgControl, f,m);
+                ByteBuffer f = ByteBuffer.allocate(filename.length() + 1);
+                ByteBuffer m = ByteBuffer.allocate(mode.length() + 1);
+                f = encoder.encode(CharBuffer.wrap(filename));
+                m = encoder.encode(CharBuffer.wrap(mode));
+                // transfer parameters to eyetracker API
+                lctigaze.EgLogFileOpen(pstEgControl, f, m);
                 lctigaze.EgLogWriteColumnHeader(pstEgControl);
                 lctigaze.EgLogStart(pstEgControl);
                 break;
