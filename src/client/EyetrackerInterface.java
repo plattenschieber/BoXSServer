@@ -174,6 +174,12 @@ public class EyetrackerInterface
                     sendSMI("ET_REM \"" + s + "\"");
                 break;
             case EYEGAZE:
+                try {
+                    lctigaze.EgLogAppendText(pstEgControl, encoder.encode(CharBuffer.wrap(s)));
+                } 
+                catch (IOException e){ 
+                    e.printStackTrace();
+                }
                 break;
             default:
                 break;
