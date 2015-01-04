@@ -143,7 +143,7 @@ public class EyetrackerInterface
             case SMI:
                 try
                 {
-                    send("ET_EST");
+                    sendSMI("ET_EST");
                 } catch (IOException e)
                 {
                     e.printStackTrace();
@@ -179,7 +179,7 @@ public class EyetrackerInterface
 		info("trigger done");
 	}
 
-	public void send(String s) throws IOException
+	public void sendSMI(String s) throws IOException
 	{
 		byte[] buf = (s + "\n").getBytes("ASCII");
 		ourSocket.send(new DatagramPacket(buf, buf.length,
