@@ -101,7 +101,7 @@ public class EyetrackerInterface
 	}
 
 
-	public void start(int frequency, String _filename) throws IOException
+	public void start(int frequency, String _filename) 
 	{
 		if (started)
 			return;
@@ -120,8 +120,13 @@ public class EyetrackerInterface
                 String triggerData = "Trigger XX";
                 ByteBuffer f = ByteBuffer.allocate(filename.length() + 1);
                 ByteBuffer m = ByteBuffer.allocate(mode.length() + 1);
-                f = encoder.encode(CharBuffer.wrap(filename));
-                m = encoder.encode(CharBuffer.wrap(mode));
+                try {
+                    f = encoder.encode(CharBuffer.wrap(filename));
+                    m = encoder.encode(CharBuffer.wrap(mode));
+                }
+                catch (IOException e){
+                    e.printStackTrace();
+                }
                 // transfer parameters to eyetracker API
                 lctigaze.EgLogFileOpen(pstEgControl, f, m);
                 lctigaze.EgLogWriteColumnHeader(pstEgControl);
@@ -141,14 +146,8 @@ public class EyetrackerInterface
         switch(this.trackerType)
 		{
             case SMI:
-                try
-                {
                     sendSMI("ET_STP");			
                     sendSMI("ET_SAV \"C:\\eye_Data\\BoXS\\BoXS_Data_" + System.currentTimeMillis() + ".idf\" \"description\" \"username\" \"OVR\""); 
-                } catch (IOException e)
-                {
-                    e.printStackTrace();
-                }
                 break;
 		    case EYEGAZE:
                 lctigaze.EgLogStop(pstEgControl);
@@ -180,11 +179,16 @@ public class EyetrackerInterface
 		info("trigger done");
 	}
 
-	public void sendSMI(String s) throws IOException
+	public void sendSMI(String s)
 	{
-		byte[] buf = (s + "\n").getBytes("ASCII");
-		ourSocket.send(new DatagramPacket(buf, buf.length,
+        try {
+            byte[] buf = (s + "\n").getBytes("ASCII");
+            ourSocket.send(new DatagramPacket(buf, buf.length,
 				new InetSocketAddress(host, portsend)));
+        } 
+        catch (IOException e) {
+            e.printStackTrace();
+        }
 		info("Sent: " + s);
 	}
 
