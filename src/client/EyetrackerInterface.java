@@ -82,7 +82,10 @@ public class EyetrackerInterface
         }
         else // we can't initialise a nonexisting eyetracker 
         {
-            }
+            //error "Please choose an Eyetracker via 'EyetrackerInitialise'";
+            initialised = false; 
+            return;
+        }
 		
 		info("initialise done");
 	}
