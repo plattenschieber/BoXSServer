@@ -108,11 +108,11 @@ public class EyetrackerInterface
 		started = true;
 		
 		String filename = System.getProperty("user.home") + "/" + _filename;
-		info("start @" + frequency + " to " + filename);
 
         switch(this.trackerType)
 		{
             case SMI:
+                info("start @" + frequency + " to " + filename);
                 break;
 		    case EYEGAZE:
                 filename = System.getProperty("user.home").toString() + "/testJeronim.log";
