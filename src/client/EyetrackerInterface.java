@@ -35,7 +35,7 @@ public class EyetrackerInterface
     }
 
 	public enum TrackerType {
-	    SMI, EYEGAZE
+	    SMI, EYEGAZE, UNKNOWN
 	}
 
 	public void setTrackerType(TrackerType type)
