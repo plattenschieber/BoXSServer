@@ -17,9 +17,6 @@ public class EyetrackerInterface
 	private DatagramSocket ourSocket;
 	private String host;
 	private int portreceive, portsend;
-	private FileOutputStream fos;
-	private BufferedOutputStream bos;
-	private Thread relaythread;
 	private boolean initialised;
 	private boolean started;
     long startTime;
@@ -113,11 +110,6 @@ public class EyetrackerInterface
 
 		if (this.trackerType == TrackerType.SMI)
 		{		
-			// Open File
-			new File(filename).createNewFile();
-			fos = new FileOutputStream(filename);
-			bos = new BufferedOutputStream(fos);
-	
 			// Start streaming
 	
 		}
@@ -146,12 +138,9 @@ public class EyetrackerInterface
 		
 		if (this.trackerType == TrackerType.SMI)
 		{
-			relaythread.interrupt();
 			try
 			{
 				send("ET_EST");
-				bos.close();
-				fos.close();
 			} catch (IOException e)
 			{
 				e.printStackTrace();
@@ -179,18 +168,6 @@ public class EyetrackerInterface
 		}
 		else if (this.trackerType == TrackerType.SMI)
 		{
-			try
-			{
-				bos.write((s + "\n").getBytes("ASCII"));
-			} catch (UnsupportedEncodingException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 		info("trigger done");
 	}
@@ -203,48 +180,8 @@ public class EyetrackerInterface
 		info("Sent: " + s);
 	}
 
-	public synchronized void clear() throws IOException
-	{
-		while (receive() != null)
-			;
-	}
-
-	public synchronized String receive() throws IOException
-	{
-		byte[] buf = new byte[1024];
-		DatagramPacket dp = new DatagramPacket(buf, buf.length);
-		ourSocket.setSoTimeout(5);
-		try{
-			ourSocket.receive(dp);
-			String data = new String(buf, 0, dp.getLength()).trim();
-			//info("Received: " + data);
-			return data;
-		}catch(SocketTimeoutException ste)
-		{
-			return null;
-		}
-	}
-
 	public void destroy()
 	{
-		try
-		{
-			if (bos != null)
-				bos.close();
-		} catch (IOException e)
-		{
-			;
-		}
-		try
-		{
-			if (fos != null)
-				fos.close();
-		} catch (IOException e)
-		{
-			;
-		}
 		ourSocket.close();
-		if (relaythread != null)
-			relaythread.interrupt();
 	}
 }
