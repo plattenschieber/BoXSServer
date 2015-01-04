@@ -1,7 +1,6 @@
 build/
 export/
 *.jks
-*.jar
 *.zip
 *.lnk
 *.java~
@@ -9,3 +8,4 @@ export/
 out/
 .idea/
 *.iml
+*.jar

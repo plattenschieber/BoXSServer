@@ -822,13 +822,22 @@ public class SubjectPanel extends JPanel
 					if (eyetrackerInterface!=null)
 						eyetrackerInterface.destroy();
 					eyetrackerInterface=new EyetrackerInterface();
-					eyetrackerInterface.initialise(stripQuotation(paramparts.get(0)), 
+                    
+                    // do some simple function overloading to ease handling for user 
+                    if (paramparts.size()==0)
+                        eyetrackerInterface.initialise("",0,0);
+                    else 
+                        eyetrackerInterface.initialise(stripQuotation(paramparts.get(0)), 
 							Integer.parseInt(stripQuotation(paramparts.get(1))), 
 							Integer.parseInt(stripQuotation(paramparts.get(2))));
 				}
 				else if (command.equals("eyetrackerStart"))
 				{
-					eyetrackerInterface.start(Integer.parseInt(stripQuotation(paramparts.get(0))),
+                    // do some simple function overloading to ease handling for user 
+                    if (paramparts.size()==0)
+                        eyetrackerInterface.start(0,"");
+                    else 
+                        eyetrackerInterface.start(Integer.parseInt(stripQuotation(paramparts.get(0))),
 							stripQuotation(paramparts.get(1)));
 				}
 				else if (command.equals("eyetrackerStop"))
@@ -841,7 +850,7 @@ public class SubjectPanel extends JPanel
 				}				
 				else if (command.equals("eyetrackerCalibrate"))
 				{
-					eyetrackerInterface.calibrate(clientApplet);
+                    info("Deprecated. We won't use calibration inside BoXS in further versions");
 				}
 
 			}

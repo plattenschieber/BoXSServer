@@ -392,7 +392,7 @@ public class LexerParser {
 						hasVarPar=true
 					case ["display","video","style","button","manualLayout","automaticLayout","clear",
 						"enableMouseTracking","disableMouseTracking",
-						"eyetrackerInitialise","eyetrackerCalibrate","eyetrackerStart",
+						"eyetrackerInitialise","eyetrackerStart",
 						"eyetrackerStop","eyetrackerTrigger","recordKeys"]:
 						Vector<Function> functions=new Vector<Function>();
 						paramparts.eachWithIndex { s,n ->
