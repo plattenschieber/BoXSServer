@@ -172,7 +172,7 @@ public class EyetrackerInterface
 		info("trigger done");
 	}
 
-	public synchronized void send(String s) throws IOException
+	public void send(String s) throws IOException
 	{
 		byte[] buf = (s + "\n").getBytes("ASCII");
 		ourSocket.send(new DatagramPacket(buf, buf.length,
