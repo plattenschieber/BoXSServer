@@ -55,42 +55,47 @@ public class EyetrackerInterface
 		initialised = true;
 		
 		// different initialisations
-		if (this.trackerType == TrackerType.SMI)
+        switch(this.trackerType)
 		{
-			host = _host;
-			portreceive = _portreceive;
-			portsend = _portsend;
-			info("ET-initialise: " + host + ", " + portsend + ", " + portreceive);
+            case SMI:
+                host = _host;
+                portreceive = _portreceive;
+                portsend = _portsend;
+                info("initialise SMI: " + host + ", " + portsend + ", " + portreceive);
 
-			try
-			{
-				ourSocket = new DatagramSocket(new InetSocketAddress(host,portreceive));
-			} catch (SocketException e)
-			{
-				e.printStackTrace();
-			}
-		}
-		else if (this.trackerType == TrackerType.EYEGAZE)
-        {		
-            // Set Eyegaze control settings 
-            System.setProperty("jna.library.path", "C:\\Eyegaze\\");
-            lctigaze = LctigazeDll.INSTANCE;
-            pstEgControl = new _stEgControl();
-            //fill in the control structure values
-            pstEgControl.iNDataSetsInRingBuffer=5000;
-            pstEgControl.bTrackingActive=1;
-            pstEgControl.bEgCameraDisplayActive=0;		
-            pstEgControl.iScreenHeightPix=Toolkit.getDefaultToolkit().getScreenSize().height;
-            pstEgControl.iScreenWidthPix=Toolkit.getDefaultToolkit().getScreenSize().width;
-            pstEgControl.iEyeImagesScreenPos=1;
-            pstEgControl.iCommType=LctigazeDll.EG_COMM_TYPE_LOCAL;
-            lctigaze.EgInit(pstEgControl.byReference());
-        }
-        else // we can't initialise a nonexisting eyetracker 
-        {
-            //error "Please choose an Eyetracker via 'EyetrackerInitialise'";
-            initialised = false; 
-            return;
+                try
+                {
+                    ourSocket = new DatagramSocket(new InetSocketAddress(host,portreceive));
+                } catch (SocketException e)
+                {
+                    e.printStackTrace();
+                }
+                break;
+
+            case EYEGAZE:
+                // Set Eyegaze control settings 
+                // TODO files should be in same folder?! otherwise documentation is needed! 
+                System.setProperty("jna.library.path", "C:\\Eyegaze\\");
+                lctigaze = LctigazeDll.INSTANCE;
+                pstEgControl = new _stEgControl();
+                //fill in the control structure values
+                pstEgControl.iNDataSetsInRingBuffer=5000;
+                pstEgControl.bTrackingActive=1;
+                pstEgControl.bEgCameraDisplayActive=0;		
+                pstEgControl.iScreenHeightPix=Toolkit.getDefaultToolkit().getScreenSize().height;
+                pstEgControl.iScreenWidthPix=Toolkit.getDefaultToolkit().getScreenSize().width;
+                pstEgControl.iEyeImagesScreenPos=1;
+                pstEgControl.iCommType=LctigazeDll.EG_COMM_TYPE_LOCAL;
+                lctigaze.EgInit(pstEgControl.byReference());
+                info("initialise Eyegaze");
+                break;
+
+            // we can't initialise a nonexisting eyetracker
+            case UNKNOWN:
+            default: 
+                info("Please choose an Eyetracker via 'EyetrackerInitialise'");
+                initialised = false; 
+                return;
         }
 		
 		info("initialise done");
