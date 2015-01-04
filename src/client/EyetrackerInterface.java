@@ -183,5 +183,6 @@ public class EyetrackerInterface
 	public void destroy()
 	{
 		ourSocket.close();
+        lctigaze.EgExit(pstEgControl.byReference());
 	}
 }
