@@ -841,7 +841,7 @@ public class SubjectPanel extends JPanel
 				}				
 				else if (command.equals("eyetrackerCalibrate"))
 				{
-					eyetrackerInterface.calibrate(clientApplet);
+                    info("Deprecated. We won't use calibration inside BoXS in further versions");
 				}
 
 			}
