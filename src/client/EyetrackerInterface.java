@@ -108,50 +108,53 @@ public class EyetrackerInterface
 		String filename = System.getProperty("user.home") + "/" + _filename;
 		info("start @" + frequency + " to " + filename);
 
-		if (this.trackerType == TrackerType.SMI)
-		{		
-			// Start streaming
-	
-		}
-		else if (this.trackerType == TrackerType.EYEGAZE)
+        switch(this.trackerType)
 		{
-			filename = System.getProperty("user.home").toString() + "/testJeronim.log";
-			String mode = "w";
-			String triggerData = "Trigger XX";
-			Pointer m = new Memory(mode.length() + 1);
-			Pointer f = new Memory(filename.length() +1 );
-			Pointer t = new Memory(triggerData.length()+ 1);
-			m.setString(0, mode);
-			f.setString(0, filename);
-			lctigaze.EgLogFileOpen(pstEgControl, f,m);
-			lctigaze.EgLogWriteColumnHeader(pstEgControl);
-			lctigaze.EgLogStart(pstEgControl);
+            case SMI:
+                break;
+		    case EYEGAZE:
+                filename = System.getProperty("user.home").toString() + "/testJeronim.log";
+                String mode = "w";
+                String triggerData = "Trigger XX";
+                Pointer m = new Memory(mode.length() + 1);
+                Pointer f = new Memory(filename.length() +1 );
+                Pointer t = new Memory(triggerData.length()+ 1);
+                m.setString(0, mode);
+                f.setString(0, filename);
+                lctigaze.EgLogFileOpen(pstEgControl, f,m);
+                lctigaze.EgLogWriteColumnHeader(pstEgControl);
+                lctigaze.EgLogStart(pstEgControl);
+                break;
+            default:
+                break;
 		}
 		
 		info("start done");
-
 	}
 
 	public void stop()
 	{
-		info("stop");
+		info("stop eyetracker");
 		
-		if (this.trackerType == TrackerType.SMI)
+        switch(this.trackerType)
 		{
-			try
-			{
-				send("ET_EST");
-			} catch (IOException e)
-			{
-				e.printStackTrace();
-			}
-		}
-		else if (this.trackerType == TrackerType.EYEGAZE)
-		{
-            lctigaze.EgLogStop(pstEgControl);
-            lctigaze.EgLogFileClose(pstEgControl);
-            pstEgControl.bTrackingActive = 0;
-            lctigaze.EgExit(pstEgControl);
+            case SMI:
+                try
+                {
+                    send("ET_EST");
+                } catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+                break;
+		    case EYEGAZE:
+                lctigaze.EgLogStop(pstEgControl);
+                lctigaze.EgLogFileClose(pstEgControl);
+                pstEgControl.bTrackingActive = 0;
+                lctigaze.EgExit(pstEgControl);
+                break;
+            default:
+                break;
 		}
 		
 		info("stop done");
@@ -161,14 +164,16 @@ public class EyetrackerInterface
 	{
 		info("trigger " + s);
 		
-		if (this.trackerType == TrackerType.EYEGAZE)
+        switch(this.trackerType)
 		{
-			
-			
+            case SMI:
+                break;
+            case EYEGAZE:
+                break;
+            default:
+                break;
 		}
-		else if (this.trackerType == TrackerType.SMI)
-		{
-		}
+
 		info("trigger done");
 	}
 
