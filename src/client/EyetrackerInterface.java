@@ -239,4 +239,49 @@ public class EyetrackerInterface
                 break;
         }
 	}
+
+    private void ListenerLoop()
+    {
+        boolean isRunning = true;
+        StreamReader reader = new StreamReader(socket.GetStream());
+
+        while (isRunning)
+        {
+            String response = "";
+
+            try
+            {
+                response = reader.ReadLine();
+
+                JObject jObject = JObject.Parse(response);
+
+                Packet p = new Packet();
+                p.RawData = json;
+
+                p.Category = (String)jObject["category"];
+                p.Request = (String)jObject["request"];
+                p.StatusCode = (String)jObject["statuscode"];
+
+                JToken values = jObject.GetValue("values");
+
+                if (values != null)
+                {
+                    /* 
+                       We can further parse the Key-Value pairs from the values here.
+                       For example using a switch on the Category and/or Request 
+                       to create Gaze Data or CalibrationResult objects and pass these 
+                       via separate events.
+                       */
+                }
+
+                // Raise event with the data
+                if(OnData != null)
+                    OnData(this, new ReceivedDataEventArgs(p));
+            }
+            catch (Exception ex)
+            {
+                info("Error while reading response: " + ex.Message);
+            }
+        }
+    }
 }
