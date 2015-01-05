@@ -116,7 +116,7 @@ public class EyetrackerInterface
 		{
             case SMI:
                 info("start @" + frequency + " to " + filename);
-                sendSMI("ET_REC");
+                send("ET_REC");
                 break;
 		    case EYEGAZE:
                 // setup parameters
@@ -150,8 +150,8 @@ public class EyetrackerInterface
         switch(this.trackerType)
 		{
             case SMI:
-                    sendSMI("ET_STP");			
-                    sendSMI("ET_SAV \"" + filename + ".idf\" \"description\" \"username\" \"OVR\""); 
+                    send("ET_STP");			
+                    send("ET_SAV \"" + filename + ".idf\" \"description\" \"username\" \"OVR\""); 
                 break;
 		    case EYEGAZE:
                 lctigaze.EgLogStop(pstEgControl);
@@ -173,8 +173,8 @@ public class EyetrackerInterface
         switch(this.trackerType)
 		{
             case SMI:
-                    sendSMI("ET_INC");
-                    sendSMI("ET_REM \"" + s + "\"");
+                    send("ET_INC");
+                    send("ET_REM \"" + s + "\"");
                 break;
             case EYEGAZE:
                 try {
@@ -191,7 +191,7 @@ public class EyetrackerInterface
 		info("trigger done");
 	}
 
-	public void sendSMI(String s)
+	private void send(String s)
 	{
         try {
             byte[] buf = (s + "\n").getBytes("ASCII");
