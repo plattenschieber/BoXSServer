@@ -118,7 +118,6 @@ public class EyetrackerInterface
 		    case EYEGAZE:
                 // setup parameters
                 String mode = "w";
-                String triggerData = "Trigger XX";
                 ByteBuffer f = ByteBuffer.allocate(filename.length() + 1);
                 ByteBuffer m = ByteBuffer.allocate(mode.length() + 1);
                 try {
