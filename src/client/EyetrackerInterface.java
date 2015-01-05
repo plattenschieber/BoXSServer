@@ -285,3 +285,16 @@ public class EyetrackerInterface
         }
     }
 }
+
+class Packet
+{
+    public String time = String.valueOf(System.currentTimeMillis());
+    public String category = "";
+    public String request = "";
+    public String statuscode = "";
+    public String values = "";
+    public String rawData = "";
+
+    public Packet() { }
+}
+
