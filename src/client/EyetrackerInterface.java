@@ -107,7 +107,7 @@ public class EyetrackerInterface
 			return;
 		started = true;
 		
-		filename = System.getProperty("user.home") + "/" + _filename;
+		filename = System.getProperty("user.home") + "/BoXS_EyeData/" + _filename + "_" + System.currentTimeMillis();
 
         switch(this.trackerType)
 		{
@@ -118,10 +118,11 @@ public class EyetrackerInterface
 		    case EYEGAZE:
                 // setup parameters
                 String mode = "w";
-                ByteBuffer f = ByteBuffer.allocate(filename.length() + 1);
+                // add 5 chars: 1 for '\0' and the rest for '.log' 
+                ByteBuffer f = ByteBuffer.allocate(filename.length() + 1 + 4);
                 ByteBuffer m = ByteBuffer.allocate(mode.length() + 1);
                 try {
-                    f = encoder.encode(CharBuffer.wrap(filename));
+                    f = encoder.encode(CharBuffer.wrap(filename + ".log"));
                     m = encoder.encode(CharBuffer.wrap(mode));
                 }
                 catch (IOException e){
@@ -147,7 +148,7 @@ public class EyetrackerInterface
 		{
             case SMI:
                     sendSMI("ET_STP");			
-                    sendSMI("ET_SAV \"C:\\eye_Data\\BoXS\\BoXS_Data_" + System.currentTimeMillis() + ".idf\" \"description\" \"username\" \"OVR\""); 
+                    sendSMI("ET_SAV \"" + filename + ".idf\" \"description\" \"username\" \"OVR\""); 
                 break;
 		    case EYEGAZE:
                 lctigaze.EgLogStop(pstEgControl);
