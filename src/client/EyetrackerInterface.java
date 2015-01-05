@@ -34,7 +34,7 @@ public class EyetrackerInterface
     }
 
 	public enum TrackerType {
-	    SMI, EYEGAZE, UNKNOWN
+	    SMI, EYEGAZE, TET, UNKNOWN
 	}
 
 	public void setTrackerType(TrackerType type)
@@ -52,15 +52,18 @@ public class EyetrackerInterface
 		if (initialised)
 			return;
 		initialised = true;
+
+        // SMI and TET need extra communication handling
+        host = _host;
+        portreceive = _portreceive;
+        portsend = _portsend;
 		
 		// different initialisations
         switch(this.trackerType)
 		{
             case SMI:
-                host = _host;
-                portreceive = _portreceive;
-                portsend = _portsend;
-                info("initialise SMI: " + host + ", " + portsend + ", " + portreceive);
+            case TET:
+                info("initialise SMI/TET: " + host + ", " + portsend + ", " + portreceive);
 
                 try
                 {
