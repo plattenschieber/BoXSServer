@@ -136,6 +136,16 @@ public class EyetrackerInterface
                 lctigaze.EgLogWriteColumnHeader(pstEgControl);
                 lctigaze.EgLogStart(pstEgControl);
                 break;
+            case TET:
+                // Send the obligatory connect request message
+                String REQ_CONNECT = "{\"values\":{\"push\":true,\"version\":1},\"category\":\"tracker\",\"request\":\"set\"}"; 
+                send(REQ_CONNECT);
+
+                // launch a seperate thread to parse incoming data
+                incomingThread = new Thread(ListenerLoop);
+                incomingThread.Start();
+
+                break;
             default:
                 break;
 		}
