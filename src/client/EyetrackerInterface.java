@@ -5,6 +5,8 @@ import java.nio.CharBuffer;
 import java.nio.charset.CharsetEncoder;
 import imd.eyetracking.lib.Lctigaze.LctigazeDll;
 import imd.eyetracking.lib._stEgControl;
+import java.util.TimerTask;
+import java.util.Timer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,6 +28,7 @@ public class EyetrackerInterface
 	private _stEgControl pstEgControl;
     private CharsetEncoder encoder;
     private String filename;
+    private Timer timer;
 	
     // do some basic initialisation on construction
     public EyetrackerInterface()
@@ -145,6 +148,13 @@ public class EyetrackerInterface
                 incomingThread = new Thread(ListenerLoop);
                 incomingThread.Start();
 
+                // start a timer that sends a heartbeat every 250ms.
+                // The minimum interval required by the server can be read out 
+                // in the response to the initial connect request.   
+                String REQ_HEATBEAT = "{\"category\":\"heartbeat\",\"request\":null}";
+                timer.scheduleAtFixedRate(new TimerTask() {
+                    @Override
+                    public void run() { send(REQ_HEATBEAT); } }, 0, 250);
                 break;
             default:
                 break;
