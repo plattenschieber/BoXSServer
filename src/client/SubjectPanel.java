@@ -846,8 +846,11 @@ public class SubjectPanel extends JPanel
 				{
                     // do some simple function overloading to ease handling for user 
                     if (paramparts.size()==0)
-                        eyetrackerInterface.start(0,"");
-                    else 
+                        eyetrackerInterface.start(0, "");
+                    else if (paramparts.size() == 1)
+                    	eyetrackerInterface.start(0,
+    							stripQuotation(paramparts.get(0)));
+                    else if (paramparts.size() == 2)
                         eyetrackerInterface.start(Integer.parseInt(stripQuotation(paramparts.get(0))),
 							stripQuotation(paramparts.get(1)));
 				}
@@ -857,7 +860,10 @@ public class SubjectPanel extends JPanel
 				}
 				else if (command.equals("eyetrackerTrigger"))
 				{
-					eyetrackerInterface.trigger(stripQuotation(paramparts.get(0)));
+					if (paramparts.size() == 0)
+						info("no trigger given");
+					else 
+						eyetrackerInterface.trigger(stripQuotation(paramparts.get(0)));
 				}				
 				else if (command.equals("eyetrackerCalibrate"))
 				{
