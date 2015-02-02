@@ -831,10 +831,15 @@ public class SubjectPanel extends JPanel
                     {
 						eyetrackerInterface.setTrackerType(stripQuotation(paramparts.get(0)));
                         eyetrackerInterface.initialise("",0,0);
-                    else 
-                        eyetrackerInterface.initialise(stripQuotation(paramparts.get(0)), 
-							Integer.parseInt(stripQuotation(paramparts.get(1))), 
-							Integer.parseInt(stripQuotation(paramparts.get(2))));
+                    }
+                    // otherwise its another eye tracker with more options
+                    else if (paramparts.size() == 4) 
+                    {
+						eyetrackerInterface.setTrackerType(stripQuotation(paramparts.get(0)));
+                    	eyetrackerInterface.initialise(stripQuotation(paramparts.get(1)), 
+							Integer.parseInt(stripQuotation(paramparts.get(2))), 
+							Integer.parseInt(stripQuotation(paramparts.get(3))));
+                        
                     }
 				}
 				else if (command.equals("eyetrackerStart"))
