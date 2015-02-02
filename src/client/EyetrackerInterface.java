@@ -92,9 +92,9 @@ public class EyetrackerInterface
                 pstEgControl.iEyeImagesScreenPos=1;
                 pstEgControl.iCommType=LctigazeDll.EG_COMM_TYPE_LOCAL;
                 lctigaze.EgInit(pstEgControl.byReference());
-                info("initialise Eyegaze");
                 // initialise encoder
                 encoder = Charset.forName("UTF-8").newEncoder();
+                info("initialised Eyegaze");
                 break;
 
             // we can't initialise a nonexisting eyetracker
