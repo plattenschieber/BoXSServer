@@ -38,9 +38,14 @@ public class EyetrackerInterface
 	    SMI, EYEGAZE, UNKNOWN
 	}
 
-	public void setTrackerType(TrackerType type)
+	public void setTrackerType(String type)
 	{
-		this.trackerType = type;
+		if (type.equals("SMI"))
+			this.trackerType = TrackerType.SMI;
+		else if (type.equals("EYEGAZE"))
+			this.trackerType = TrackerType.EYEGAZE;
+		else 
+			info(type + " is not a valid option for eyetrackerSetType");
 	}
 	
 	public TrackerType getTrackerType()
