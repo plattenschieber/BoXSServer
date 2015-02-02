@@ -824,12 +824,18 @@ public class SubjectPanel extends JPanel
 					eyetrackerInterface=new EyetrackerInterface();
                     
                     // do some simple function overloading to ease handling for user 
-                    if (paramparts.size()==0)
+                    if (paramparts.size() == 0)
+                    	info("not enough arguments for initialisation given");
+                    // if there is only one parameter it should be only the type
+                    else if (paramparts.size() == 1)
+                    {
+						eyetrackerInterface.setTrackerType(stripQuotation(paramparts.get(0)));
                         eyetrackerInterface.initialise("",0,0);
                     else 
                         eyetrackerInterface.initialise(stripQuotation(paramparts.get(0)), 
 							Integer.parseInt(stripQuotation(paramparts.get(1))), 
 							Integer.parseInt(stripQuotation(paramparts.get(2))));
+                    }
 				}
 				else if (command.equals("eyetrackerStart"))
 				{
