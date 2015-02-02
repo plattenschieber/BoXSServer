@@ -115,7 +115,9 @@ public class EyetrackerInterface
 			return;
 		started = true;
 		
-		filename = System.getProperty("user.home") + "/BoXS_EyeData/" + _filename + "_" + System.currentTimeMillis();
+		filename = System.getProperty("user.home") + "/BoXS_EyeData/";
+		new File(filename).mkdirs();
+		filename.concat(_filename + "_" + System.currentTimeMillis());
 
         switch(this.trackerType)
 		{
