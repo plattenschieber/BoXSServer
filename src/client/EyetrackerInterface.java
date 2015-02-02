@@ -2,6 +2,7 @@ package client;
 
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
+import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 import imd.eyetracking.lib.Lctigaze.LctigazeDll;
 import imd.eyetracking.lib._stEgControl;
@@ -87,6 +88,8 @@ public class EyetrackerInterface
                 pstEgControl.iCommType=LctigazeDll.EG_COMM_TYPE_LOCAL;
                 lctigaze.EgInit(pstEgControl.byReference());
                 info("initialise Eyegaze");
+                // initialise encoder
+                encoder = Charset.forName("UTF-8").newEncoder();
                 break;
 
             // we can't initialise a nonexisting eyetracker
