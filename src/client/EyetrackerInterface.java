@@ -139,9 +139,9 @@ public class EyetrackerInterface
                     e.printStackTrace();
                 }
                 // transfer parameters to eyetracker API
-                lctigaze.EgLogFileOpen(pstEgControl, f, m);
-                lctigaze.EgLogWriteColumnHeader(pstEgControl);
-                lctigaze.EgLogStart(pstEgControl);
+                lctigaze.EgLogFileOpen(pstEgControl.byReference(), filename.concat(".log"), "w");
+                lctigaze.EgLogWriteColumnHeader(pstEgControl.byReference());
+                lctigaze.EgLogStart(pstEgControl.byReference());
                 break;
             default:
                 break;
@@ -186,6 +186,7 @@ public class EyetrackerInterface
             case EYEGAZE:
                 try {
                     lctigaze.EgLogAppendText(pstEgControl, encoder.encode(CharBuffer.wrap(s)));
+                    lctigaze.EgLogMark(pstEgControl.byReference());
                 } 
                 catch (IOException e){ 
                     e.printStackTrace();
