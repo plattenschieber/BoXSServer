@@ -163,8 +163,7 @@ public interface LctigazeDll extends Library {
 	 * <i>native declaration : line 220</i><br>
 	 * @deprecated use the safer methods {@link #EgLogFileOpen(lctigaze._stEgControl, java.nio.ByteBuffer, java.nio.ByteBuffer)} and {@link #EgLogFileOpen(lctigaze._stEgControl, com.sun.jna.Pointer, com.sun.jna.Pointer)} instead
 	 */
-	@Deprecated 
-	int EgLogFileOpen(_stEgControl pstEgControl, Pointer pszFileName, Pointer pszMode);
+	int EgLogFileOpen(_stEgControl pstEgControl, String string, String string2);
 	
 	/**
 	 * Original signature : <code>int EgLogFileOpen(_stEgControl*, char*, char*)</code><br>

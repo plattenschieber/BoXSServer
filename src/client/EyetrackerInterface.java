@@ -125,12 +125,7 @@ public class EyetrackerInterface
                 break;
 		    case EYEGAZE:
                 // transfer parameters to eyetracker API
-		    	String s = filename.concat(".log");
-				try {
-					lctigaze.EgLogFileOpen(pstEgControl.byReference(), encoder.encode(CharBuffer.wrap(s)), encoder.encode(CharBuffer.wrap("w")));
-				} catch (CharacterCodingException e) {
-					info("could not open file: "+filename);
-				}
+				lctigaze.EgLogFileOpen(pstEgControl.byReference(), filename.concat(".log"), "w");
                 lctigaze.EgLogWriteColumnHeader(pstEgControl.byReference());
                 lctigaze.EgLogStart(pstEgControl.byReference());
                 info("start to " + filename);
@@ -175,13 +170,7 @@ public class EyetrackerInterface
                     sendSMI("ET_REM \"" + s + "\"");
                 break;
             case EYEGAZE:
-                try {
-                    lctigaze.EgLogAppendText(pstEgControl, encoder.encode(CharBuffer.wrap(s)));
-                    lctigaze.EgLogMark(pstEgControl.byReference());
-                } 
-                catch (IOException e){ 
-                    info("could not send trigger: " + s);
-                }
+                lctigaze.EgLogMark(pstEgControl.byReference());
                 break;
             default:
                 break;
