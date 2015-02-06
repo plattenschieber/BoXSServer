@@ -1,6 +1,7 @@
 package client;
 
 import java.nio.CharBuffer;
+import java.nio.charset.CharacterCodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 import imd.eyetracking.lib.Lctigaze.LctigazeDll;
@@ -107,7 +108,6 @@ public class EyetrackerInterface
 	}
 
 
-	@SuppressWarnings("deprecation")
 	public void start(int frequency, String _filename) 
 	{
 		if (started)
@@ -126,7 +126,12 @@ public class EyetrackerInterface
                 break;
 		    case EYEGAZE:
                 // transfer parameters to eyetracker API
-                lctigaze.EgLogFileOpen(pstEgControl.byReference(), filename.concat(".log"), "w");
+		    	String s = filename.concat(".log");
+				try {
+					lctigaze.EgLogFileOpen(pstEgControl.byReference(), encoder.encode(CharBuffer.wrap(s)), encoder.encode(CharBuffer.wrap("w")));
+				} catch (CharacterCodingException e) {
+					info("could not open file: "+filename);
+				}
                 lctigaze.EgLogWriteColumnHeader(pstEgControl.byReference());
                 lctigaze.EgLogStart(pstEgControl.byReference());
                 info("starting EYEGAZE eye tracker with logfile " + filename);
