@@ -124,20 +124,19 @@ public class EyetrackerInterface
 		{
             case SMI:
                 sendSMI("ET_REC");
-                info("start @" + frequency + " to " + filename);
+                info("starting SMI eye tracker @" + frequency + " with logfile " + filename);
                 break;
 		    case EYEGAZE:
                 // transfer parameters to eyetracker API
                 lctigaze.EgLogFileOpen(pstEgControl.byReference(), filename.concat(".log"), "w");
                 lctigaze.EgLogWriteColumnHeader(pstEgControl.byReference());
                 lctigaze.EgLogStart(pstEgControl.byReference());
-                info("start to " + filename);
+                info("starting EYEGAZE eye tracker with logfile " + filename);
                 break;
             default:
                 break;
 		}
-		
-		info("start done");
+        info("eyetracker started"); 
 	}
 
 	public void stop()
