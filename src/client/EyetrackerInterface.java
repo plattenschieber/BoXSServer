@@ -72,6 +72,7 @@ public class EyetrackerInterface
                 } catch (SocketException e)
                 {
                     info("could not open connection to SMI eye tracker. Please check your connection settings.");
+                    e.printStackTrace();
                 }
                 break;
 
@@ -188,6 +189,7 @@ public class EyetrackerInterface
         } 
         catch (IOException e) {
             info("could not send command " + s + " to SMI eye tracker");
+            e.printStackTrace();
         }
 		info("Sent: " + s);
 	}

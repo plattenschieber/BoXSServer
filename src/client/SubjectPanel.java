@@ -291,6 +291,7 @@ public class SubjectPanel extends JPanel
 						p.start();
 					} catch (Exception e2) {
 						info("there is a problem with the video player");
+                        e2.printStackTrace();
 					}
 				}
 
@@ -805,7 +806,7 @@ public class SubjectPanel extends JPanel
 				}
 				else if (command.equals("locale"))
 				{
-					//String locale=stripQuotation(paramparts.get(0));
+					String locale=stripQuotation(paramparts.get(0));
 /*					final Object[] o={"locale",locale};
 					clientApplet.cc.send(ServerCommand.SUBMIT_VALUE, o);	*/
 				}
@@ -1060,6 +1061,7 @@ public class SubjectPanel extends JPanel
 			} catch (InterruptedException e)
 			{
 				info("there is a problem with mouse tracking");
+                e.printStackTrace();
 			}
 		
 		if (b)
@@ -1082,6 +1084,7 @@ public class SubjectPanel extends JPanel
 					catch (InterruptedException e)
 					{
 						info("there is a problem with mouse tracking");
+                        e.printStackTrace();
 					}
 					info("finished");
 				};
