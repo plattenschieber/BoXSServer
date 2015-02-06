@@ -2,7 +2,6 @@ package client;
 
 import java.io.Serializable;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class ExperimentSessionData implements Serializable
 {

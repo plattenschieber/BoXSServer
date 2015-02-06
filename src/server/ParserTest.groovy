@@ -1,8 +1,6 @@
 package server;
 
-import java.util.*;
 import java.util.concurrent.*;
-import server.*
 import static util.Log.*;
 
 public class ParserTest {

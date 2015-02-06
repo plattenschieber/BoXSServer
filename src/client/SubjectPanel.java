@@ -805,7 +805,7 @@ public class SubjectPanel extends JPanel
 				}
 				else if (command.equals("locale"))
 				{
-					String locale=stripQuotation(paramparts.get(0));
+					//String locale=stripQuotation(paramparts.get(0));
 /*					final Object[] o={"locale",locale};
 					clientApplet.cc.send(ServerCommand.SUBMIT_VALUE, o);	*/
 				}

@@ -1,6 +1,5 @@
 package server;
 
-import static util.Log.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class AutorunExperiment extends Session

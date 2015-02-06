@@ -15,7 +15,7 @@ public class ErrorMessage extends Exception implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	static transient JFrame frame;
-	static transient JList errorlist; 
+	static transient JList<ErrorMessage> errorlist; 
 	static transient Vector<ErrorMessage> errors=new Vector<ErrorMessage>();
 
 	public ErrorMessage(int _line, String _errorline, String _errormessage, Date _time)
@@ -42,11 +42,11 @@ public class ErrorMessage extends Exception implements Serializable{
 		{
 			frame=new JFrame("BoXS Error messages");
 			frame.setSize(800, 600);
-			errorlist=new JList();
+			errorlist=new JList<ErrorMessage>();
 			frame.add(new JScrollPane(errorlist));
 		}
 		
-		DefaultListModel lm=new DefaultListModel();
+		DefaultListModel<ErrorMessage> lm=new DefaultListModel<ErrorMessage>();
 		for (ErrorMessage e:errors)
 		{
 			lm.addElement(e);

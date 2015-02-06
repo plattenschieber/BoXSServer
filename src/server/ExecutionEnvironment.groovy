@@ -1,7 +1,5 @@
 package server;
 
-import java.util.*;
-
 import static util.Log.*;
 import client.ErrorMessage;
 import client.Utils;

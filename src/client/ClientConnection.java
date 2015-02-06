@@ -1,14 +1,9 @@
 package client;
 
 import static util.Log.*;
-import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.util.*;
-
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 public class ClientConnection extends ConnChannel {
