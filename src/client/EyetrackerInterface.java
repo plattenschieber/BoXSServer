@@ -1,13 +1,11 @@
 package client;
 
-import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 import imd.eyetracking.lib.Lctigaze.LctigazeDll;
 import imd.eyetracking.lib._stEgControl;
 
-import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.net.*;
