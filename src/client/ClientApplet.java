@@ -1,34 +1,12 @@
 package client;
 import java.applet.Applet;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.KeyEvent;
 import java.io.*;
 import java.net.Socket;
-import java.net.URL;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.Vector;
-import java.util.concurrent.ConcurrentLinkedQueue;
-
-import javax.media.Manager;
-import javax.media.MediaLocator;
-import javax.media.Player;
 import javax.swing.*;
-import javax.swing.border.LineBorder;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.text.html.parser.ParserDelegator;
-
-
 
 public class ClientApplet extends Applet {
 	private static final long serialVersionUID = 1L;
@@ -174,10 +152,8 @@ public class ClientApplet extends Applet {
 				}
 				catch(Exception e)
 				{
-					
 					e.printStackTrace();
 					updateMessage("Error logging in to server "+host+":"+port+" "+e.getLocalizedMessage(),false);
-			
 				}
 			}
 		}
