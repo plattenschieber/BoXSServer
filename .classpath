@@ -11,7 +11,6 @@
     <classpathentry kind="lib" path="lib/jnaerator-0.10-shaded.jar"/>
     <classpathentry kind="lib" path="lib/platform.jar"/>
     <classpathentry kind="lib" path="lib/jna.jar"/>
-	<classpathentry kind="lib" path="webroot/expsys/es (Jeronim Morinas in Konflikt stehende Kopie 2013-08-01).jar"/>
 	<classpathentry kind="lib" path="webroot/expsys/es.jar"/>
 	<classpathentry kind="lib" path="webroot/expsys/jmf.jar"/>
 	<classpathentry kind="lib" path="webroot/general/offlineserver/client/expsys/es.jar"/>
