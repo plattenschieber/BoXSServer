@@ -290,7 +290,7 @@ public class SubjectPanel extends JPanel
 						desiredComponents.add(video);
 						p.start();
 					} catch (Exception e2) {
-						e2.printStackTrace();
+						info("there is a problem with the video player");
 					}
 				}
 
@@ -1059,7 +1059,7 @@ public class SubjectPanel extends JPanel
 				mousetrackingthread.join();
 			} catch (InterruptedException e)
 			{
-				e.printStackTrace();
+				info("there is a problem with mouse tracking");
 			}
 		
 		if (b)
@@ -1081,7 +1081,7 @@ public class SubjectPanel extends JPanel
 					}
 					catch (InterruptedException e)
 					{
-						;
+						info("there is a problem with mouse tracking");
 					}
 					info("finished");
 				};

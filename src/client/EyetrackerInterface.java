@@ -72,7 +72,7 @@ public class EyetrackerInterface
                     ourSocket = new DatagramSocket(new InetSocketAddress(host,portreceive));
                 } catch (SocketException e)
                 {
-                    e.printStackTrace();
+                    info("could not open connection to SMI eye tracker. Please check your connection settings.");
                 }
                 break;
 
@@ -122,7 +122,7 @@ public class EyetrackerInterface
 		{
             case SMI:
                 sendSMI("ET_REC");
-                info("starting SMI eye tracker @" + frequency + " with logfile " + filename);
+                info("start @" + frequency + " to " + filename);
                 break;
 		    case EYEGAZE:
                 // transfer parameters to eyetracker API
@@ -134,7 +134,7 @@ public class EyetrackerInterface
 				}
                 lctigaze.EgLogWriteColumnHeader(pstEgControl.byReference());
                 lctigaze.EgLogStart(pstEgControl.byReference());
-                info("starting EYEGAZE eye tracker with logfile " + filename);
+                info("start to " + filename);
                 break;
             default:
                 break;
@@ -181,7 +181,7 @@ public class EyetrackerInterface
                     lctigaze.EgLogMark(pstEgControl.byReference());
                 } 
                 catch (IOException e){ 
-                    e.printStackTrace();
+                    info("could not send trigger: " + s);
                 }
                 break;
             default:
@@ -199,7 +199,7 @@ public class EyetrackerInterface
 				new InetSocketAddress(host, portsend)));
         } 
         catch (IOException e) {
-            e.printStackTrace();
+            info("could not send command " + s + " to SMI eye tracker");
         }
 		info("Sent: " + s);
 	}
