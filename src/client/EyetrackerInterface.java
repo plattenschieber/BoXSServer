@@ -80,7 +80,13 @@ public class EyetrackerInterface
                 // Set Eyegaze control settings 
                 // TODO files should be in same folder?! otherwise documentation is needed! 
                 System.setProperty("jna.library.path", "C:\\Eyegaze\\");
-                lctigaze = LctigazeDll.INSTANCE;
+                try
+                {
+                    lctigaze = LctigazeDll.INSTANCE;
+                } catch(Exception e)
+                {
+                    e.printStackTrace();
+                }
                 pstEgControl = new _stEgControl();
                 //fill in the control structure values
                 pstEgControl.iNDataSetsInRingBuffer=5000;
