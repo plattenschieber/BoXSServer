@@ -109,6 +109,7 @@ public class EyetrackerInterface
 	}
 
 
+	@SuppressWarnings("deprecation")
 	public void start(int frequency, String _filename) 
 	{
 		if (started)
@@ -126,18 +127,6 @@ public class EyetrackerInterface
                 info("start @" + frequency + " to " + filename);
                 break;
 		    case EYEGAZE:
-                // setup parameters
-                String mode = "w";
-                // add 5 chars: 1 for '\0' and the rest for '.log' 
-                ByteBuffer f = ByteBuffer.allocate(filename.length() + 1 + 4);
-                ByteBuffer m = ByteBuffer.allocate(mode.length() + 1);
-                try {
-                    f = encoder.encode(CharBuffer.wrap(filename + ".log"));
-                    m = encoder.encode(CharBuffer.wrap(mode));
-                }
-                catch (IOException e){
-                    e.printStackTrace();
-                }
                 // transfer parameters to eyetracker API
                 lctigaze.EgLogFileOpen(pstEgControl.byReference(), filename.concat(".log"), "w");
                 lctigaze.EgLogWriteColumnHeader(pstEgControl.byReference());
