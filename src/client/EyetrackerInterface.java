@@ -122,8 +122,8 @@ public class EyetrackerInterface
         switch(this.trackerType)
 		{
             case SMI:
-                info("start @" + frequency + " to " + filename);
                 sendSMI("ET_REC");
+                info("start @" + frequency + " to " + filename);
                 break;
 		    case EYEGAZE:
                 // setup parameters
@@ -142,6 +142,7 @@ public class EyetrackerInterface
                 lctigaze.EgLogFileOpen(pstEgControl.byReference(), filename.concat(".log"), "w");
                 lctigaze.EgLogWriteColumnHeader(pstEgControl.byReference());
                 lctigaze.EgLogStart(pstEgControl.byReference());
+                info("start to " + filename);
                 break;
             default:
                 break;
