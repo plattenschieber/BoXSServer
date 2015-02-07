@@ -67,7 +67,7 @@ createkey:
 createjars: compileofflineserver
 	@echo "\nCreate jars"
 	rm -f webroot/expsys/es.jar
-	cd build && jar cfm ../webroot/expsys/es.jar ../manifest.txt client util
+	cd build && jar cfm ../webroot/expsys/es.jar ../manifest.txt client util imd 
 	jarsigner -keystore keystore.jks webroot/expsys/es.jar mykey
 
 offlineserver: createjars 
