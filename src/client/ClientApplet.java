@@ -53,7 +53,7 @@ public class ClientApplet extends Applet {
 		super.start();
 		try
 		{
-			//UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+			//UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel"); //TODO: Remove (?)
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e1)
 		{
