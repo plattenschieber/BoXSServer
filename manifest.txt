@@ -1,3 +1,4 @@
 Main-Class: client.ClientApplet
 Permissions: all-permissions
 Codebase: *
+Bundle-ClassPath: .,lib/jna.jar
