@@ -9,9 +9,8 @@ JAVAC=javac -source 7 -target 7
 
 SERVERCMDLIN=clear&&java -Xmx500m -Djava.library.path=lib -cp build:$(LIBS) server.Server
 
-ENABLEMAIL=enableMail boxs@jeronim.de	
-
-SMTPSERVER=canis.uberspace.de
+ENABLEMAIL=enableMail boxs@jeronim.de
+SMTPSERVER=canis.upperspace.de
 SMTPPORT=587
 EMAILADDRESS=boxs@jeronim.de
 EMAILPASSWORD=boxs
