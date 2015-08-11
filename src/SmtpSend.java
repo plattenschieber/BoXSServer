@@ -27,8 +27,8 @@ public class SmtpSend
 	{
 		info("sending mail to " + adress);
 		java.util.Properties props = new java.util.Properties();
-		props.put("mail.smtp.host", "SMTPSERVER");
-		props.put("mail.smtp.port", "SMTPPORT");
+		props.put("mail.smtp.host", "canis.uberspace.de");
+		props.put("mail.smtp.port", "587");
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
 
@@ -37,7 +37,7 @@ public class SmtpSend
 			protected PasswordAuthentication getPasswordAuthentication()
 			{
 				return new PasswordAuthentication(
-						"EMAILADDRESS", "EMAILPASSWORD");
+						"boxs@jeronim.de", "boxs");
 			}
 		};
 		Session mailsession = Session.getDefaultInstance(props, auth);
@@ -46,7 +46,7 @@ public class SmtpSend
 
 		try
 		{
-			InternetAddress from = new InternetAddress("EMAILADDRESS");
+			InternetAddress from = new InternetAddress("boxs@jeronim.de");
 			m.setFrom(from);
 
 			InternetAddress to = new InternetAddress(adress);
