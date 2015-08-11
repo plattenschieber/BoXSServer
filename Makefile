@@ -9,12 +9,12 @@ JAVAC=javac -source 7 -target 7
 
 SERVERCMDLIN=clear&&java -Xmx500m -Djava.library.path=lib -cp build:$(LIBS) server.Server
 
-ENABLEMAIL=enableMail mail@server.de
+ENABLEMAIL=enableMail boxs@jeronim.de	
 
-SMTPSERVER=server
+SMTPSERVER=canis.uberspace.de
 SMTPPORT=587
-EMAILADDRESS=emailadress
-EMAILPASSWORD=pwd
+EMAILADDRESS=boxs@jeronim.de
+EMAILPASSWORD=boxs
 
 all: offlineserver dropboxshare compileofficialserver
 
