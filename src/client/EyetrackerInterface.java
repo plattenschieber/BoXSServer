@@ -38,9 +38,9 @@ public class EyetrackerInterface
 
 	public void setTrackerType(String type)
 	{
-		if (type.equals("SMI"))
+		if (type.equalsIgnoreCase("SMI"))
 			this.trackerType = TrackerType.SMI;
-		else if (type.equals("EYEGAZE"))
+		else if (type.equalsIgnoreCase("EYEGAZE"))
 			this.trackerType = TrackerType.EYEGAZE;
 		else 
 			info(type + " is not a valid option for eyetrackerSetType");
@@ -114,6 +114,7 @@ public class EyetrackerInterface
 			return;
 		started = true;
 		
+        // TODO: sicherstellen, dass die Datei auch wirklich gespeichert werden kann (evtl. Probleme falls Ordner nicht existent)
 		filename = System.getProperty("user.home") + "/BoXS_EyeData/";
 		new File(filename).mkdirs();
 		filename = filename.concat(_filename + "_" + System.currentTimeMillis());
