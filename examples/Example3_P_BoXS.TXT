@@ -1,0 +1,50 @@
+// **** BEGIN Code Example 3 ****
+for(gameCounter=1; gameCounter<=10; gameCounter=gameCounter+1)
+{
+  // match 4 players each round 
+  matchStranger(A,B,C,D)
+  i = i + 1
+  if (i==1)
+  {
+    // enable mouse tracking
+    // enableMouseTracking()
+    // eyetrackerInitialise("localhost",4444,5555)
+    display("<H2>Public Good Example</H2><br>Please read the paper instructions in front of you before starting the experiment.")
+    display("The calibration begins after pushing the wait button.<br>Please hold still and follow the points.")
+    wait()
+    //eyetrackerCalibrate()
+    display("Thank you - the calibration was successful")
+    //eyetrackerStart(60,"PublicGoodGame" + username + "_" + i + ".dat")
+     wait()
+    // mood induction video, showed for 10sec.
+    display("Please watch the following movie!")
+    display("<img src='http://www.wonderoftech.com/wp-content/uploads/2012/12/fireplace.gif'>")
+    waitTime(10000)
+  }
+  beginTime = time
+  clear()
+  // read in contribution and check for consistency
+  display("<br>Please choose the amount you would like to contribute:")
+  inputNumber(z)
+  assert(z>=0 && z<=10 && z==round(z))
+  waitForPlayers("Continue...")
+  display("You are player "+role+". You contributed <b>"+z+" Talers</b>. <br>The total amount donated is <b>"+sum(z)+" Talers</b>.")
+  display("<img src='http://chart.apis.google.com/chart?cht=p&chd=t:"+A.z+","+B.z+","+C.z+","+D.z+"&chs=200x150&chl=A|B|C|D'>")
+  // Calculate payoff and save decision, decision time in ms and payoff
+  payoff = 10 - z + 0.4*sum(z)
+  totalPayoff = totalPayoff + payoff
+  results[i][0] = z
+  results[i][1] = time - begintime
+  results[i][2] = payoff
+  results[i][3] = totalPayoff
+  display("Your payoff is <b>"+payoff+" Talers</b>")
+  wait()
+  if(i==10)
+  {
+      display("Your total payoff is <b>"+totalPayoff+" Talers</b>")
+      // eyetrackerStop()
+      waitForExperimenter("FINISH")
+  }
+	matchDone()
+}
+// **** END Code Example 3

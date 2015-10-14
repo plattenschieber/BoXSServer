@@ -1,0 +1,229 @@
+// Number of Risky Choices 
+nGambles = 5 
+
+// gamblesL/R[gamble][outcome1, outcome2,..][p/o]
+// first gamble 
+gamblesL[0][0][0] = 0.85
+gamblesL[0][0][1] = 5
+gamblesL[0][1][0] = 0.15
+gamblesL[0][1][1] = 2.5
+gamblesR[0][0][0] = 0.95
+gamblesR[0][0][1] = 5
+gamblesR[0][1][0] = 0.05
+gamblesR[0][1][1] = 0.35	
+// second gamble 
+gamblesL[1][0][0] = 0.8
+gamblesL[1][0][1] = 4.8
+gamblesL[1][1][0] = 0.2
+gamblesL[1][1][1] = 2
+gamblesR[1][0][0] = 0.9
+gamblesR[1][0][1] = 4.8
+gamblesR[1][1][0] = 0.1
+gamblesR[1][1][1] = 0.2
+// third gamble 
+gamblesL[2][0][0] = 0.95
+gamblesL[2][0][1] = 4.8
+gamblesL[2][1][0] = 0.05
+gamblesL[2][1][1] = 0.6
+gamblesR[2][0][0] = 0.9
+gamblesR[2][0][1] = 4.8
+gamblesR[2][1][0] = 0.1
+gamblesR[2][1][1] = 2.4
+// fourth gamble 
+gamblesL[3][0][0] = 0.05
+gamblesL[3][0][1] = 4.8
+gamblesL[3][1][0] = 0.95
+gamblesL[3][1][1] = 0.6
+gamblesR[3][0][0] = 0.1
+gamblesR[3][0][1] = 2.6
+gamblesR[3][1][0] = 0.9
+gamblesR[3][1][1] = 0.6
+// fifth gamble 
+gamblesL[4][0][0] = 0.5
+gamblesL[4][0][1] = 2.2
+gamblesL[4][1][0] = 0.5
+gamblesL[4][1][1] = 2
+gamblesR[4][0][0] = 0.5
+gamblesR[4][0][1] = 4.8
+gamblesR[4][1][0] = 0.5
+gamblesR[4][1][1] = 2
+
+// first part of the presentation table
+tOpen   = "<table border='0' cellspacing='0' cellpadding='0' width='520'>"	 
+trOpen  = "  <tr>"
+trClose = "  </tr>"
+tClose  = "</table>"
+td1 = "<td align='center'> Gamble A </td>"
+td2 = "<td align='center'> Gamble B </td>"
+td3 = "<td align='center'> Press C for this Gamble</td>"
+td4 = "<td align='center'> Press M for this Gamble</td>"
+
+// write some numbers into an array ;) 
+for (i=0; i<nGambles; i=i+1)
+{
+	shuffle[i] = i
+}
+// and shuffle them a lot of times e.g. 100x
+for (i=0; i<100; i=i+1)
+{
+	for (j=0; j<nGambles; j=j+1)
+	{
+		// shuffle with your neighbour in half of the cases 
+		if (randomUniform()<=0.5)
+		{
+			// save number to be shuffled and ...
+			tmp = shuffle[j]
+			// shuffle upward
+			if (j+1 != nGambles)
+			{
+				shuffle[j] = shuffle[j+1]
+				shuffle[j+1] = tmp
+			}
+			// shuffle downward
+			if (j+1 == nGambles)
+			{
+				shuffle[j] = shuffle[j-1]
+				shuffle[j-1] = tmp
+			}
+		}
+	}
+}
+randChoosenGamble = randomUniformInteger(0,nGambles-1)
+
+// instructions 
+while(_lastkey != 32)
+{
+ 	display("<CENTER><H2>Choice Study </H2> </CENTER>")
+	display("In the following you are asked to select the gamble you prefer.")
+	display("Each gamble consists of two outcomes which realize with some probability that is visually displayed in pie charts.")
+          display("Press 'C' to select the left gamble, and press'M' to select the right gamble.")
+	display("One of the decisions will be randomly selected and paid.")
+	display("<br>If you have understood the instructions please press space to continue.")
+	recordKeys()
+	waitTime(500)
+}
+
+for (i=0; i<nGambles; i=i+1)
+{
+	// shortening the google chart api call
+	Lp1 = gamblesL[shuffle[i]][0][0]
+	Lo1 = gamblesL[shuffle[i]][0][1]
+	Lp2 = gamblesL[shuffle[i]][1][0]
+	Lo2 = gamblesL[shuffle[i]][1][1]
+	Rp1 = gamblesR[shuffle[i]][0][0]
+	Ro1 = gamblesR[shuffle[i]][0][1]
+	Rp2 = gamblesR[shuffle[i]][1][0]
+	Ro2 = gamblesR[shuffle[i]][1][1]
+
+	// measure the time when gamble is shown
+	beginTime = time
+	// collect images from google api 
+	tdPic1 = "<td><img src='http://chart.apis.google.com/chart?cht=p&chd=t:" + Lp1 + "," + Lp2 + "&chs=260x150&chl=" + Lo1  + "%20EUR|" + Lo2 +  "%20EUR'></td>"
+	tdPic2 = "<td><img src='http://chart.apis.google.com/chart?cht=p&chd=t:" + Rp1 + "," + Rp2 + "&chs=260x150&chl=" + Ro1  + "%20EUR|" + Ro2 +  "%20EUR'></td>"
+	// and place them into a nice table
+	table = tOpen + trOpen + td1 + td2 + trClose + trOpen + tdPic1 + tdPic2 + trClose + tClose
+
+	// gather players decision
+	while (_lastkey != 67 && _lastkey != 77)
+	{
+		// present pies to player
+		display(table)
+		recordKeys()
+		waitTime(50)
+	}
+	// save players decision	(for presented gamble - shuffle[i])
+	results[shuffle[i]][0] = _lastkey 
+	// length of players decision making in ms (for presented gamble)
+	results[shuffle[i]][1] = time - beginTime
+	// save the round in which player saw shuffle[i]
+	results[shuffle[i]][2] = i
+
+	// choose a gamble by chance 
+	if (shuffle[i] == randChoosenGamble)
+	{
+		if(_lastkey == 67)
+		{
+			decision = "A"
+		}
+		if(_lastkey == 77)
+		{
+			decision = "B"
+		}
+	}
+
+	// this one is usually not needed, but we have to change _lastkey, before entering the loop again
+	while(_lastkey != 32)
+	{
+		display("Please press Space to continue")
+		recordKeys()
+		waitTime(50)
+	}
+}
+
+// present choosen gamble to user and let him start the dice rolling
+// shortening the google chart api call
+Lp1 = gamblesL[randChoosenGamble][0][0]
+Lo1 = gamblesL[randChoosenGamble][0][1]
+Lp2 = gamblesL[randChoosenGamble][1][0]
+Lo2 = gamblesL[randChoosenGamble][1][1]
+Rp1 = gamblesR[randChoosenGamble][0][0]
+Ro1 = gamblesR[randChoosenGamble][0][1]
+Rp2 = gamblesR[randChoosenGamble][1][0]
+Ro2 = gamblesR[randChoosenGamble][1][1]
+
+// measure the time when gamble is shown TODO: Check where to put timeMeasurements
+beginTime = time
+// collect images from google api 
+tdPic1 = "<td><img src='http://chart.apis.google.com/chart?cht=p&chd=t:" + Lp1 + "," + Lp2 + "&chs=260x150&chl=" + Lo1  + "%20EUR|" + Lo2 +  "%20EUR'></td>"
+tdPic2 = "<td><img src='http://chart.apis.google.com/chart?cht=p&chd=t:" + Rp1 + "," + Rp2 + "&chs=260x150&chl=" + Ro1  + "%20EUR|" + Ro2 +  "%20EUR'></td>"
+// and place them into a nice table
+table = tOpen + trOpen + td1 + td2 + trClose + trOpen + tdPic1 + tdPic2 + trClose + tClose
+
+while(_lastkey != 10)
+{
+	display(table)
+	display("<h1 align='center'>This is the randomly choosen gamble</h1>")
+	display("Your decision was: Gamble " + decision)
+	display("Please press Enter to roll the dice...")
+	recordKeys()
+	waitTime(500)
+}
+
+
+// roll the dice
+rand = randomUniform() 
+if (decision == "A")
+{
+	if (rand <= gamblesL[randChoosenGamble][0][0])
+	{
+		outcome = gamblesL[randChoosenGamble][0][1]
+		tdPic1 = "<td><img src='http://chart.apis.google.com/chart?cht=p&chd=t:" + Lp1 + "," + Lp2 + "&chco=FF0000,FFEAC0&chs=260x150&chl=" + Lo1  + "%20EUR|" + Lo2 +  "%20EUR'></td>"
+	}
+	if (rand > gamblesL[randChoosenGamble][0][0])
+	{
+		outcome = gamblesL[randChoosenGamble][1][1]
+		tdPic1 = "<td><img src='http://chart.apis.google.com/chart?cht=p&chd=t:" + Lp1 + "," + Lp2 + "&chco=FF9900,FF0000&chs=260x150&chl=" + Lo1  + "%20EUR|" + Lo2 +  "%20EUR'></td>"
+	}
+	tdPic2 = "<td><img src='http://chart.apis.google.com/chart?cht=p&chd=t:" + Rp1 + "," + Rp2 + "&chco=E0E0E0,FCF7F7&chs=260x150&chl=" + Ro1  + "%20EUR|" + Ro2 +  "%20EUR'></td>"
+}
+
+if (decision == "B")
+{
+	tdPic1 = "<td><img src='http://chart.apis.google.com/chart?cht=p&chd=t:" + Lp1 + "," + Lp2 + "&chco=E0E0E0,FCF7F7&chs=260x150&chl=" + Lo1  + "%20EUR|" + Lo2 +  "%20EUR'></td>"
+	if (rand<= gamblesR[randChoosenGamble][0][0])
+	{
+		outcome = gamblesR[randChoosenGamble][0][1]
+		tdPic2 = "<td><img src='http://chart.apis.google.com/chart?cht=p&chd=t:" + Rp1 + "," + Rp2 + "&chco=FF0000,FFEAC0&chs=260x150&chl=" + Ro1  + "%20EUR|" + Ro2 +  "%20EUR'></td>"
+	}
+	if (rand > gamblesR[randChoosenGamble][0][0])
+	{
+		outcome = gamblesR[randChoosenGamble][1][1]
+		tdPic2 = "<td><img src='http://chart.apis.google.com/chart?cht=p&chd=t:" + Rp1 + "," + Rp2 + "&chco=FF9900,FF0000&chs=260x150&chl=" + Ro1  + "%20EUR|" + Ro2 +  "%20EUR'></td>"
+	}
+}
+
+// present lottery win again with a chart (color changed)
+table = tOpen + trOpen + tdPic1 + tdPic2 + trClose + tClose
+display(table)
+display("<h1 align='center'>You won " + outcome + " EUR.</h1>")
+wait()

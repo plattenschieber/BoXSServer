@@ -1,0 +1,171 @@
+rounds = 10
+// play the game 
+for (i=1; i<=rounds; i=i+1)
+{
+  matchStranger(A,B)
+    // if a variable is never used before, it is by default 0 ...
+  if (isFirstRound == 0)
+  {
+    isFirstRound = 1
+    // new style for tables
+    style("body{ padding: 0px; font-size: 12px; } h1{font-size: 130%; margin-top: 0px; margin-bottom: 3px; font-weight: normal;} h2{font-size: 115%; margin-top: 0px; margin-bottom: 3px; font-weight: normal; } table{border-collapse:collapse;} th{text-align:center; background:#fff4c6; color:#333; padding:8px 16px 8px 8px; border-right:1px solid #fff; border-bottom:1px solid #fff;} td{text-align:center; color:#333; padding:8px; border-right:1px solid #f3f0e4; border-bottom:1px solid #f3f0e4;}")
+
+    // Initialize variables
+
+    //        C       D
+    //     _______ _______
+    //    |       |       |
+    // C  |200/200| 50/300|
+    //    |_______|_______|
+    //    |       |       |
+    // D  |300/50 |100/100|
+    //    |_______|_______|
+
+    // WinMatrix[Zeile][Spalte][Spieler]
+    WinMatrix[0][0][0] = 200
+    WinMatrix[0][0][1] = 200
+    WinMatrix[0][1][0] = 50
+    WinMatrix[0][1][1] = 300
+    WinMatrix[1][0][0] = 300
+    WinMatrix[1][0][1] = 50
+    WinMatrix[1][1][0] = 100
+    WinMatrix[1][1][1] = 100
+    // overall win
+    totalwin = 0
+    // number of rounds per player combination
+    rounds = 10
+
+    // Welcome screen
+    display("<H2>Prisoners Dilemma Game </H2><br>In this study in 10 subsequent rounds you and a randomly chosen other person will simultaneously decide whether to cooperate or to defect.<br>")
+    display("If you both decide to cooperate, you will both earn 200 point. If you both decide to defect you will both earn 100 points. <br>")
+    display("If one of you decides to defect and the other to cooperate, the defecting person receives 300 points and the cooperating person receives 50 points. <br>")
+    display("These outcomes will be shown to you in a table format on screen each time you make a decision. <br>")
+    display("In each round you are randomly matched with a new person.")
+    display("The total points your earned are paid to you according to the following exchange rate: 500 point = 1 Euro.")
+
+    //Subject Code
+    display("<br> <br>Please indicate subject code:")
+    inputString(sub_number)
+
+    // EYETRACKER ONLY FOR S1
+    if (username == "S1")
+    {
+      // INIT EYETRACKER
+      // eyetrackerInitialise("localhost",4444,5555)
+      display("The calibration begins after pushing the continue button. <br>Please hold still and follow the points.")
+      wait()
+
+      // CALIBRATE EYETRACKER AND START TRACKING
+      // eyetrackerCalibrate()
+      display("Thank you - the calibration was successful")
+      filename = "PrisonersDilemma_" + sub_umber + ".dat" 
+      // eyetrackerStart(60,filename)
+
+      // SEND TRIGGER
+      // eyetrackerTrigger("Calibration Done")
+    }
+
+    // Wait for everybody being ready
+    waitForPlayers("continue")
+  }
+
+
+	table = "<table>"
+	table = table + "  <thead>"
+	table = table + "    <tr>"
+	table = table + "      <th>&nbsp;</th>"
+	table = table + "      <th>Cooperate</th>"
+	table = table + "      <th>Defect</th>"
+	table = table + "    </tr>"
+	table = table + "  </thead>"
+	table = table + "  <tbody>"
+	table = table + "    <tr>"
+	table = table + "      <th>Cooperate</th>"
+	table = table + "      <td>" + WinMatrix[0][0][0] + " / " + WinMatrix[0][0][1] + "</td>"
+	table = table + "      <td>" + WinMatrix[0][1][0] + " / " + WinMatrix[0][1][1] + "</td>"
+	table = table + "    </tr>"
+	table = table + "    <tr>"
+	table = table + "      <th>Defect</th>"
+	table = table + "      <td>" + WinMatrix[1][0][0] + " / " + WinMatrix[1][0][1] + "</td>"
+	table = table + "      <td>" + WinMatrix[1][1][0] + " / " + WinMatrix[1][1][1] + "</td>"
+	table = table + "    </tr>"
+	table = table + "    <tr>"
+	table = table + "  </tbody>"
+	table = table + "</table>"
+	
+          display(table)
+          clear()
+	choice(action,"Cooperate", "Defect")
+          if (username == "S1")
+          {
+          // SEND TRIGGER for start of contribution screen
+          // eyetrackerTrigger("contribution start for round: " + i )
+          }
+	waitForPlayers("Weiter")
+
+
+  // Calculate Payoff 
+  if (A.action == "Cooperate")
+  {
+    if(B.action == "Cooperate")
+    {
+      A.win = WinMatrix[0][0][0]
+      B.win = WinMatrix[0][0][1] 
+    }
+    if(B.action == "Defect")
+    {
+      A.win = WinMatrix[0][1][0]
+      B.win = WinMatrix[0][1][1]
+    }
+  }
+  if (A.action == "Defect")
+  {
+    if(B.action == "Cooperate")
+    {
+      A.win = WinMatrix[1][0][0]
+      B.win = WinMatrix[1][0][1] 
+    }
+    if(B.action == "Defect")
+    {
+      A.win = WinMatrix[1][1][0]
+      B.win = WinMatrix[1][1][1]
+    }
+  }
+
+  // present actions and payoff
+  display("You have chosen: '" + action + "'." )
+  if (role == "B")
+  {
+    display("Your opponent has chosen: '" + A.action + "'." )
+  }
+  if (role == "A")
+  {
+    display("Your opponent has chosen: '" + B.action + "'." )
+  }
+  display("Your income in this round is: " + win)
+  totalwin = totalwin + win
+  display("Your total income so far is: " + totalwin)
+  win[i] = win
+  action[i] = action
+  if (username == "S1")
+  {  
+  // SEND TRIGGER for start of feedback screen - note that screen display is build at the wait command 
+  // eyetrackerTrigger("feedback start for round: " + i )
+  }
+  wait()
+  matchDone()
+}
+
+if (username=="S1")
+{
+  // eyetrackerTrigger("finish after round: " + i )
+  // eyetrackerStop()  
+}
+
+// End of game reached
+display("<h1>The study is finished. Please click continue. </h1>")
+wait()
+display("Your total earning is: " + totalwin + "Points")
+display("This equal: " + totalwin / 200 + " Euro")
+display("<br><br> Please contact the experimenter.")
+waitForPlayers("Finish")

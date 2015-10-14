@@ -1,0 +1,56 @@
+// **** BEGIN Code Example 1a ****
+while(_lastkey != 32)
+{
+  display("<CENTER><H2>Choice Study </H2> </CENTER> <br><br>In the following you are asked to select the gamble you prefer. <br> Each gamble consists of two outcomes which realize with some probability that is visually displayed")
+  display("<br><br><H4>Please press space to continue</H4>")
+  recordKeys()
+  waitTime(50)
+}
+for (i=0; i<11; i=i+1)
+{
+  // randomly generate gambles and store in variables to shorten the google chart api call
+  Lp1 = round(randomUniform()*100)/100 
+  Lo1 = randomUniformInteger(-10,10)
+  Lp2 = 1-Lp1
+  Lo2 = randomUniformInteger(-10,10)
+  Rp1 = round(randomUniform()*100)/100 
+  Ro1 = randomUniformInteger(-10,10)
+  Rp2 = 1-Rp1
+  Ro2 = randomUniformInteger(-10,10)
+
+  // measure the time when gamble is shown
+  beginTime = time
+  // collect images from google api 
+  tdPic1 = "<img src='http://chart.apis.google.com/chart?cht=p&chd=t:" + Lp1 + "," + Lp2 + "&chs=260x150&chl=" + Lo1  + "%20EUR|" + Lo2 +  "%20EUR'>"
+  tdPic2 = "<img src='http://chart.apis.google.com/chart?cht=p&chd=t:" + Rp1 + "," + Rp2 + "&chs=260x150&chl=" + Ro1  + "%20EUR|" + Ro2 +  "%20EUR'>"
+  // gather players decision
+  while (_lastkey != 67 && _lastkey != 77)
+  {
+    // present pies to player
+    display("Gamble A: " + tdPic1 + "Gamble B: " + tdPic2 )
+    display("<br> <H4> Please press 'C' to select Gamble A and 'M' to select Gamble B </H4>")
+    recordKeys()
+    waitTime(50)
+  }
+  // save gambles, choice and time
+  results[i][0] = _lastkey 
+  results[i][1] = time - beginTime
+  results[i][2] = Lp1
+  results[i][3] = Lo1
+  results[i][4] = Lp2
+  results[i][5] = Lo2
+  results[i][6] = Rp1
+  results[i][7] = Ro1
+  results[i][8] = Rp2
+  results[i][9] = Ro2
+
+  while(_lastkey != 32)
+  {
+    display("<br><br>Please press Space to continue")
+    recordKeys()
+    waitTime(50)
+  }
+}
+display("<br><br>Thank you very much for taking part in the study!")
+waitForExperimenter("Finish")
+// **** END Code Example 1a **** 

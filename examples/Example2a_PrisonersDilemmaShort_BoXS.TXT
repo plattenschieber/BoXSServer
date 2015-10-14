@@ -1,0 +1,60 @@
+// **** BEGIN Code Example 2a ****
+for (gameCounter=1; gameCounter<=10; gameCounter=gameCounter+1)
+{
+  matchStranger(A,B)
+  i = i + 1
+  if (i==1)
+  {
+    display("<H2>Prisoners Dilemma Game </H2><br>In this study in 10 subsequent rounds you and a randomly chosen other person will simultaneously decide whether to cooperate or to defect.<br>")
+    display("If you both decide to cooperate, you will both earn 200 point. If you both decide to defect you will both earn 100 points. <br>")
+    display("If one of you decides to defect and the other to cooperate, the defecting person receives 300 points and the cooperating person receives 50 points. <br>")
+    display("In each round you are randomly matched with a new person.")
+    display("The total points your earned are paid to you according to the following exchange rate: 500 point = 1 Euro.")
+    wait()
+    //eyetrackerInitialise("localhost",4444,5555)
+    display("The calibration begins after pushing the wait button<br>Please hold still and follow the points.")
+    wait()
+    //eyetrackerCalibrate()
+    display("Thank you - the calibration was successful")
+    //eyetrackerStart(60,"PrisonersDilemma_" + username + "_" + gameCounter + ".dat")
+    wait()
+  }
+  clear()
+  choice(action,"Cooperate", "Defect")
+  waitForPlayers("Continue...")
+  // calculate Payoffs
+  if (A.action == "Cooperate" && B.action == "Cooperate")
+  {
+    A.win = 200
+    B.win = 200
+  }
+  if (A.action == "Cooperate" && B.action == "Defect")
+  {
+    A.win = 50
+    B.win = 300
+  }
+  if (A.action == "Defect" && B.action == "Cooperate")
+  {
+    A.win = 300
+    B.win = 50
+  }
+  if (A.action == "Defect" && B.action == "Defect")
+  {
+    A.win = 100
+    B.win = 100
+  }
+  display("You choose "+action+"<br>Your opponent choose "+opponent.action+"<br>Your roundwin equals "+win)
+  // save win and actions into the global array 'vp'
+  totalwin = totalwin + win
+  *.*.vp[username][1][i] = action
+  *.*.vp[username][2][i] = win
+  wait()
+  if (i==10)  
+  {
+    display("You won " + totalwin + " Points. This equals "+totalwin/200+"EUR.")
+    // eyetrackerStop()  
+    waitForExperimenter("FINISH") 
+  }
+  matchDone()
+}
+// **** END Code Example 2a ****
