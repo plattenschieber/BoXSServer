@@ -39,13 +39,22 @@ public class Session extends Thread
 		experimenter=_experimenter
 		experimenter.experiment=this
 		
-		program=_program.split('\n')
-		if (!program.any{ l-> MATCHINGCOMMANDS.any{l.trim().startsWith(it)} })
+		String[] tempprogram=_program.split('\n')
+		System.out.println("tempprogram"+tempprogram)
+		if (!tempprogram.any{ l-> MATCHINGCOMMANDS.any{l.trim().startsWith(it)} })
 		{
-				program=["matchAll(A)",*program]
+				//program=["matchAll(A)",*:tempprogram]
+				def x=["matchAll(A)"]
+				x.addAll(tempprogram)
+				program=x
 		}
 		else 
-			program=["",*program]
+		{
+			//program=["",*:tempprogram]
+			program=tempprogram
+		}
+		System.out.println("program"+program)
+
 	}
 
 	
@@ -93,7 +102,8 @@ public class Session extends Thread
 	{
 		if (!groups.isEmpty())
 		{
-			groups.values()*.writeMatchingHistory()
+			for (temp in groups.values())
+				temp.writeMatchingHistory()
 			
 			info "MatchDone! Num="+groups.values().size()
 			for (g in new LinkedList<Group>(groups.values()))
