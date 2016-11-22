@@ -9,6 +9,9 @@ JAVAC=javac -source 7 -target 7
 
 SERVERCMDLIN=clear&&java -Xmx500m -Djava.library.path=lib -cp build:$(LIBS) server.Server
 
+KEYALIAS=mykey
+KEYSTORE=keystore.jks
+
 ENABLEMAIL=enableMail boxs@jeronim.de
 SMTPSERVER=canis.upperspace.de
 SMTPPORT=587
@@ -59,7 +62,7 @@ pstables:
 	java -Djava.library.path=lib -cp build:$(LIBS) -Xmx512m server.PerfectStrangerMatcher 30 30 3
 
 createkey:
-	keytool -genkey -alias mykey -keyalg RSA -keystore keystore.jks
+	keytool -genkey -alias $(KEYALIAS) -keyalg RSA -keystore $(KEYSTORE)
 	keytool -selfcert 
 
 
@@ -68,7 +71,7 @@ createjars: compileofflineserver
 	rm -f webroot/expsys/es.jar
 	#// TODO hier wird alles in das Client Package gepackt
 	cd build && jar cfm ../webroot/expsys/es.jar ../manifest.txt client util imd 
-	jarsigner -keystore keystore.jks webroot/expsys/es.jar mykey
+	jarsigner -keystore $(KEYSTORE) webroot/expsys/es.jar $(KEYALIAS)
 
 offlineserver: createjars 
 	@echo "\nBuilding offlineserver"
