@@ -1,9 +1,9 @@
 JAVAFILES=$(shell find src/client -name "*.java") $(shell find src/util -name "*.java") $(shell find src/imd -name "*.java")
 GROOVYFILES=$(shell find src/server -name "*.groovy")
-LIBS=lib/mail.jar:lib/jmf.jar:lib/jnaerator-0.10-shaded.jar:lib/jna.jar:lib/platform.jar:lib/groovy-1.8.6.jar
+LIBS=lib/mail.jar:lib/jmf.jar:lib/jnaerator-0.10-shaded.jar:lib/jna.jar:lib/platform.jar:lib/groovy-2.4.6.jar
 LIBS2=lib/mail.jar:lib/jmf.jar:lib/jna.jar:lib/platform.jar
 OPTS=-Dorg.lwjgl.opengl.Display.allowSoftwareOpenGL=false
-SERVERCMDWIN=java -Xmx500m -Djava.library.path=lib -cp build;lib/groovy-1.8.6.jar;lib/jnaerator-0.10-shaded.jar;lib/jna.jar;lib/platform.jar;lib/mail.jar server.Server
+SERVERCMDWIN=java -Xmx500m -Djava.library.path=lib -cp build;lib/groovy-2.4.6.jar;lib/jnaerator-0.10-shaded.jar;lib/jna.jar;lib/platform.jar;lib/mail.jar server.Server
 
 JAVAC=javac -source 7 -target 7 
 
