@@ -1,13 +1,16 @@
 JAVAFILES=$(shell find src/client -name "*.java") $(shell find src/util -name "*.java") $(shell find src/imd -name "*.java")
 GROOVYFILES=$(shell find src/server -name "*.groovy")
-LIBS=lib/mail.jar:lib/jmf.jar:lib/jnaerator-0.10-shaded.jar:lib/jna.jar:lib/platform.jar:lib/groovy-1.8.6.jar
+LIBS=lib/mail.jar:lib/jmf.jar:lib/jnaerator-0.10-shaded.jar:lib/jna.jar:lib/platform.jar:lib/groovy-2.4.6.jar
 LIBS2=lib/mail.jar:lib/jmf.jar:lib/jna.jar:lib/platform.jar
 OPTS=-Dorg.lwjgl.opengl.Display.allowSoftwareOpenGL=false
-SERVERCMDWIN=java -Xmx500m -Djava.library.path=lib -cp build;lib/groovy-1.8.6.jar;lib/jnaerator-0.10-shaded.jar;lib/jna.jar;lib/platform.jar;lib/mail.jar server.Server
+SERVERCMDWIN=java -Xmx500m -Djava.library.path=lib -cp build;lib/groovy-2.4.6.jar;lib/jnaerator-0.10-shaded.jar;lib/jna.jar;lib/platform.jar;lib/mail.jar server.Server
 
 JAVAC=javac -source 7 -target 7 
 
 SERVERCMDLIN=clear&&java -Xmx500m -Djava.library.path=lib -cp build:$(LIBS) server.Server
+
+KEYALIAS=mykey
+KEYSTORE=keystore.jks
 
 ENABLEMAIL=enableMail boxs@jeronim.de
 SMTPSERVER=canis.upperspace.de
@@ -59,16 +62,16 @@ pstables:
 	java -Djava.library.path=lib -cp build:$(LIBS) -Xmx512m server.PerfectStrangerMatcher 30 30 3
 
 createkey:
-	keytool -genkey -alias mykey -keyalg RSA -keystore keystore.jks
+	keytool -genkey -alias $(KEYALIAS) -keyalg RSA -keystore $(KEYSTORE)
 	keytool -selfcert 
 
 
 createjars: compileofflineserver
 	@echo "\nCreate jars"
 	rm -f webroot/expsys/es.jar
-	// TODO hier wird alles in das Client Package gepackt
+	#// TODO hier wird alles in das Client Package gepackt
 	cd build && jar cfm ../webroot/expsys/es.jar ../manifest.txt client util imd 
-	jarsigner -keystore keystore.jks webroot/expsys/es.jar mykey
+	jarsigner -keystore $(KEYSTORE) webroot/expsys/es.jar $(KEYALIAS)
 
 offlineserver: createjars 
 	@echo "\nBuilding offlineserver"
